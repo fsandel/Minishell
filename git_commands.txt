@@ -1,0 +1,6 @@
+
+git pull origin main => pulls original git repository
+
+git checkout -b <insertbranchname> => making a new branch within the repository
+
+git push origin git-cmds => pushing to the git-cmds branch
