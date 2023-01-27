@@ -6,41 +6,32 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/27 17:11:28 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/27 18:23:58 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= Minishell
 CC				= cc
 RM				= rm -f
-CFLAGS			= #-Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 
-SRC				= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+SRC				= src/1folder/11file.c src/1folder/12file.c src/2folder/21file.c src/2folder/22file.c src/main.c
+SRC_FILES		= 
 SRC_DIR			= src
-SRC_FILES		= main.c lifestyle.c time.c utils.c input.c setup.c thread.c waitress.c
 
-OBJ				= $(addprefix $(OBJ_DIR)/, $(OBJ_FILES))
+OBJ				= $(FILES:.c=.o)
 OBJ_DIR			= obj
-OBJ_FILES		= $(SRC_FILES:.c=.o)
 
-HDR				= $(addprefix $(HDR_DIR)/, $(HDR_FILES))
-HDR_DIR			= include
-HDR_FILES		= minishell.h
-
-GREEN			= "\033[32m"
-LGREEN			= "\033[92m"
-DEFAULT			= "\033[39m"
-RED				= "\033[31m"
+ALL_FILES		= $(notdir $(SRC))
+FILES			= $(addprefix $(OBJ_DIR)/, $(ALL_FILES))
 
 all:			obj_dir $(NAME)
 				
-$(NAME):		$(OBJ) | $(HDR)
-				@$(CC) $^ -o $@ $(CFLAGS) -I $(HDR)
-				@echo $(GREEN)Compiled$(DEFAULT) $@
+$(NAME):		$(OBJ)
+				$(CC) $(OBJ) -o $(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-				@echo $(LGREEN)Compiling$(DEFAULT) $<
-				@$(CC) -c $< $(CFLAGS) -o $@ -I $(HDR)
+				$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 				@$(RM) $(OBJ)
@@ -60,3 +51,15 @@ obj_dir:
 				@mkdir -p $(OBJ_DIR)
 
 .PHONY:			all clean fclean re obj_dir
+
+test:
+				@echo $(OBJ)
+				@echo $(FILES)
+				
+GREEN			= "\033[32m"
+LGREEN			= "\033[92m"
+DEFAULT			= "\033[39m"
+RED				= "\033[31m"
+
+#				@echo $(LGREEN)Compiling$(DEFAULT) $<
+#				@echo $(GREEN)Compiled$(DEFAULT) $@
