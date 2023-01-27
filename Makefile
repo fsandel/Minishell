@@ -6,60 +6,62 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/27 18:23:58 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/27 19:44:05 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= Minishell
-CC				= cc
-RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
 
-SRC				= src/1folder/11file.c src/1folder/12file.c src/2folder/21file.c src/2folder/22file.c src/main.c
-SRC_FILES		= 
-SRC_DIR			= src
+NAME = Minishell
 
-OBJ				= $(FILES:.c=.o)
-OBJ_DIR			= obj
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-ALL_FILES		= $(notdir $(SRC))
-FILES			= $(addprefix $(OBJ_DIR)/, $(ALL_FILES))
+SRC_DIR			=	src/
+SRC_FILES		=	main.c
 
-all:			obj_dir $(NAME)
-				
-$(NAME):		$(OBJ)
-				$(CC) $(OBJ) -o $(NAME)
+HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
+HDR_DIR			=	include/
+HDR_FILES		=	minishell.h
 
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
-				$(CC) $(CFLAGS) -c $< -o $@
+1FOLDER			=	$(addprefix $(1FOLDER_DIR), $(1FOLDER_FILES))
+1FOLDER_DIR		=	src/1folder/
+1FOLDER_FILES	=	11file.c 12file.c
+
+2FOLDER			=	$(addprefix $(2FOLDER_DIR), $(2FODLER_FILES))
+2FOLDER_DIR		=	src/2folder/
+2FODLER_FILES	=	21file.c 22file.c
+
+ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(1FOLDER) $(2FOLDER) 
+
+OBJ_DIR = obj/
+
+ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
+
+all: mkdir $(NAME)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) $(CFLAGS)
+	@echo $(LGREEN)"compiled "$^$(DEFAULT)
+
+$(NAME): $(ALL_OBJ)
+	@$(CC) $^ -o $@ -I $(HDR_DIR) $(CFLAGS)
+	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
-				@$(RM) $(OBJ)
-				@$(RM) -r $(OBJ_DIR)
-				@echo "cleaned $(NAME)"
+	@rm -rf $(OBJ_DIR)
+	@echo $(RED)"cleaned"$(DEFAULT)
 
-fclean:			
-				@make clean
-				@$(RM) $(NAME)
-				@echo "fcleaned $(NAME)"
+fclean:
+	@rm -rf $(OBJ_DIR) $(NAME)
+	@echo $(RED)"fcleaned"$(DEFAULT)
 
-re:
-				@make fclean
-				@make all
+re:	fclean all
 
-obj_dir:
-				@mkdir -p $(OBJ_DIR)
+mkdir:
+	@mkdir -p $(dir $(ALL_OBJ))
 
-.PHONY:			all clean fclean re obj_dir
 
-test:
-				@echo $(OBJ)
-				@echo $(FILES)
-				
 GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
-
-#				@echo $(LGREEN)Compiling$(DEFAULT) $<
-#				@echo $(GREEN)Compiled$(DEFAULT) $@
