@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 18:28:14 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 18:33:20 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ clean:
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"fcleaned"$(DEFAULT)
+	@echo $(RED)"deleted readline"$(DEFAULT)
 	@rm -rf $(READLINE_DIR)
 	@make -C lib/libft fclean
 
