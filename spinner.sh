@@ -30,7 +30,7 @@ spinner() {
   local label="${2} "
   local spinnerRef="${3-DEFAULT_SpinnerFrames}"
   local spinnerFrames=$(eval "echo \${!${spinnerRef}[@]}")
-
+   # echo ${action} ${label}
   spinnerRun() {
     while true; do
       for frame in ${spinnerFrames[@]}; do
@@ -48,3 +48,4 @@ spinner() {
   ${action}
   kill "${spinnerPid}"
 }
+spinner "${1}" "${2}" "${3}"
