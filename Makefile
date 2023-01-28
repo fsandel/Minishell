@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 14:07:44 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 14:31:53 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,15 @@ HDR_FILES		=	minishell.h
 
 ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(1FOLDER) $(2FOLDER)
 
-LIBFT			=	libft.a
+LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
+LIBFT_LIB		=	libft.a
+LIBFT_DIR		=	lib/libft/
+
+READLINE_VERSION = readline-8.1.2
 READLINE_LIB	=	libreadline.a
 READLINE_DIR	=	lib/$(READLINE_VERSION)/
 READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
-.SILENT:	readline
-			configure
+
 
 OBJ_DIR = obj/
 
@@ -51,17 +54,22 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ)
-	@$(CC) $^ -o $@ -I $(HDR_DIR) $(CFLAGS)
+	@$(CC) $^ -o $@ -I $(HDR_DIR) $(CFLAGS) $(READLINE) $(LIBFT)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"cleaned"$(DEFAULT)
 	@rm -rf lib/$(READLINE_VERSION)
+	@rm -f lib/$(READLINE_VERSION).tar.gz
+	@make -C lib/libft clean
 
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"fcleaned"$(DEFAULT)
+	@rm -rf lib/$(READLINE_VERSION)
+	@rm -f lib/$(READLINE_VERSION).tar.gz
+	@make -C lib/libft fclean
 
 re:	fclean all
 
@@ -74,28 +82,21 @@ $(LIBFT):
 libft: $(LIBFT)
 
 
-test:
-	@echo $(READLINE)
-
-READLINE_VERSION = readline-8.1.2
-
 readline: $(READLINE)
-
-readline_mute:
-	@make -s readline 2>&1 test
 
 $(READLINE):
 	@echo $(GREEN)"making readline"$(DEFAULT)
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
-	@cd lib/$(READLINE_VERSION); ./configure > test; cd ../..
-	@make -C lib/$(READLINE_VERSION) > test
+	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
+	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
 
 submodules:
 	@git submodule init
 	@git submodule update
 	@make libft
+	@make readline
 
 GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
@@ -103,4 +104,8 @@ DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
 
-ECHO = echo "`expr " [\`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`%]"
+
+
+.SILENT:
+
+.PHONY:
