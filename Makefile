@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 18:21:07 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 18:28:14 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,15 +62,12 @@ $(NAME): $(ALL_OBJ)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"cleaned"$(DEFAULT)
-	@rm -rf lib/$(READLINE_VERSION)
-	@rm -f lib/$(READLINE_VERSION).tar.gz
 	@make -C lib/libft clean
 
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"fcleaned"$(DEFAULT)
-	@rm -rf lib/$(READLINE_VERSION)
-	@rm -f lib/$(READLINE_VERSION).tar.gz
+	@rm -rf $(READLINE_DIR)
 	@make -C lib/libft fclean
 
 re:	fclean all
@@ -121,6 +118,8 @@ $(READLINE):
 	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
 	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
 	@mv -f lib/$(READLINE_VERSION) lib/readline
+	@rm -f lib/$(READLINE_VERSION).tar.gz
+
 
 
 
