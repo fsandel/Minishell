@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/28 18:10:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:17:55 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define INCLUDES_H
 
 
-# include "../lib/readline/history.h"
-# include "../lib/readline/readline.h"
+//# include "../lib/readline/history.h"
+//# include "../lib/readline/readline.h"
 
 
 # ifndef LIBFT_H

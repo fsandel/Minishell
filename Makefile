@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 17:38:05 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 18:21:07 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: mkdir submodules $(NAME)
+all: mkdir submodules $(LIBFT) $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -82,6 +82,10 @@ mkdir:
 ################################################################################
 ################################################################################
 
+LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
+LIBFT_LIB		=	libft.a
+LIBFT_DIR		=	lib/libft/
+
 $(LIBFT):
 	@make -C lib/libft
 
@@ -102,7 +106,7 @@ submodules:
 
 READLINE_VERSION=	readline-8.1.2
 READLINE_LIB	=	libreadline.a
-READLINE_DIR	=	lib/$(READLINE_VERSION)/
+READLINE_DIR	=	lib/readline/
 READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
 
 ani_readline:
@@ -116,6 +120,7 @@ $(READLINE):
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
 	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
 	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
+	@mv -f lib/$(READLINE_VERSION) lib/readline
 
 
 
@@ -126,9 +131,7 @@ $(READLINE):
 
 LSAN			=	LeakSanitizer
 LSANLIB			=	/LeakSanitizer/liblsan.a
-LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
-LIBFT_LIB		=	libft.a
-LIBFT_DIR		=	lib/libft/
+
 
 
 UNAME_S := $(shell uname -s)

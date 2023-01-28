@@ -3,24 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/28 16:12:34 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/01/28 18:17:28 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "includes.h"
 
 int	main(void)
 {
-	int *test = malloc(150);
-	int *p = NULL;
-
-	sleep(10);
-	*p = 19;
-	exit (0);
+	return (0);
 }
 
 void	ft_free(void **arg, char *loc) // void loc at end
