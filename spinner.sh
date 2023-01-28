@@ -16,6 +16,9 @@ Spinner_Quarters=("◴" "◷" "◶" "◵")
 Spinner_Halves=("◐" "◓" "◑" "◒")
 Spinner_Braille=("⣾" "⣽" "⣻" "⢿" "⡿" "⣟" "⣯" "⣷")
 
+GREEN=$'\e[0;92m'
+DEFAULT=$'\033[0;39m'
+
 ## @function: spinner(action, label, &spinnerFramesRef[])
 ##
 ## @description: Perform an action asynchronously and display
@@ -24,18 +27,19 @@ Spinner_Braille=("⣾" "⣽" "⣻" "⢿" "⡿" "⣟" "⣯" "⣷")
 ## @param action: The action the execute
 ## @param label: The label to display while waiting
 ## @param spinnerRef: In case you feel like a custom spinner, pass a ref to an array of strings
+
 spinner() {
   local frameRef
   local action="${1}"
   local label="${2} "
   local spinnerRef="${3-DEFAULT_SpinnerFrames}"
   local spinnerFrames=$(eval "echo \${!${spinnerRef}[@]}")
-   # echo ${action} ${label}
+  #echo ${GREEN}
   spinnerRun() {
     while true; do
       for frame in ${spinnerFrames[@]}; do
         frameRef="${spinnerRef}[${frame}]"
-        echo "${label}${!frameRef}"
+        echo "${GREEN}${label}${!frameRef}${DEFAULT}"
         tput cuu1 tput el
         sleep 0.2
       done
@@ -46,6 +50,7 @@ spinner() {
   spinnerRun &
   local spinnerPid=$!
   ${action}
+  #echo ${DEFAULT}
   kill "${spinnerPid}"
 }
 spinner "${1}" "${2}" "${3}"

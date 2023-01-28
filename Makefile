@@ -3,22 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 16:23:11 by pgorner          ###   ########.fr        #
+#    Updated: 2023/01/28 17:38:05 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Linux)
-#	LINK_FLAGS += -ltinfo
-	LSANLFLAGS := -rdynamic -LLeakSanitizer -llsan -ldl -lstdc++
-endif
-ifeq ($(UNAME_S),Darwin)
-	LSANLFLAGS := -LLeakSanitizer -llsan -lc++
-endif
 
 NAME = Minishell
 
@@ -26,8 +16,12 @@ CC = cc
 CFLAGS = -Wall -Wextra #-Werror
 LINKFLAGS = 
 
+################################################################################
+################################################################################
+
 SRC_DIR			=	src/
 SRC_FILES		=	main.c
+
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
@@ -43,32 +37,19 @@ HDR_FILES		=	minishell.h
 
 ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(1FOLDER) $(2FOLDER)
 
-LSAN			=	LeakSanitizer
-LSANLIB			=	/LeakSanitizer/liblsan.a
-LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
-LIBFT_LIB		=	libft.a
-LIBFT_DIR		=	lib/libft/
 
-READLINE_VERSION = readline-8.1.2
-READLINE_LIB	=	libreadline.a
-READLINE_DIR	=	lib/$(READLINE_VERSION)/
-READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
-
+################################################################################
+################################################################################
 
 OBJ_DIR = obj/
-
 ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
+
+
+################################################################################
+################################################################################
 
 all: mkdir submodules $(NAME)
 
-lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
-lsan: LINK_FLAGS += $(LSANLFLAGS)
-lsan: fclean $(LSANLIB)
-lsan: all
-$(LSAN):
-	git clone https://github.com/mhahnFr/LeakSanitizer.git
-$(LSANLIB): $(LSAN)
-	@$(MAKE) -C LeakSanitizer
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR)
@@ -97,36 +78,88 @@ re:	fclean all
 mkdir:
 	@mkdir -p $(dir $(ALL_OBJ))
 
+
+################################################################################
+################################################################################
+
 $(LIBFT):
 	@make -C lib/libft
 
 libft: $(LIBFT)
 
-test:
-	bash ./spinner.sh "make readline" "Minishell" "Spinner_Braille"
+################################################################################
+################################################################################
+
+submodules:
+	@git submodule init
+	@git submodule update
+	@make libft
+	@make ani_readline
+
+################################################################################
+################################################################################
+
+
+READLINE_VERSION=	readline-8.1.2
+READLINE_LIB	=	libreadline.a
+READLINE_DIR	=	lib/$(READLINE_VERSION)/
+READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
+
+ani_readline:
+	bash ./spinner.sh "make readline" "building readline" "Spinner_Braille"
 
 readline: $(READLINE)
 
 $(READLINE):
-	@echo $(GREEN)"making readline"$(DEFAULT)
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
 	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
 	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
 
-submodules:
-	@git submodule init
-	@git submodule update
-	@make libft
-	@make readline
+
+
+################################################################################
+################################################################################
+
+
+
+LSAN			=	LeakSanitizer
+LSANLIB			=	/LeakSanitizer/liblsan.a
+LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
+LIBFT_LIB		=	libft.a
+LIBFT_DIR		=	lib/libft/
+
+
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Linux)
+#	LINK_FLAGS += -ltinfo
+	LSANLFLAGS := -rdynamic -LLeakSanitizer -llsan -ldl -lstdc++
+endif
+ifeq ($(UNAME_S),Darwin)
+	LSANLFLAGS := -LLeakSanitizer -llsan -lc++
+endif
+
+
+lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: LINK_FLAGS += $(LSANLFLAGS)
+lsan: fclean $(LSANLIB)
+lsan: all
+$(LSAN):
+	git clone https://github.com/mhahnFr/LeakSanitizer.git
+$(LSANLIB): $(LSAN)
+	@$(MAKE) -C LeakSanitizer
+
+
+################################################################################
+################################################################################
+
 
 GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
-
-
 
 
 .SILENT:
