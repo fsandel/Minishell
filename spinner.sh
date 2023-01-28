@@ -15,6 +15,7 @@ Spinner_Square=("◰" "◳" "◲" "◱")
 Spinner_Quarters=("◴" "◷" "◶" "◵")
 Spinner_Halves=("◐" "◓" "◑" "◒")
 Spinner_Braille=("⣾" "⣽" "⣻" "⢿" "⡿" "⣟" "⣯" "⣷")
+Spinner_All=("⣾" "⣽" "⣻" "⢿" "⡿" "⣟" "⣯" "⣷" "⠁" "⠂" "⠄" "⡀" "⢀" "⠠" "⠐" "⠈" "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" "▇" "▆" "▅" "▄" "▃" "▂" "▁" "▉" "▊" "▋" "▌" "▍" "▎" "▏" "▎" "▍" "▌" "▋" "▊" "▉" "←" "↖" "↑" "↗" "→" "↘" "↓" "↙" "┤" "┘" "┴" "└" "├" "┌" "┬" "┐" "◢" "◣" "◤" "◥")
 
 GREEN=$'\e[0;92m'
 DEFAULT=$'\033[0;39m'
@@ -31,7 +32,7 @@ DEFAULT=$'\033[0;39m'
 spinner() {
   local frameRef
   local action="${1}"
-  local label="${2} "
+  local label="${2}"
   local spinnerRef="${3-DEFAULT_SpinnerFrames}"
   local spinnerFrames=$(eval "echo \${!${spinnerRef}[@]}")
   #echo ${GREEN}
@@ -39,9 +40,9 @@ spinner() {
     while true; do
       for frame in ${spinnerFrames[@]}; do
         frameRef="${spinnerRef}[${frame}]"
-        echo "${GREEN}${label}${!frameRef}${DEFAULT}"
+        echo -e "${GREEN}\r${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${label}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${!frameRef}${DEFAULT}"
         tput cuu1 tput el
-        sleep 0.2
+        sleep 0.1
       done
     done
     echo -e "\r"
