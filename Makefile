@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 14:31:53 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 15:05:03 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LIBFT_DIR		=	lib/libft/
 
 READLINE_VERSION = readline-8.1.2
 READLINE_LIB	=	libreadline.a
-READLINE_DIR	=	lib/$(READLINE_VERSION)/
+READLINE_DIR	=	lib/readline/
 READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
 
 
@@ -60,15 +60,13 @@ $(NAME): $(ALL_OBJ)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"cleaned"$(DEFAULT)
-	@rm -rf lib/$(READLINE_VERSION)
-	@rm -f lib/$(READLINE_VERSION).tar.gz
+	@rm -rf lib/readline
 	@make -C lib/libft clean
 
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"fcleaned"$(DEFAULT)
-	@rm -rf lib/$(READLINE_VERSION)
-	@rm -f lib/$(READLINE_VERSION).tar.gz
+	@rm -rf lib/readline
 	@make -C lib/libft fclean
 
 re:	fclean all
@@ -89,8 +87,10 @@ $(READLINE):
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
-	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
-	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
+	@mv lib/$(READLINE_VERSION) lib/readline
+	@cd lib/readline; ./configure >/dev/null 2>&1; cd ../..
+	@make -C lib/readline >/dev/null 2>&1
+	@rm -f lib/$(READLINE_VERSION).tar.gz
 
 submodules:
 	@git submodule init
@@ -102,9 +102,6 @@ GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
-
-
-
 
 .SILENT:
 
