@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 12:08:40 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/28 14:07:44 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,11 @@ HDR_FILES		=	minishell.h
 ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(1FOLDER) $(2FOLDER)
 
 LIBFT			=	libft.a
+READLINE_LIB	=	libreadline.a
+READLINE_DIR	=	lib/$(READLINE_VERSION)/
+READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
+.SILENT:	readline
+			configure
 
 OBJ_DIR = obj/
 
@@ -52,6 +57,7 @@ $(NAME): $(ALL_OBJ)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"cleaned"$(DEFAULT)
+	@rm -rf lib/$(READLINE_VERSION)
 
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
@@ -67,6 +73,25 @@ $(LIBFT):
 
 libft: $(LIBFT)
 
+
+test:
+	@echo $(READLINE)
+
+READLINE_VERSION = readline-8.1.2
+
+readline: $(READLINE)
+
+readline_mute:
+	@make -s readline 2>&1 test
+
+$(READLINE):
+	@echo $(GREEN)"making readline"$(DEFAULT)
+	@mkdir -p lib
+	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
+	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
+	@cd lib/$(READLINE_VERSION); ./configure > test; cd ../..
+	@make -C lib/$(READLINE_VERSION) > test
+
 submodules:
 	@git submodule init
 	@git submodule update
@@ -76,3 +101,6 @@ GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
+
+
+ECHO = echo "`expr " [\`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`%]"
