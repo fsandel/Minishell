@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/29 12:27:06 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/29 12:48:43 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,7 @@ HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
 HDR_FILES		=	minishell.h
 
-test:
-	@echo $(ALL_OBJ)
+
 ################################################################################
 ################################################################################
 
@@ -80,11 +79,14 @@ $(NAME): $(ALL_OBJ)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"cleaned"$(DEFAULT)
-	@make -C lib/libft clean
 
 fclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"fcleaned"$(DEFAULT)
+
+ffclean:
+	@rm -rf $(OBJ_DIR) $(NAME)
+	@echo $(RED)"ffcleaned"$(DEFAULT)
 	@echo $(RED)"deleted readline"$(DEFAULT)
 	@rm -rf $(READLINE_DIR)
 	@make -C lib/libft fclean
