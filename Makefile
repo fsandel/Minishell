@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/29 12:48:43 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/29 13:01:55 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,15 +65,15 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: mkdir submodules $(LIBFT) $(NAME)
+all: mkdir submodules readline $(LIBFT) $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR)
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ)
-	@$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(READLINE) $(LIBFT)
+	$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(READLINE) $(LIBFT)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
@@ -96,7 +96,6 @@ re:	fclean all
 mkdir:
 	@mkdir -p $(dir $(ALL_OBJ))
 
-
 ################################################################################
 ################################################################################
 
@@ -115,8 +114,6 @@ libft: $(LIBFT)
 submodules:
 	@git submodule init
 	@git submodule update
-	@make libft
-	@make ani_readline
 
 ################################################################################
 ################################################################################
@@ -133,6 +130,7 @@ ani_readline:
 readline: $(READLINE)
 
 $(READLINE):
+	@echo $(LGREEN)"building readline"$(DEFAULT)
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
@@ -187,4 +185,4 @@ RED				= "\033[31m"
 
 .SILENT:
 
-.PHONY:
+.PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan
