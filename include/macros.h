@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:42:43 by fsandel          ###   ########.fr       */
+/*   Created: 2023/01/29 12:33:04 by fsandel           #+#    #+#             */
+/*   Updated: 2023/01/29 12:44:24 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MACROS_H
+# define MACROS_H
 
-int	main(void)
-{
-	int	i = 2;
-	char	str[] = "test";
-	DEBUG_NUM(i);
-	DEBUG_STR(str);
-	executor();
-	expander();
-	lexer();
-	parser();
-	rest();
-	utils();
-	return (0);
+# define DEBUG_NUM(num)\
+{\
+	ft_putstr_fd(#num, 2);\
+	ft_putstr_fd(": ", 2);\
+	ft_putnbr_fd(num, 2);\
+	ft_putchar_fd('\n', 2);\
 }
+
+# define DEBUG_STR(str)\
+{\
+	ft_putstr_fd(#str, 2);\
+	ft_putstr_fd(": ", 2);\
+	ft_putstr_fd(str, 2);\
+	ft_putchar_fd('\n', 2);\
+}
+#endif
