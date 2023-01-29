@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 17:10:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:22:54 by fsandel          ###   ########.fr       */
+/*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
+/*   Updated: 2023/01/29 12:21:17 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-# include "includes.h"
-# define TEST 1
+#ifndef LEXER_H
+# define LEXER_H
+
+void	lexer(void);
 
 #endif

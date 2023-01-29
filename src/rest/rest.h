@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   rest.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 17:10:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:22:54 by fsandel          ###   ########.fr       */
+/*   Created: 2023/01/29 12:03:24 by fsandel           #+#    #+#             */
+/*   Updated: 2023/01/29 12:20:40 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-# include "includes.h"
-# define TEST 1
+#ifndef REST_H
+# define REST_H
 
+void	rest(void);
 #endif

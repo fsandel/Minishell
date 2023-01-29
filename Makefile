@@ -6,14 +6,14 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/28 18:33:20 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/29 12:27:06 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = #-Wall -Wextra -Werror
 LINKFLAGS = 
 
 ################################################################################
@@ -23,21 +23,39 @@ SRC_DIR			=	src/
 SRC_FILES		=	main.c
 
 
+
+EXECUTOR		=	$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
+EXECUTOR_DIR	=	src/executor/
+EXECUTOR_FILES	=	executor.c
+
+EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
+EXPANDER_DIR	=	src/expander/
+EXPANDER_FILES	=	expander.c
+
+LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
+LEXER_DIR		=	src/lexer/
+LEXER_FILES		=	lexer.c
+
+PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
+PARSER_DIR		=	src/parser/
+PARSER_FILES	=	parser.c
+
+REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
+REST_DIR		=	src/rest/
+REST_FILES		=	rest.c
+
+UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+UTILS_DIR		=	src/utils/
+UTILS_FILES		=	utils.c
+
+ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS)
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
 HDR_FILES		=	minishell.h
 
-1FOLDER			=	$(addprefix $(1FOLDER_DIR), $(1FOLDER_FILES))
-1FOLDER_DIR		=	src/1folder/
-1FOLDER_FILES	=	11file.c 12file.c
-
-2FOLDER			=	$(addprefix $(2FOLDER_DIR), $(2FODLER_FILES))
-2FOLDER_DIR		=	src/2folder/
-2FODLER_FILES	=	21file.c 22file.c
-
-ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(1FOLDER) $(2FOLDER)
-
-
+test:
+	@echo $(ALL_OBJ)
 ################################################################################
 ################################################################################
 

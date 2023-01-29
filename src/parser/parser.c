@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 17:10:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:22:54 by fsandel          ###   ########.fr       */
+/*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
+/*   Updated: 2023/01/29 12:19:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "includes.h"
-# define TEST 1
-
-#endif
+void	parser(void)
+{
+	ft_printf("parser loaded\n");
+}
