@@ -6,19 +6,15 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:30:30 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/29 12:35:13 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
 
-
-//# include "../lib/readline/history.h"
-//# include "../lib/readline/readline.h"
 # include <stdlib.h>
 # include <unistd.h>
-
 
 # include "../src/executor/executor.h"
 # include "../src/parser/parser.h"
@@ -28,6 +24,12 @@
 # include "../src/rest/rest.h"
 # include "../src/utils/utils.h"
 
+# include "defines.h"
+# include "structs.h"
+# include "macros.h"
+
 # include "../lib/libft/libft.h"
+//# include "../lib/readline/history.h"
+//# include "../lib/readline/readline.h"
 
 #endif
