@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/30 16:50:34 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/30 17:09:49 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ EXPANDER_FILES	=	expander.c
 
 LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
 LEXER_DIR		=	src/lexer/
-LEXER_FILES		=	lexer.c
+LEXER_FILES		=	lexer.c lex.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
