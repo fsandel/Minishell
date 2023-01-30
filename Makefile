@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/30 15:43:25 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/30 17:09:49 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ EXPANDER_FILES	=	expander.c
 
 LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
 LEXER_DIR		=	src/lexer/
-LEXER_FILES		=	lexer.c
+LEXER_FILES		=	lexer.c lex.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -73,7 +73,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ)
-	$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(LIBFT) -L lib/readline_out/lib
+	$(CC) $^ -o $@ $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
