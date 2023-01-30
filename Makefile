@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/29 13:01:55 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/30 15:43:25 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,15 +65,15 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: mkdir submodules readline $(LIBFT) $(NAME)
+all: mkdir submodules $(READLINE) $(LIBFT) $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include2/ -I ./lib
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ)
-	$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(READLINE) $(LIBFT)
+	$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(LIBFT) -L lib/readline_out/lib
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
@@ -88,8 +88,7 @@ ffclean:
 	@rm -rf $(OBJ_DIR) $(NAME)
 	@echo $(RED)"ffcleaned"$(DEFAULT)
 	@echo $(RED)"deleted readline"$(DEFAULT)
-	@rm -rf $(READLINE_DIR)
-	@make -C lib/libft fclean
+	@rm -rf lib
 
 re:	fclean all
 
@@ -122,7 +121,7 @@ submodules:
 READLINE_VERSION=	readline-8.1.2
 READLINE_LIB	=	libreadline.a
 READLINE_DIR	=	lib/readline/
-READLINE		=	$(READLINE_DIR)$(READLINE_LIB)
+READLINE		=	lib/readline_out/lib/libreadline.a
 
 ani_readline:
 	bash ./spinner.sh "make readline" "building readline" "Spinner_Braille"
@@ -134,12 +133,16 @@ $(READLINE):
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
-	@cd lib/$(READLINE_VERSION); ./configure >/dev/null 2>&1; cd ../..
-	@make -C lib/$(READLINE_VERSION) >/dev/null 2>&1
-	@mv -f lib/$(READLINE_VERSION) lib/readline
+	@cd lib/$(READLINE_VERSION); ./configure --prefix=$(PWD)/lib/readline_out; cd ../..
+	@make -C lib/$(READLINE_VERSION)
+	@make install -C lib/$(READLINE_VERSION)
+	@rm -rf lib/$(READLINE_VERSION)
 	@rm -f lib/$(READLINE_VERSION).tar.gz
+	
+#	@mv -f lib/$(READLINE_VERSION) lib/readline
+#	@rm -f lib/$(READLINE_VERSION).tar.gz
 
-
+# >/dev/null 2>&1
 
 
 ################################################################################
