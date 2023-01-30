@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/30 17:03:01 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:16:33 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(void)
 		input = readline(prompt);
 		if (ft_strncmp(input, "exit", 5) == 0)
 			break ;
-		ft_printf("%s\n", input);
+		lexing(input);
+		//ft_printf("%s\n", input);
 		free(input);
 	}
 	free(prompt);

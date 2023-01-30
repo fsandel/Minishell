@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:21:17 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:16:55 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 # define LEXER_H
 
 void	lexer(void);
+void	lexing(char	*input);
 
 #endif
