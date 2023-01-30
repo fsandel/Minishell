@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/30 15:43:25 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/30 16:50:34 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ)
-	$(CC) $^ -o $@ -I $(HDR_DIR) $(LINK_FLAGS) $(LIBFT) -L lib/readline_out/lib
+	$(CC) $^ -o $@ $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
