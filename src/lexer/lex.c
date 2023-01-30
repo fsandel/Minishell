@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/01/30 18:32:02 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/01/30 18:55:10 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,15 @@ void	token(t_list *lst, char *input, int start, int end)
 	tok = ft_calloc(sizeof(char), end - start + 2);
 	printf("size of t: %i\n", end - start + 1);
 	while (start <= end)
-		tok[i++] = input[start++];
+	{
+		if (input[start] == '\\' && input[start + 1] == '\"'
+		|| input[start] == '\\' && input[start + 1] == '\\'
+		|| input[start] == '\\' && input[start + 1] == '\'')
+			start++;
+		else
+			tok[i++] = input[start++];
+		printf("tok = %s\n", tok);
+	}
 	tok[i] = '\0';
 	printf("tok:%s\n", tok);
 	if (lst->content == NULL)
@@ -52,10 +60,21 @@ int	quotes(t_list **tokens, char *input, int i)
 	int end;
 	
 	end = i + 1;
-	while (input[end] != input[i] && input[end] != '\0')
+	while (input[end] != input[i] 
+		&& input[end] != '\0' 
+		&& input[end - 1] != '\\')
+	{
+		printf("end: %c isnt: %c\n", input[end], input[i]);
+		printf("end: %c isnt: %c\n", input[end], '\0');
+		printf("end: %c isnt: %c\n", input[end - 1], '\\');
+		printf("----------------------------\n");
 		end++;
-	token(*tokens, input, i, end);
-	return(end +1);
+	}
+	token(*tokens, input, i, end + 1);
+/* 	if (input[end + 1] == '\"') */
+		return(end + 2);
+/* 	else
+		return (end + 1); */
 }
 
 int	get_token(t_list **tokens, char *input, int i)
@@ -63,15 +82,14 @@ int	get_token(t_list **tokens, char *input, int i)
 	int end;
 
 	end = i;
-	if (input[end] == '\'' || input[end] == '\"')
+	if (input[end] == '\'' || input[end] == '\"') //quotes
 		return(quotes(tokens, input, end));
+
 	while(is_whitespace(input[end]) != TRUE && input[end] != '\0')
 		end++;
-	printf("currently at %c\n", input[end]);
 	if(input[end] == '-')
 		while(is_whitespace(input[end]) == FALSE && input[end] != '\0')
 			end++;
-	//printf("2i is: %i, end is %i\n", i, end);
 	token(*tokens, input, i, end);
 	return(end);
 }
@@ -83,7 +101,6 @@ void	lexing(char	*input)
 
 	tokens = ft_lstnew(NULL);
 	i = 0;
-	printf("%s\n", input);
 	i = get_token(&tokens, input, i);
 	while (input[i] != '\0')
 	{
