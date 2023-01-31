@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/31 14:15:19 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/31 17:32:08 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ REST_FILES		=	rest.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	utils.c
+UTILS_FILES		=	utils.c split_special.c
 
 INPUT			=	$(addprefix $(INPUT_DIR), $(INPUT_FILES))
 INPUT_DIR		=	src/input/
