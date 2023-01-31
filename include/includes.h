@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/30 16:16:56 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:03:53 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "../src/parser/parser.h"
 # include "../src/rest/rest.h"
 # include "../src/utils/utils.h"
+# include "../src/input/input.h"
 
 # include "defines.h"
 # include "structs.h"
