@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
+#    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/31 17:32:08 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/31 17:56:37 by pgorner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ EXPANDER_FILES	=	expander.c
 
 LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
 LEXER_DIR		=	src/lexer/
-LEXER_FILES		=	lexer.c lex.c
+LEXER_FILES		=	lexer.c lex.c special.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
