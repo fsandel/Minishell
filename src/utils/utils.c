@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:42 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:20:15 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:06:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,23 @@ void	ft_free(void **arg, char *loc)
 		ft_printf("Doublefree at %s\n", loc);
 }
 
-void	utils(void)
+void	ft_puttarr_fd(char **arr, int fd)
 {
-	ft_printf("utils loaded\n");
+	int	j;
+	
+	j = 0;
+	while (arr[j])
+		ft_putendl_fd(arr[j++], fd);
+}
+
+void	ft_putcube_fd(char ***cube, int fd)
+{
+	int	k;
+
+	k = 0;
+	while (cube[k])
+	{
+		ft_puttarr_fd(cube[k++], fd);
+		ft_putchar_fd('\n', fd);
+	}
 }
