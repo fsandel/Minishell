@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/01/31 14:57:33 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:07:52 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,8 @@ void	lexing(char	*input)
 			i++;
 	}
 	ft_lstprint(tokens);
-	ft_lstclear(&tokens, free);
+	tokens = lstspecial(tokens);
+	printf("--------------\n");
+	ft_lstprint(tokens);
+	//ft_lstclear(&tokens, free);
 }
