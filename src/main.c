@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/31 13:57:51 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:05:42 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,6 @@ char	*get_prompt(void)
 	return (prompt);
 }
 
-int	check_input(char *str)
-{
-	int	esc;
-	int	sgl;
-	int	dbl;
-	int	i;
-
-	esc = 0;
-	sgl = 0;
-	dbl = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' && !dbl)
-			sgl = (sgl + 1) % 2;
-		if (str[i] == '\\')
-			esc = (esc + 1) % 2;
-		if (str[i] == '\"' && !esc && !sgl)
-			dbl = (dbl + 1) % 2;
-		if (str[i] && str[i] != '\\')
-			esc = 0;
-		i++;
-	}
-	if (sgl || dbl)
-		return (-1);
-	else
-		return (0);
-}
 
 int	main(void)
 {
@@ -65,9 +37,10 @@ int	main(void)
 		add_history(input);
 		if (ft_strncmp(input, "exit", 5) == 0)
 			break ;
-		check_input(input);
-		//lexing(input);
-		//ft_printf("%s\n", input);
+		if (check_input(input))
+			ft_putendl_fd("bad quotes", 2);
+		else
+			lexing(input);
 		free(input);
 	}
 	free(prompt);

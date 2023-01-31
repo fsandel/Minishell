@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/29 12:32:37 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/31 14:06:04 by fsandel          ###   ########.fr       */
+/*   Created: 2023/01/31 14:04:07 by fsandel           #+#    #+#             */
+/*   Updated: 2023/01/31 14:04:41 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#ifndef INPUT_H
+# define INPUT_H
 
-# define ERROR -1
-# define SUCCESS 0
+int	check_input(char *str);
 
 #endif

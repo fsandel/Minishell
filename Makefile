@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/30 17:09:49 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/31 14:07:20 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,11 @@ UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
 UTILS_FILES		=	utils.c
 
-ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS)
+INPUT			=	$(addprefix $(INPUT_DIR), $(INPUT_FILES))
+INPUT_DIR		=	src/input/
+INPUT_FILES		=	input.c
+
+ALL_SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES)) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT)
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
