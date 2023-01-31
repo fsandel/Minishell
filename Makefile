@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/01/31 14:07:20 by fsandel          ###   ########.fr        #
+#    Updated: 2023/01/31 14:15:19 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,15 +69,15 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: mkdir submodules $(READLINE) $(LIBFT) $(NAME)
+all: $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include2/ -I ./lib
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
-$(NAME): $(ALL_OBJ)
-	$(CC) $^ -o $@ $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
+$(NAME): mkdir submodules readline libft $(ALL_OBJ)
+	$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
