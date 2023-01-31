@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/01/30 18:55:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:52:02 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	token(t_list *lst, char *input, int start, int end)
 	while (start <= end)
 	{
 		if (input[start] == '\\' && input[start + 1] == '\"'
-		|| input[start] == '\\' && input[start + 1] == '\\'
-		|| input[start] == '\\' && input[start + 1] == '\'')
+		|| input[start] == '\\' && input[start + 1] == '\\')
 			start++;
 		else
 			tok[i++] = input[start++];
-		printf("tok = %s\n", tok);
+		printf("building = %s\n", tok);
 	}
 	tok[i] = '\0';
 	printf("tok:%s\n", tok);
@@ -55,7 +54,45 @@ int	is_whitespace(char c)
 		return (FALSE);
 }
 
+int	doublequotes(t_list *tokens, char *input, int i, int end)
+{
+	while (input[end] != '\0')
+	{
+		//printf("end: %c at %i of %s\n", input[end], end, input);
+		if (input[end] == '\"'
+			&& input[end - 1] != '\\')
+			break ;
+		else
+			end++;
+	}
+	token(tokens, input, i, end);
+	return(end + 1); //PERHAPS 2 if error?
+}
+
+int	singlequotes(t_list *tokens, char *input, int i, int end)
+{
+	while (input[end] != '\0')
+	{
+		if (input[end] == '\'')
+			break ;
+		else
+			end++;
+	}
+	token(tokens, input, i, end);
+	return(end + 1);
+}
+
 int	quotes(t_list **tokens, char *input, int i)
+{
+	int end;
+	
+	end = i + 1;
+	if (input[i] == '\"')
+		return(doublequotes(*tokens, input, i, end));
+	else
+		return(singlequotes(*tokens, input, i, end));
+}
+/* int	quotes(t_list **tokens, char *input, int i)
 {
 	int end;
 	
@@ -71,11 +108,11 @@ int	quotes(t_list **tokens, char *input, int i)
 		end++;
 	}
 	token(*tokens, input, i, end + 1);
-/* 	if (input[end + 1] == '\"') */
+	if (input[end + 1] == '\"')
 		return(end + 2);
-/* 	else
-		return (end + 1); */
-}
+	else
+		return (end + 1);
+} */
 
 int	get_token(t_list **tokens, char *input, int i)
 {
@@ -84,7 +121,6 @@ int	get_token(t_list **tokens, char *input, int i)
 	end = i;
 	if (input[end] == '\'' || input[end] == '\"') //quotes
 		return(quotes(tokens, input, end));
-
 	while(is_whitespace(input[end]) != TRUE && input[end] != '\0')
 		end++;
 	if(input[end] == '-')
