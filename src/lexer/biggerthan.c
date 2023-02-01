@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:40:58 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/01 17:21:29 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/01 17:38:44 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char    **biggerthan(char *content)
         return(res = and(content));
     else if(ft_strchr(content, "2&>1"))
         return(res = twoandone(content)); */
-    if (counter(content) != ft_strlen(content))
+    if (counter(content, '>') != ft_strlen(content))
     {
         if (content[0] == '>'
 	    && content[ft_strlen(content) - 1] == '>')
@@ -93,8 +93,9 @@ char    **biggerthan(char *content)
 	    	return(res = biggerthanback(content));
 	    else if (content[0] != '>'
 	    && content[ft_strlen(content) - 1] != '>')
-	    	return(res = biggerthanmid(content));        
+	    	return(res = biggerthanmid(content));
     }
     else if (counter(content, '>') == ft_strlen(content))
-		return(res = ft_split_special(content, ' '));
+	    res = ft_split_special(content, ' ');
+    return(res);
 }
