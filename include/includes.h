@@ -3,12 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/31 14:03:53 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:52:35 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+//				██╗  ██╗███████╗ █████╗ ██████╗ ███████╗██████╗
+//				██║  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗
+//				███████║█████╗  ███████║██║  ██║█████╗  ██████╔╝
+//				██╔══██║██╔══╝  ██╔══██║██║  ██║██╔══╝  ██╔══██╗
+//				██║  ██║███████╗██║  ██║██████╔╝███████╗██║  ██║
+//				╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
@@ -27,24 +34,22 @@
 # include <curses.h> // tgetent, tgetflag tgetstr, tgoto, tpus
 # include <term.h>
 
-# include "../src/executor/executor.h"
-# include "../src/parser/parser.h"
-# include "../src/expander/expander.h"
-# include "../src/lexer/lexer.h"
-# include "../src/parser/parser.h"
-# include "../src/rest/rest.h"
-# include "../src/utils/utils.h"
-# include "../src/input/input.h"
-
-# include "defines.h"
-# include "structs.h"
-# include "macros.h"
-
+// INCLUDE ALL LIBRARIES BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
 # include "../lib/libft/libft.h"
 # include "readline/readline.h"
 # include "readline/history.h"
 
-//#include <readline/readline.h>
-//#include <readline/history.h>
+// INCLUDE ALL HEADERS BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
+# include "defines.h"
+# include "structs.h"
+# include "macros.h"
+
+# include "../src/executor/executor.h"
+# include "../src/expander/expander.h"
+# include "../src/input/input.h"
+# include "../src/lexer/lexer.h"
+# include "../src/parser/parser.h"
+# include "../src/rest/rest.h"
+# include "../src/utils/utils.h"
 
 #endif
