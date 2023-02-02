@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:13 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/01 17:46:01 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:39:27 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**smallerthanmid(char *content)
 	char	**res;
 
 	res = ft_split_special(content, '<');
-    res[2] = ft_strdup(res[1]);
+	res[2] = ft_strdup(res[1]);
 	if (counter(content, '<') == 2)
 		res[1] = ft_strdup("<<");
 	else
@@ -70,16 +70,10 @@ char	**smallerthanall(char *content)
 char	**smallerthan(char *content)
 {
 	char	**res;
-/* 	printf("--------------------------------------------------\n");
-	printf("CONTENT:%s:\n", content);
-	printf("COUNTER: %zu STRLEN: %zu\n", counter(content, '<'), ft_strlen(content)); */
-	if ((counter(content, '<') > 2))
-	{
-		res[0] = ft_strdup("PROBLEM AT SPLIIIIIT FUUUCK THIS\n");
-		return(res);
-	}
-	if ((counter(content, '<')) != (ft_strlen(content))
-		&& (content[0] != '\'' || content[0] != '\"'))
+/* 	printf("--------------------------------------------------\n"); */
+/* 	printf("CONTENT:%s:\n", content); */
+/* 	printf("COUNTER: %zu STRLEN: %zu\n", counter(content, '<'), ft_strlen(content)); */
+	if ((counter(content, '<')) != (ft_strlen(content)))
 	{
 		if (content[0] == '<'
 		&& content[ft_strlen(content) - 1] == '<')

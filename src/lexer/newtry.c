@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sp_utils.c                                         :+:      :+:    :+:   */
+/*   newtry.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 15:28:07 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/02 17:00:02 by pgorner          ###   ########.fr       */
+/*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
+/*   Updated: 2023/02/02 17:37:27 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	counter(char *content, char c)
+t_list	*lstspecial(t_list *lst)
 {
-	size_t i;
-	size_t j;
-	j = 0;
-	i = 0;
+	t_list	*new;
 
-	while(content[i] != '\0')
+	while (TRUE)
 	{
-		if (content[i] == c)
-		{
-			j++;
-		}
-		i++;
+		
 	}
-	return(j);
 }
