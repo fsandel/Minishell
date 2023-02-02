@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:13 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/01 17:20:05 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/01 17:46:01 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ char	**smallerthan(char *content)
 /* 	printf("--------------------------------------------------\n");
 	printf("CONTENT:%s:\n", content);
 	printf("COUNTER: %zu STRLEN: %zu\n", counter(content, '<'), ft_strlen(content)); */
+	if ((counter(content, '<') > 2))
+	{
+		res[0] = ft_strdup("PROBLEM AT SPLIIIIIT FUUUCK THIS\n");
+		return(res);
+	}
 	if ((counter(content, '<')) != (ft_strlen(content))
 		&& (content[0] != '\'' || content[0] != '\"'))
 	{
@@ -88,5 +93,6 @@ char	**smallerthan(char *content)
 			return(res = smallerthanmid(content));
 	}
 	else if (counter(content, '<') == ft_strlen(content))
-		return(res = ft_split_special(content, ' '));
+		res = ft_split_special(content, ' ');
+	return(res);
 }

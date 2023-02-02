@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:58:18 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/01 16:43:42 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/01 17:28:50 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	**special(char *content)
 		return(str = haspipe(content));
 	else if (ft_strchr(content, '<'))
 		return(str = smallerthan(content));
-/* 	if (ft_strchr(content, '>'))
-		return(str = biggerthan(content)); */
+	if (ft_strchr(content, '>'))
+		return(str = biggerthan(content));
 	else
 		return(str = ft_split(content, ' '));
 }
