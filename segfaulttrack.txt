@@ -6,3 +6,5 @@ INPUT TEST STR:
 <test <<test te<st te<<st test< test<<
 >test >>test te>st te>>st test> test>>
 |test te|st test|
+
+> segfaultet irgendwie immer
