@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/01 16:51:39 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/02 17:14:02 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	singlequotes(t_list *tokens, char *input, int i, int end)
 int	quotes(t_list **tokens, char *input, int i)
 {
 	int end;
-	
+
 	end = i + 1;
 	if (input[i] == '\"')
 		return(doublequotes(*tokens, input, i, end));
@@ -99,7 +99,7 @@ int	get_token(t_list **tokens, char *input, int i)
 {
 	int end;
 	int c;
-	
+
 	c = i;
 	end = i;
 	if (input[end] == '\'' || input[end] == '\"') //quotes
@@ -110,7 +110,7 @@ int	get_token(t_list **tokens, char *input, int i)
 	while (c < end)
 	{
 		printf("%c", input[c]);
-		c++;	
+		c++;
 	}
 	printf("|\n"); */
 	token(*tokens, input, i, end);
@@ -122,23 +122,26 @@ void	lexer(char	*input)
 	t_list	*tokens;
 	int		i;
 
-	printf("----------------------------INPUT ------------------------\n");
-	printf("%s\n", input);
-	tokens = ft_lstnew(NULL);
-	i = 0;
-/* 	if (is_whitespace(input[i]) == FALSE)
-		i = get_token(&tokens, input, i); */
-	while (input[i] != '\0')
+	if (ft_strlen(input) != 0)
 	{
-		if(is_whitespace(input[i]) == FALSE)
-			i = get_token(&tokens, input, i);
-		else
-			i++;
+		printf("----------------------------INPUT ------------------------\n");
+		printf("%s\n", input);
+		tokens = ft_lstnew(NULL);
+		i = 0;
+/* 		if (is_whitespace(input[i]) == FALSE)
+			i = get_token(&tokens, input, i); */
+		while (input[i] != '\0')
+		{
+			if(is_whitespace(input[i]) == FALSE)
+				i = get_token(&tokens, input, i);
+			else
+				i++;
+		}
+		printf("---------------------INPUT NACH TOKENSPLIT----------------\n");
+		ft_lstprint(tokens);
+		tokens = lstspecial(tokens);
+		printf("------------------------ \"< | >\" DONE  -------------------\n");
+		ft_lstprint(tokens);
+		ft_lstclear(&tokens, free);
 	}
-	printf("---------------------INPUT NACH TOKENSPLIT----------------\n");
-	ft_lstprint(tokens);
-	tokens = lstspecial(tokens);
-	printf("------------------------ \"< | >\" DONE  -------------------\n");
-	ft_lstprint(tokens);
-	//ft_lstclear(&tokens, free);
 }
