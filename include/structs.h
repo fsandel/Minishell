@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/01 15:52:46 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:17:59 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,14 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_pars
+{
+	char	**cmd;
+	int		in;
+	int		err;
+	int		out;
+	int		total_cmd;
+	int		index;
+	int		amount;
+}			t_pars;
 #endif
