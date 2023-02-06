@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/02 11:17:59 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/06 13:28:10 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ typedef struct s_pars
 	int		total_cmd;
 	int		index;
 	int		amount;
+	char	*all_args;
 }			t_pars;
 #endif

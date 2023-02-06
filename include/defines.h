@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:32:37 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/01 15:52:50 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/06 11:31:20 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@
 
 # define ERROR -1
 # define SUCCESS 0
+
+# define STDOUT 1
+# define STDIN 0
+# define STDERR 2
 
 #endif

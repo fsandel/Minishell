@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/02 17:14:02 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/06 15:47:48 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,13 @@ void	lexer(char	*input)
 		ft_lstprint(tokens);
 		ft_lstclear(&tokens, free);
 	}
+<<<<<<< Updated upstream
+=======
+	printf("---------------------INPUT NACH TOKENSPLIT----------------\n");
+	ft_lstprint(tokens);
+	tokens = lstspecial(tokens);
+	printf("------------------------ \"< | >\" DONE  -------------------\n");
+	ft_lstprint(tokens);
+	//ft_lstclear(&tokens, free);
+>>>>>>> Stashed changes
 }
