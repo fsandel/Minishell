@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 14:40:20 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:11:29 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void	command(char *input)
 	ft_putendl_fd("NOW PARSER", 2);
 	pars = parser(tokens);
 	ft_lstclear(&tokens, free);
+	ft_putendl_fd("NOW EXPANDER", 2);
+	pars = expander(pars);
 	ft_putendl_fd("NOW EXECUTOR", 2);
-	executor(pars);
+	pars = executor(pars);
 	free_struct(pars);
 }
