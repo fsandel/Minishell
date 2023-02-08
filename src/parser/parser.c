@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 10:50:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 13:02:13 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ t_pars	**parser(t_list *list)
 	pars = setup_struct(list);
 	ft_printf("setup struct done\n");
 	pars = fill_struct(list, pars);
-	ft_lstprint(list);
-	ft_lstclear(&list, free);
 	display_pars(pars);
-	executor(pars);
 	return (pars);
 }
 
