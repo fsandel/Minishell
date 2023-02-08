@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/06 10:55:40 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 10:50:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ void	display_pars(t_pars **pars)
 
 	total = pars[0]->total_cmd;
 	i = 0;
+	ft_printf("-----------------------------------------------------\n");
 	while (i < total)
 	{
 		j = 1;
+		ft_printf("index: %d   total:%d\n", pars[i]->index, pars[i]->total_cmd);
 		ft_printf("bin: %s\n\n", pars[i]->cmd[0]);
 		while (j < pars[i]->amount)
 			ft_printf("cmd: %s\n", pars[i]->cmd[j++]);
 		ft_printf("\nin: %d\tout: %d\terr: %d\n\n", pars[i]->in, pars[i]->out, pars[i]->err);
+		ft_printf("-----------------------------------------------------\n");
 		i++;
 	}
 }
@@ -42,6 +45,7 @@ t_pars	**parser(t_list *list)
 	pars = setup_struct(list);
 	ft_printf("setup struct done\n");
 	pars = fill_struct(list, pars);
+	ft_lstprint(list);
 	ft_lstclear(&list, free);
 	display_pars(pars);
 	executor(pars);
