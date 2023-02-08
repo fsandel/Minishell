@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 11:31:04 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:10:26 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*check_path(char *cpath);
 int	execute_child(t_pars *pars, int infd);
 char	*compact(char **array);
 
-void	executor(t_pars **pars)
+t_pars	**executor(t_pars **pars)
 {
 	char *path;
 	int	fd;
@@ -32,6 +32,7 @@ void	executor(t_pars **pars)
 		fd = execute_child(pars[i++], fd);
 	}
 	waitpid(0, NULL, 0);
+	return (pars);
 }
 
 

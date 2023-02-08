@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/29 12:28:21 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:09:47 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	expander(void)
+t_pars	**expander(t_pars **pars)
 {
-	ft_printf("expander loaded\n");
+	return (pars);
 }
