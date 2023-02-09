@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 15:10:26 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:16:48 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ t_pars	**executor(t_pars **pars)
 	int	fd;
 	int	i;
 	int	total;
-	ft_printf("in executor\n");
+
 	total = pars[0]->total_cmd;
 	i = 0;
-	fd = execute_child(pars[i++], STDIN);
+	fd = pars[0]->in;
+	//fd = pars[i]->in;
+	//fd = 3;
 	while (i < total)
 	{
-		ft_printf("index: %d   total: %d\n", pars[i]->index, pars[i]->total_cmd);
 		fd = execute_child(pars[i++], fd);
 	}
 	waitpid(0, NULL, 0);
+	close(fd);
 	return (pars);
 }
 
@@ -106,15 +108,16 @@ int	execute_child(t_pars *pars, int infd)
 	pid_t		pid;
 	char		*command;
 
-	if (pars->out != STDOUT)
-		pipe(fd);
+	pipe(fd);
 	pid = fork();
 	if (pid == 0)
 	{
 		dup_input(infd, pars);
-		dup_output(fd[0], pars);
+		dup_output(fd[1], pars);
 		dup_error(pars);
-		//smart_close(pars->in, pars->out, pars->err, infd);
+
+		smart_close(fd[0], fd[1], 0, 0);
+		smart_close(pars->in, pars->out, pars->err, infd);
 		command = check_path(pars->cmd[0]);
 		if (!command)
 		{
@@ -125,6 +128,7 @@ int	execute_child(t_pars *pars, int infd)
 		ft_putendl_fd("execve failed", 2);
 		exit(-1);
 	}
+	smart_close(pars->in, pars->out, pars->err, infd);
 	close(fd[1]);
 	return (fd[0]);
 }

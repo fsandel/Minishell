@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:01:01 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 11:21:30 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:03:43 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	dup_output(int outpipe, t_pars *pars)
 {
-	if (pars->out == STDOUT)
+	if (pars->out == STDOUT) //means no output file given
 	{
 		if (pars->index == pars->total_cmd - 1)
 		{
@@ -27,16 +27,18 @@ void	dup_output(int outpipe, t_pars *pars)
 			ft_putendl_fd("duping pipe to out\n", 2);
 		}
 	}
-	else
+	else //means file given
 	{
 		dup2(pars->out, STDOUT);
 		ft_putendl_fd("duping outfile to out", 2);
 	}
 }
 
+
+
 void	dup_input(int inpipe, t_pars *pars)
 {
-	if (pars->in == STDIN)
+	if (pars->in == STDIN) //no in file given
 	{
 		if (pars->index == 0)
 		{
@@ -49,12 +51,27 @@ void	dup_input(int inpipe, t_pars *pars)
 			ft_putendl_fd("duping pipe to in", 2);
 		}
 	}
-	else
+	else //in file given
 	{
 		dup2(pars->in, STDIN);
-		ft_putendl_fd("infile outfile to in", 2);
+		ft_putendl_fd("dup infile to in", 2);
 	}
 }
+
+
+
+// void	dup_input(int inpipe, t_pars *pars)
+// {
+// 	if (pars->in == STDIN) // no file
+// 	{
+// 		ft_putendl_fd("using inpipe", 2);
+// 		pars->in = inpipe;
+// 	}
+// 	else
+// 		close(inpipe);
+// 	dup2(pars->in, STDIN);
+// }
+
 
 void	dup_error(t_pars *pars)
 {

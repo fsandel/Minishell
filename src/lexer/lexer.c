@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:28:10 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/08 13:20:11 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:18:08 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ t_list	*lexer(char	*input)
 
 	if (ft_strlen(input) != 0)
 	{
-		printf("----------------------------INPUT ------------------------\n");
-		printf("%s\n", input);
+		//printf("----------------------------INPUT ------------------------\n");
+		//printf("%s\n", input);
 		tokens = ft_lstnew(NULL);
 		i = 0;
 /* 		if (is_whitespace(input[i]) == FALSE)
@@ -137,11 +137,11 @@ t_list	*lexer(char	*input)
 			else
 				i++;
 		}
-		printf("---------------------INPUT NACH TOKENSPLIT----------------\n");
-		ft_lstprint(tokens);
+		//printf("---------------------INPUT NACH TOKENSPLIT----------------\n");
+		//ft_lstprint(tokens);
 		tokens = lstspecial(tokens);
-		printf("------------------------ \"< | >\" DONE  -------------------\n");
-		ft_lstprint(tokens);
+		//printf("------------------------ \"< | >\" DONE  -------------------\n");
+		//ft_lstprint(tokens);
 	}
 	return (tokens);
 }
