@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/09 09:25:02 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:51:51 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command(char *input);
+void	command(char *input, char *env[]);
 
 char	*get_prompt(void)
 {
@@ -25,7 +25,7 @@ char	*get_prompt(void)
 	return (prompt);
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *env[])
 {
 	char	*input;
 	char	*prompt;
@@ -40,22 +40,22 @@ int	main(void)
 			free(input);
 			continue;
 		}
-		add_history(input);
-		if (ft_strncmp(input, "exit", 5) == 0)
+		if (!ft_strncmp(input, "exit", 5))
 		{
 			free(input);
-			break ;
+			exit(0);
 		}
+		add_history(input);
 		if (check_input(input))
 			ft_putendl_fd("bad quotes", 2);
 		else
-			command(input);
+			command(input, env);
 	}
 	//system("leaks minishell");
 	return (0);
 }
 
-void	command(char *input)
+void	command(char *input, char *env[])
 {
 	t_list	*tokens;
 	t_pars	**pars;
@@ -69,7 +69,10 @@ void	command(char *input)
 	ft_putendl_fd("NOW EXPANDER", 2);
 	pars = expander(pars);
 	ft_putendl_fd("NOW EXECUTOR", 2);
-	pars = executor(pars);
+	if (pars && pars[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "cd", 3))
+		b_cd(pars[0]);
+	else
+		pars = executor(pars, env);
 	free_struct(pars);
 	waitpid(0, NULL, 0);
 }

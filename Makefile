@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/08 13:30:41 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/09 13:46:50 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_FILES		=	main.c
 
 EXECUTOR		=	$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 EXECUTOR_DIR	=	src/executor/
-EXECUTOR_FILES	=	executor.c duping.c
+EXECUTOR_FILES	=	executor.c duping.c builtin.c
 
 EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
 EXPANDER_DIR	=	src/expander/

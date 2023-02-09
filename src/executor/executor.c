@@ -6,17 +6,17 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/09 13:16:48 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:30:50 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*check_path(char *cpath);
-int	execute_child(t_pars *pars, int infd);
+int	execute_child(t_pars *pars, int infd, char *env[]);
 char	*compact(char **array);
 
-t_pars	**executor(t_pars **pars)
+t_pars	**executor(t_pars **pars, char *env[])
 {
 	char *path;
 	int	fd;
@@ -30,7 +30,7 @@ t_pars	**executor(t_pars **pars)
 	//fd = 3;
 	while (i < total)
 	{
-		fd = execute_child(pars[i++], fd);
+		fd = execute_child(pars[i++], fd, env);
 	}
 	waitpid(0, NULL, 0);
 	close(fd);
@@ -97,12 +97,24 @@ char	*compact(char **array)
 	str[len] = 0;
 	return (str);
 }
-int	execute()
+
+void	execute(t_pars *pars, char *env[])
 {
-	return (0);
+	char	*command;
+
+	builtin(pars, env);
+	command = check_path(pars->cmd[0]);
+	if (!command)
+	{
+		ft_putstr_fd(pars->cmd[0], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	execve(command, &pars->cmd[0], NULL);
+	ft_putendl_fd("execve failed", 2);
+	exit(-1);
 }
 
-int	execute_child(t_pars *pars, int infd)
+int	execute_child(t_pars *pars, int infd, char *env[])
 {
 	int			fd[2];
 	pid_t		pid;
@@ -118,15 +130,7 @@ int	execute_child(t_pars *pars, int infd)
 
 		smart_close(fd[0], fd[1], 0, 0);
 		smart_close(pars->in, pars->out, pars->err, infd);
-		command = check_path(pars->cmd[0]);
-		if (!command)
-		{
-			ft_putstr_fd(pars->cmd[0], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-		}
-		execve(command, &pars->cmd[0], NULL);
-		ft_putendl_fd("execve failed", 2);
-		exit(-1);
+		execute(pars, env);
 	}
 	smart_close(pars->in, pars->out, pars->err, infd);
 	close(fd[1]);
