@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 13:02:13 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:24:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,17 @@ void	display_pars(t_pars **pars)
 		ft_printf("bin: %s\n\n", pars[i]->cmd[0]);
 		while (j < pars[i]->amount)
 			ft_printf("cmd: %s\n", pars[i]->cmd[j++]);
-		ft_printf("\nin: %d\tout: %d\terr: %d\n\n", pars[i]->in, pars[i]->out, pars[i]->err);
+		ft_printf("\nin: %d\tout: %d\terr: %d\n", pars[i]->in, pars[i]->out, pars[i]->err);
 		ft_printf("-----------------------------------------------------\n");
 		i++;
 	}
 }
+
 t_pars	**parser(t_list *list)
 {
 	t_pars	**pars;
 
-	ft_printf("in parser\n");
 	pars = setup_struct(list);
-	ft_printf("setup struct done\n");
 	pars = fill_struct(list, pars);
 	display_pars(pars);
 	return (pars);

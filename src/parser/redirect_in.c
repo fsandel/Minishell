@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:19:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/06 15:05:21 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:00:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	redirect_in(t_list *list, t_pars *pars)
 	if (!list->next)
 		if (!list->next->content)
 			return ;
-	fd = open(list->next->content, O_WRONLY | O_CREAT , 0644);
+	fd = open(list->next->content, O_RDONLY, 0644);
 	if (fd < 0)
 	{
 		perror(list->next->content);

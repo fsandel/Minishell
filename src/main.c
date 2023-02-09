@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 15:11:29 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/09 09:25:02 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(void)
 		else
 			command(input);
 	}
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }
 
@@ -71,4 +71,5 @@ void	command(char *input)
 	ft_putendl_fd("NOW EXECUTOR", 2);
 	pars = executor(pars);
 	free_struct(pars);
+	waitpid(0, NULL, 0);
 }
