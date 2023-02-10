@@ -6,17 +6,32 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/09 14:30:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:35:32 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*check_path(char *cpath);
-int	execute_child(t_pars *pars, int infd, char *env[]);
+char	*check_path(t_pars *pars, char **path);
+int	execute_child(t_pars *pars, int infd);
 char	*compact(char **array);
+char	**get_path(char **env);
 
-t_pars	**executor(t_pars **pars, char *env[])
+char	**get_path(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strnstr(env[i], "PATH", 5))
+			return (ft_split(env[i] + 5, ':'));
+		i++;
+	}
+	return (NULL);
+}
+
+t_pars	**executor(t_pars **pars)
 {
 	char *path;
 	int	fd;
@@ -26,11 +41,9 @@ t_pars	**executor(t_pars **pars, char *env[])
 	total = pars[0]->total_cmd;
 	i = 0;
 	fd = pars[0]->in;
-	//fd = pars[i]->in;
-	//fd = 3;
 	while (i < total)
 	{
-		fd = execute_child(pars[i++], fd, env);
+		fd = execute_child(pars[i++], fd);
 	}
 	waitpid(0, NULL, 0);
 	close(fd);
@@ -38,29 +51,27 @@ t_pars	**executor(t_pars **pars, char *env[])
 }
 
 
-char	*check_path(char *cpath)
+char	*check_path(t_pars *pars, char **path)
 {
 	int		i;
 	int		j;
 	int		c;
 	char	*tmp;
-	char	**env;
 
-	env = ft_split(getenv("PATH"), ':');
 	c = 0;
-	while (env[c])
+	while (path && path[c])
 	{
 		i = 0;
 		j = 0;
-		tmp = ft_calloc(1, ft_strlen(cpath) + ft_strlen(env[c]) + 2);
-		while (env[c][i] != '\0')
+		tmp = ft_calloc(1, ft_strlen(pars->cmd[0]) + ft_strlen(path[c]) + 2);
+		while (path[c][i] != '\0')
 		{
-			tmp[i] = env[c][i];
+			tmp[i] = path[c][i];
 			i++;
 		}
 		tmp[i++] = '/';
-		while (cpath[j] != '\0')
-			tmp[i++] = cpath[j++];
+		while (pars->cmd[0][j] != '\0')
+			tmp[i++] = pars->cmd[0][j++];
 		tmp[i] = '\0';
 		if (access(tmp, F_OK) == 0)
 			return (tmp);
@@ -70,51 +81,23 @@ char	*check_path(char *cpath)
 	return (NULL);
 }
 
-char	*compact(char **array)
-{
-	char *str;
-	int	len;
-	int	i;
-	int	j;
-
-	if (!array)
-		return (NULL);
-	if (!array[0])
-		return (NULL);
-	len = 0;
-	i = 0;
-	while (array[i])
-		len += ft_strlen(array[i++]);
-	str = ft_calloc(len + i + 1, 1);
-	j = 0;
-	len = 0;
-	while (j < i)
-	{
-		ft_memmove(&str[len], array[j], ft_strlen(array[j]));
-		len += ft_strlen(array[j++]);
-		str[len++] = ' ';
-	}
-	str[len] = 0;
-	return (str);
-}
-
-void	execute(t_pars *pars, char *env[])
+void	execute(t_pars *pars)
 {
 	char	*command;
+	char	**path;
 
-	builtin(pars, env);
-	command = check_path(pars->cmd[0]);
-	if (!command)
-	{
-		ft_putstr_fd(pars->cmd[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-	}
-	execve(command, &pars->cmd[0], NULL);
-	ft_putendl_fd("execve failed", 2);
-	exit(-1);
+	path = get_path(pars->env);
+	builtin(pars);
+	command = check_path(pars, path);
+	free(path);
+	execve(command, &pars->cmd[0], pars->env);
+	ft_putstr_fd(pars->cmd[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	free(command);
+	exit(127);
 }
 
-int	execute_child(t_pars *pars, int infd, char *env[])
+int	execute_child(t_pars *pars, int infd)
 {
 	int			fd[2];
 	pid_t		pid;
@@ -130,7 +113,7 @@ int	execute_child(t_pars *pars, int infd, char *env[])
 
 		smart_close(fd[0], fd[1], 0, 0);
 		smart_close(pars->in, pars->out, pars->err, infd);
-		execute(pars, env);
+		execute(pars);
 	}
 	smart_close(pars->in, pars->out, pars->err, infd);
 	close(fd[1]);
