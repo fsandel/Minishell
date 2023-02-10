@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/09 13:46:50 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/10 16:14:42 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_FILES		=	main.c
 
 EXECUTOR		=	$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 EXECUTOR_DIR	=	src/executor/
-EXECUTOR_FILES	=	executor.c duping.c builtin.c
+EXECUTOR_FILES	=	executor.c duping.c builtin.c builtin_in_exec.c builtin_no_exec.c path.c
 
 EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
 EXPANDER_DIR	=	src/expander/
@@ -38,7 +38,7 @@ LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c
+PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c parser_setup.c
 
 REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
 REST_DIR		=	src/rest/
@@ -46,7 +46,7 @@ REST_FILES		=	rest.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	utils.c split_special.c sp_utils.c
+UTILS_FILES		=	utils.c split_special.c sp_utils.c print_utils.c array_handling.c
 
 INPUT			=	$(addprefix $(INPUT_DIR), $(INPUT_FILES))
 INPUT_DIR		=	src/input/
