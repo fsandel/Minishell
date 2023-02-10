@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/08 15:24:33 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 11:26:17 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pars **setup_struct(t_list *list);
+t_pars **setup_struct(t_list *list, char **env);
 int	count_commands(t_list *list);
 t_pars	**fill_struct(t_list *list, t_pars **pars);
 
@@ -38,11 +38,11 @@ void	display_pars(t_pars **pars)
 	}
 }
 
-t_pars	**parser(t_list *list)
+t_pars	**parser(t_list *list, char **env)
 {
 	t_pars	**pars;
 
-	pars = setup_struct(list);
+	pars = setup_struct(list, env);
 	pars = fill_struct(list, pars);
 	display_pars(pars);
 	return (pars);
@@ -165,7 +165,7 @@ t_pars	**fill_struct(t_list *list, t_pars **pars)
 	return (pars);
 }
 
-t_pars **setup_struct(t_list *list)
+t_pars **setup_struct(t_list *list, char **env)
 {
 	t_pars	**pars;
 	int		commands;
@@ -178,6 +178,7 @@ t_pars **setup_struct(t_list *list)
 	while (i < commands)
 	{
 		pars[i] = ft_calloc(1, sizeof(t_pars));
+		pars[i]->env = env;
 		pars[i]->total_cmd = commands;
 		pars[i]->err = 2;
 		pars[i]->in = 0;

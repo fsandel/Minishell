@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:46:36 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/09 16:06:59 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:54:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,45 @@ int	b_pwd(t_pars *pars)
 	return (-1);
 }
 
-int	b_export(t_pars *pars)
+char	**b_export(t_pars *pars)
 {
-	ft_putendl_fd("export", 2);
-	exit(0);
-	return (-1);
+	int	i;
+
+	i = 1;
+	while(pars->cmd[i])
+	{
+		if (ft_strchr(pars->cmd[i], '='))
+		{
+			pars->env = arr_del_line(pars->env, pars->cmd[i]);
+			pars->env = array_add_line(pars->env, pars->cmd[i]);
+		}
+		else
+			perror(pars->cmd[i]);
+		i++;
+	}
+	return (pars->env);
 }
 
-int	b_unset(t_pars *pars)
+char	**b_unset(t_pars *pars)
 {
-	ft_putendl_fd("unset", 2);
-	exit(0);
-	return (-1);
+	int	i;
+
+	i = 1;
+
+	while (pars->cmd[i])
+		pars->env = arr_del_line(pars->env, pars->cmd[i++]);
+	return (pars->env);
 }
 
-int	b_env(t_pars *pars, char *env[])
+int	b_env(t_pars *pars)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
-		ft_putendl_fd(env[i++], STDOUT);
+	while (pars->env[i])
+	{
+		ft_putendl_fd(pars->env[i++], STDOUT);
+	}
 	exit(0);
 	return (-1);
 }
@@ -103,7 +121,7 @@ int	b_exit(t_pars **pars)
 	return (-1);
 }
 
-void	builtin(t_pars *pars, char *env[])
+void	builtin(t_pars *pars)
 {
 	if (!pars || !pars->cmd[0])
 		return ;
@@ -118,7 +136,7 @@ void	builtin(t_pars *pars, char *env[])
 	if (!ft_strncmp(pars->cmd[0], "unset", 6))
 		b_unset(pars);
 	if (!ft_strncmp(pars->cmd[0], "env", 4))
-		b_env(pars, env);
+		b_env(pars);
 	if (!ft_strncmp(pars->cmd[0], "exit", 5))
 		exit(0);
 }

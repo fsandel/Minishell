@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/09 16:52:01 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:20:50 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 void	ft_free(void **arg, char *loc);
 void	ft_puttarr_fd(char **arr, int fd);
 void	ft_putcube_fd(char ***cube, int fd);
+void	free_array(char **arr);
+char	**copy_arr(char **arr);
+int	array_size(char **arr);
+char	**array_add_line(char **arr, char *nl);
+char	**arr_del_line(char **arr, char *ln);
 
 //==============================================================================
 //----------------------------FT_SPLIT_SPECIAL.c--------------------------------
