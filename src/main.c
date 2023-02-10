@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 13:44:01 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:54:12 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	**command(char *input, char **old_env)
 	env = pars[0]->env;
 	ft_lstclear(&tokens, free);
 	ft_putendl_fd("NOW EXPANDER", 2);
-	pars = expander(pars);
+	//pars = expander(pars);
 	ft_putendl_fd("NOW EXECUTOR", 2);
 	if (pars && pars[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "cd", 3))
 		b_cd(pars[0]);
