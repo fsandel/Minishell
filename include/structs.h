@@ -29,7 +29,7 @@ typedef struct s_pars
 	int		total_cmd;
 	int		index;
 	int		amount;
-	char	*all_args;
+	char	**env;
 }			t_pars;
 
 typedef	struct lex
