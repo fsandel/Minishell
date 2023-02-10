@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 15:53:38 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 20:54:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_pars	**executor(t_pars **pars)
 	{
 		fd = execute_child(pars[i++], fd);
 	}
+	while (i-- + 1)
+		wait(NULL);
 	waitpid(0, NULL, 0);
 	close(fd);
 	return (pars);
