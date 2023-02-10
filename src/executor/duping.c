@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:01:01 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 15:33:11 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:52:49 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	dup_output(int outpipe, t_pars *pars)
 	}
 }
 
-
-
 void	dup_input(int inpipe, t_pars *pars)
 {
 	if (pars->in == STDIN) //no in file given
@@ -57,21 +55,6 @@ void	dup_input(int inpipe, t_pars *pars)
 		//ft_putendl_fd("dup infile to in", 2);
 	}
 }
-
-
-
-// void	dup_input(int inpipe, t_pars *pars)
-// {
-// 	if (pars->in == STDIN) // no file
-// 	{
-// 		ft_putendl_fd("using inpipe", 2);
-// 		pars->in = inpipe;
-// 	}
-// 	else
-// 		close(inpipe);
-// 	dup2(pars->in, STDIN);
-// }
-
 
 void	dup_error(t_pars *pars)
 {
