@@ -1,3 +1,5 @@
 minishell
 obj
 lib
+.vscode
+test*
