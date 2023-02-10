@@ -1,6 +1,7 @@
 SEGFAULTY INPUT:
 test<test<< more than one/two consecutive redirects appended
-
+""""
+&& (is_whitespace(input[lex->i]) == FALSE)
 
 INPUT TEST STR:
 <test <<test te<st te<<st test< test<<
