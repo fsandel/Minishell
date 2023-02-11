@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/11 14:37:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/11 15:51:45 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	token(t_lx *lex, char *input, t_list *tokens)
 			token[i++] = input[lex->ts++];
 	token[i + 1] = '\0';
 	lex->ts = lex->te + 1;
-	//printf("TOKEN IS:%s:\n", token);
+	printf("TOKEN IS:%s:\n with ls->te %i\n", token, lex->te);
 	if (tokens->content == NULL)
 		tokens->content = token;
 	else
@@ -87,10 +87,14 @@ int	check(char input, char const *it)
 
 int	check_null(t_lx *lex, char *input, t_list *tokens)
 {
+	
 	if (input[lex->i] == '\0')
 	{
+	printf("JERE? at lex-%i\n", lex->i);
 		if (lex->i - 1 != lex->te
-		&& (is_whitespace(input[lex->i - 1]) == FALSE))
+		&& (is_whitespace(input[lex->i - 1]) == FALSE)
+		&& ft_strlen(input) != lex->te
+		&& lex->i != 0)
 		{
 			printf("--:%i != %i:--\n", lex->i - 1, lex->te);
 			printf("token made in null\n");
@@ -171,7 +175,9 @@ void check_pird(t_lx *lex, char *input, t_list *tokens)
 		lex->q--;
 		//printf("inpird at %i with %c\n", lex->i, input[lex->i]);
 		if (lex->te != lex->i 
-			&& (is_whitespace(input[lex->i - 1]) == FALSE))
+			&& (is_whitespace(input[lex->i - 1]) == FALSE)
+			&& lex->i != 0
+			&& check(input[lex->i - 1], "|><") == FALSE)
 		{
 			lex->i--;
 			//printf("previous token made in pird\n");
@@ -217,10 +223,10 @@ void	check_quote(t_lx *lex, char *input, t_list *tokens)
 		while (input[lex->i]
 				&&is_whitespace(input[lex->i + 1]) == FALSE
 				&& check(input[lex->i], "|><") == FALSE
-				&& check(input[lex->i], "\'\"") == FALSE)
+				&& check(input[lex->i + 1], "\'\"") == FALSE)
 				lex->i++;
 		token(lex, input, tokens);
-		lex->i++;
+		lex->i += 2;
 	}
 }
 
@@ -262,26 +268,29 @@ void	check_dollar(t_lx *lex, char *input, t_list *tokens)
 void	check_space(t_lx *lex, char *input, t_list *tokens)
 {
 	if (is_whitespace(input[lex->i]) == TRUE)
-		//printf("SPAACE at %i\n", lex->i);
-		{
+	{
 		lex->q--;
 		if (lex->te != lex->i - 1
-			&& (is_whitespace(input[lex->i - 1]) == FALSE))
+			&& (is_whitespace(input[lex->i - 1]) == FALSE)
+			&& lex->i != 0)
 		{
 			lex->i--;
 			token(lex, input, tokens);
 			lex->i++;
 		}
-		while (is_whitespace(input[lex->i]) == TRUE)
+		while (is_whitespace(input[lex->i]) == TRUE
+				&& input[lex->i] != '\0')
 			lex->i++;
 		lex->ts = lex->i;
-		}
+	}
 }
 
 void	check_left(t_lx *lex, char *input, t_list *tokens)
 {
-	if (lex->q > 0)
+	if (lex->q > 1 && input[lex->i] != '\0')
 		lex->i++;
+	if (lex->q == 1)
+		lex->q++;
 	else
 		lex->q = 1;
 }
@@ -315,6 +324,5 @@ t_list	*lexer(char *input)
 	}
 	printf("--------\n");
 	ft_lstprint(tokens);
-	//ft_lstclear(&tokens, free);
 	return(tokens);
 }
