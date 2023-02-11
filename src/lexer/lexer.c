@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/11 15:51:45 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:03:46 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,15 +128,21 @@ void doub(t_lx *lex, char *input, t_list *tokens)
 		{
 			if (input[lex->i + 3] == '1')
 				{
-					lex->i--;
-					token(lex, input, tokens);
-					lex->i += 4;
+					if (lex->ts != lex->i
+						&& lex->i != 0)
+						{
+							lex->i--;
+							token(lex, input, tokens);
+							lex->i++;
+						}
+						lex->i += 3;
 					token(lex, input, tokens);
 				}
 		}
 		else
 		{
-			if (lex->ts != lex->i)
+			if (lex->ts != lex->i
+				&& lex->i != 0)
 			{
 			lex->i--;
 			token(lex, input, tokens);
@@ -170,6 +176,11 @@ void and(t_lx *lex, char *input, t_list *tokens)
 
 void check_pird(t_lx *lex, char *input, t_list *tokens)
 {
+	printf("CHECK AT %i\n", lex->i);
+	if (input[lex->i] == '2')
+		doub(lex, input, tokens);
+	if (input[lex->i] == '&')
+		and(lex, input, tokens);
 	if (check(input[lex->i], "|><") == TRUE)
 	{
 		lex->q--;
@@ -190,10 +201,6 @@ void check_pird(t_lx *lex, char *input, t_list *tokens)
 		token(lex, input, tokens);
 		lex->i++;
 	}
-	if (input[lex->i] == '2')
-		doub(lex, input, tokens);
-	if (input[lex->i] == '&')
-		and(lex, input, tokens);
 }
 
 void	check_quote(t_lx *lex, char *input, t_list *tokens)
