@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 10:54:36 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:29:16 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*get_prompt(void)
 }
 
 
+
 int	main(int argc, char *argv[], char *old_env[])
 {
 	char	*input;
@@ -35,11 +36,18 @@ int	main(int argc, char *argv[], char *old_env[])
 	char	**env;
 
 	env = copy_arr(old_env);
+	all_signal();
 	while (1)
 	{
 		prompt = get_prompt();
 		input = readline(prompt);
 		free(prompt);
+		if (!input)
+		{
+			free_array(env);
+			free(input);
+			break ;
+		}
 		if (!ft_strncmp(input, "", 1))
 		{
 			free(input);
@@ -53,7 +61,11 @@ int	main(int argc, char *argv[], char *old_env[])
 		}
 		add_history(input);
 		if (check_input(input))
+		{
 			ft_putendl_fd("bad quotes", 2);
+			free(input);
+			continue;
+		}
 		else
 			env = command(input, env);
 	}
