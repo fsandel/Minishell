@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/11 16:12:46 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:55:39 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ void	assign_checks(t_lx *lex)
 	lex->te = -2;
 	lex->ts = 0;
 	lex->q = 1;
-	lex->quot = ft_strdup("\'\"");
-	lex->pird = ft_strdup("|><");
-	lex->space = ft_strdup(" \t\v\f\r");
 }
 
 void	ft_lstprint(t_list *list)
@@ -59,7 +56,7 @@ void	token(t_lx *lex, char *input, t_list *tokens)
 			token[i++] = input[lex->ts++];
 	token[i + 1] = '\0';
 	lex->ts = lex->te + 1;
-	printf("TOKEN IS:%s:\n with ls->te %i\n", token, lex->te);
+	//printf("TOKEN IS:%s:\n with ls->te %i\n", token, lex->te);
 	if (tokens->content == NULL)
 		tokens->content = token;
 	else
@@ -169,7 +166,6 @@ void	and(t_lx *lex, char *input, t_list *tokens)
 
 void	check_pird(t_lx *lex, char *input, t_list *tokens)
 {
-	printf("CHECK AT %i\n", lex->i);
 	if (input[lex->i] == '2')
 		doub(lex, input, tokens);
 	if (input[lex->i] == '&')
@@ -199,14 +195,14 @@ void	check_quote(t_lx *lex, char *input, t_list *tokens)
 	{
 		lex->q--;
 		lex->c = input[lex->i];
-		if (lex->te != lex->i - 1
+/* 		if (lex->te != lex->i - 1
 			&& lex->i != 0
 			&&is_whitespace(input[lex->i - 1]) == FALSE)
 		{
 			lex->i--;
 			token(lex, input, tokens);
 			lex->i++;
-		}
+		} */
 		lex->i++;
 		while (input[lex->i])
 		{
@@ -286,7 +282,8 @@ t_list	*lexer(char *input)
 		check_space(lex, input, tokens);
 		check_left(lex, input, tokens);
 	}
-	printf("--------\n");
-	ft_lstprint(tokens);
+	printf("-----------------------------------------------------\n");
+	//ft_lstprint(tokens);
+	free(lex);
 	return (tokens);
 }
