@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 18:14:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:51:27 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ typedef	struct lex
 	int		ts;			// token start
 	int		te;			// (last) token end
 	int		q;			// quotes = TRUE/FALSE
-	char		c;			// quotes = TRUE/FALSE
-	char	*quot;		// single and double quotes for checker
-	char	*pird;		// pipe and redirects for checker
-	char	*space;		// whitespace for checker
+	char	c;			// quotes = TRUE/FALSE
 } 				t_lx;
 
 #endif
