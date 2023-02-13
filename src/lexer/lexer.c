@@ -6,19 +6,11 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/13 13:55:39 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 18:17:59 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_whitespace(char c)
-{
-	if (c == ' ' | c == '\n' | c == '\t' | c == '\v' | c == '\f' | c == '\r')
-		return (TRUE);
-	else
-		return (FALSE);
-}
 
 void	assign_checks(t_lx *lex)
 {
@@ -184,6 +176,7 @@ void	check_pird(t_lx *lex, char *input, t_list *tokens)
 		}
 		if (input[lex->i + 1] == input[lex->i])
 			lex->i++;
+		//printf("lex->ts:%i:%c: lex->i%i:%c:\n", lex->ts, input[lex->ts],  lex->i, input[lex->i]);
 		token(lex, input, tokens);
 		lex->i++;
 	}
@@ -216,10 +209,10 @@ void	check_quote(t_lx *lex, char *input, t_list *tokens)
 		while (input[lex->i]
 			&&is_whitespace(input[lex->i + 1]) == FALSE
 			&& check(input[lex->i], "|><") == FALSE
-			&& check(input[lex->i + 1], "\'\"") == FALSE)
+			/* && check(input[lex->i + 1], "\'\"") == FALSE */)
 				lex->i++;
 		token(lex, input, tokens);
-		lex->i += 2;
+		lex->i++;
 	}
 }
 
@@ -250,6 +243,7 @@ void	check_space(t_lx *lex, char *input, t_list *tokens)
 			&& input[lex->i] != '\0')
 			lex->i++;
 		lex->ts = lex->i;
+		//printf("END OF WHITESPACE:%c:%i: NEW TS:%i:\n", input[lex->i], lex->i, lex->ts);
 	}
 }
 
@@ -273,12 +267,17 @@ t_list	*lexer(char *input)
 	tokens = ft_lstnew(NULL);
 	while (TRUE)
 	{
-		//printf("STATUS:\n lex->i = %i\n round: %i\n", lex->i, i);
+		//printf("-----------------------------------------------------\n");
+		//printf("STATUS: lex->i = %i\n", lex->i);
 		if (check_null(lex, input, tokens) == TRUE)
 			break ;
+		//printf("NULL: lex->i = %i\n", lex->i);
 		check_pird(lex, input, tokens);
+		//printf("PIRD: lex->i = %i\n", lex->i);
 		check_quote(lex, input, tokens);
+		//printf("QUOTE: lex->i = %i\n", lex->i);
 		//check_dollar(lex, input, tokens);
+		//printf("QUOTE: lex->i = %i\n", lex->i);
 		check_space(lex, input, tokens);
 		check_left(lex, input, tokens);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 20:54:34 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/13 21:24:48 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	execute_child(t_pars *pars, int infd);
 static void	execute(t_pars *pars);
+
+extern int err;
 
 t_pars	**executor(t_pars **pars)
 {
@@ -33,6 +35,7 @@ t_pars	**executor(t_pars **pars)
 		wait(NULL);
 	waitpid(0, NULL, 0);
 	close(fd);
+/* 	err = WEXITSTATUS(pid); */
 	return (pars);
 }
 
