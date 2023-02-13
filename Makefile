@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/10 16:14:42 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/13 11:32:29 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,11 @@ INPUT			=	$(addprefix $(INPUT_DIR), $(INPUT_FILES))
 INPUT_DIR		=	src/input/
 INPUT_FILES		=	input.c
 
-ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT)
+SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
+SIGNAL_DIR		=	src/signal/
+SIGNAL_FILES	=	signal.c
+
+ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL)
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/02 12:42:39 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:35:49 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@
 # include "../src/parser/parser.h"
 # include "../src/rest/rest.h"
 # include "../src/utils/utils.h"
+# include "../src/signal/signal.h"
 
 #endif
