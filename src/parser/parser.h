@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 20:46:57 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:54:42 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ t_pars	**parser(t_list *list, char **env);
 //==============================================================================
 //--------------------------------redirect_out.c--------------------------------
 //==============================================================================
-void	redirect_out(t_list *list, t_pars *pars);
-void	redirect_err(t_list *list, t_pars *pars);
-void	redirect_both(t_list *list, t_pars *pars);
+t_list	*redirect_out(t_list *list, t_pars *pars);
+t_list	*redirect_err(t_list *list, t_pars *pars);
+t_list	*redirect_both(t_list *list, t_pars *pars);
 
 //==============================================================================
 //--------------------------------redirect_append.c-----------------------------
 //==============================================================================
-void	append_out(t_list *list, t_pars *pars);
-void	append_err(t_list *list, t_pars *pars);
-void	append_both(t_list *list, t_pars *pars);
+t_list	*append_out(t_list *list, t_pars *pars);
+t_list	*append_err(t_list *list, t_pars *pars);
+t_list	*append_both(t_list *list, t_pars *pars);
 
 //==============================================================================
 //--------------------------------redirect_in.c---------------------------------
 //==============================================================================
-void	redirect_in(t_list *list, t_pars *pars);
-void	here_doc(t_list *list, t_pars *pars);
+t_list	*redirect_in(t_list *list, t_pars *pars);
+t_list	*here_doc(t_list *list, t_pars *pars);
 
 //==============================================================================
 //--------------------------------parser_utils.c--------------------------------

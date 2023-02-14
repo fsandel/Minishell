@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:19:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 13:49:44 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:56:59 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 int	replace(char *line, char **env, int fd);
 void	expand(char *line, char **env, int fd);
 
-void	redirect_in(t_list *list, t_pars *pars)
+t_list	*redirect_in(t_list *list, t_pars *pars)
 {
 	int	fd;
 
 	if (!list->next)
 		if (!list->next->content)
-			return ;
+			return(list);
 	fd = open(list->next->content, O_RDONLY, 0644);
 	if (fd < 0)
 	{
 		perror(list->next->content);
-		return ;
+		return(list->next);
 	}
 	if (pars->in > 2)
 		close(pars->in);
-	ft_printf("Redirecting in\n");
 	pars->in = fd;
+	return(list->next);
 }
 
 int	replace(char *line, char **env, int fd)
@@ -129,7 +129,7 @@ char	*rm_quote(char *str)
 	}
 	return (ret);
 }
-void	here_doc(t_list *list, t_pars *pars)
+t_list	*here_doc(t_list *list, t_pars *pars)
 {
 	int		fd[2];
 	char	*temp;
@@ -163,4 +163,5 @@ void	here_doc(t_list *list, t_pars *pars)
 	close(fd[1]);
 	pars->in = fd[0];
 	//signal(SIGINT, signal_handler_interactive);
+	return(list->next);
 }
