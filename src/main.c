@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 13:29:16 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/13 16:34:23 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int	main(int argc, char *argv[], char *old_env[])
 	char	**env;
 
 	env = copy_arr(old_env);
-	all_signal();
 	while (1)
 	{
+		signal(SIGINT, signal_handler_interactive);
+		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt();
 		input = readline(prompt);
 		free(prompt);
@@ -80,8 +81,10 @@ char	**command(char *input, char **old_env)
 	t_pars	**pars;
 	char	**env;
 
+	//signal_bash();
 	ft_putendl_fd("NOW LEXER", 2);
 	tokens = lexer(input);
+	ft_lstprint(tokens);
 	free(input);
 	if (ft_lstsize(tokens) == 0)
 		return (NULL);
