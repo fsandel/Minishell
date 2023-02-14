@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 16:05:22 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:13:18 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,108 +23,62 @@ t_pars	**parser(t_list *list, char **env)
 	display_pars(pars);
 	return (pars);
 }
+//handle
+// |
+// >
+// 2>
+// 2>&1
+// &>
+// >>
+// 2>>
+// &>>
+// <
+// <<
+typedef struct s_c
+{
+	int	i;
+	int	line;
+}	t_c;
+
+t_list	*err_to_out(t_pars *pars, t_list *list)
+{
+	pars->err = pars->out;
+	if (list->next)
+		return (list->next);
+	else
+		return (list);
+}
 
 t_pars	**fill_struct(t_list *list, t_pars **pars)
 {
-	int	line;
-	int	fd;
-	int	i;
+	t_c	c;
 
-	i = 0;
-	line = 0;
+	c = (t_c){.i = 0, .line = 0};
 	while (list)
 	{
 		if (list->content && !ft_strncmp(list->content, "|", 2))
-		{
-			i = 0;
-			line++;
-		}
+			c = (t_c){.i = 0, .line = c.line + 1};
 		else if (list->content && !ft_strncmp(list->content, ">", 2))
-		{
-			if (!list->next)
-				return (pars);
-			redirect_out(list, pars[line]);
-			list = list->next;
-		}
+			list = redirect_out(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "2>", 3))
-		{
-			if (!list->next)
-				return (pars);
-			redirect_err(list, pars[line]);
-			list = list->next;
-		}
+			list = redirect_err(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "2>&1", 5))
-		{
-			if (!list->next)
-				return (pars);
-			pars[line]->err = pars[line]->out;
-			list = list->next;
-		}
-		//implement > file 2>&1
+			list = err_to_out(pars[c.line], list);
 		else if (list->content && !ft_strncmp(list->content, "&>", 3))
-		{
-			if (!list->next)
-				return (pars);
-			list = list->next;
-			redirect_both(list, pars[line]);
-		}
+			list = redirect_both(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, ">>", 3))
-		{
-			if (!list->next)
-				return (pars);
-			append_out(list, pars[line]);
-			list = list->next;
-		}
+			list = append_out(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "2>>", 4))
-		{
-			if (!list->next)
-				return (pars);
-			append_err(list, pars[line]);
-			list = list->next;
-		}
-		//implement >> file 2>&1
+			list = append_err(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "&>>", 4))
-		{
-			if (!list->next)
-				return (pars);
-			append_both(list, pars[line]);
-			list = list->next;
-		}
-		else if (list->content && !ft_strncmp(list->content, "&>>", 4))
-		{
-			if (!list->next)
-				return (pars);
-			append_both(list, pars[line]);
-			list = list->next;
-		}
-		else if (list->content && !ft_strncmp(list->content, "&>>", 4))
-		{
-			if (!list->next)
-				return (pars);
-			append_both(list, pars[line]);
-			list = list->next;
-		}
+			list = append_both(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "<", 2))
-		{
-			if (!list->next)
-				return (pars);
-			redirect_in(list, pars[line]);
-			list = list->next;
-			ft_printf("here\n");
-		}
+			list = redirect_in(list, pars[c.line]);
 		else if (list->content && !ft_strncmp(list->content, "<<", 3))
-		{
-			if (!list->next)
-				return (pars);
-			here_doc(list, pars[line]);
-			list = list->next;
-		}
+			list = here_doc(list, pars[c.line]);
 		else
-		{
 			if (list->content)
-				pars[line]->cmd[pars[line]->amount++]
-					= ft_strdup(list->content);
-		}
+				pars[c.line]->cmd[pars[c.line]->amount++] = ft_strdup(list->content);
 		list = list->next;
 	}
 	return (pars);
