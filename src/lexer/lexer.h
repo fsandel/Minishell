@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 11:37:43 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:07:17 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	check_quote(t_lx *lex, char *input, t_list *tokens);
 void	check_space(t_lx *lex, char *input, t_list *tokens);
 void	check_dollar(t_lx *lex, char *input, t_list *tokens);
 void	check_pirdnw(t_lx *lex, char * input, t_list *tokens);
+void	ft_lstprint(t_list *list);
+
 //==============================================================================
 //---------------------------------LEXEROLD.c-----------------------------------
 //==============================================================================
