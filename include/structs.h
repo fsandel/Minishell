@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 13:51:27 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/13 19:56:45 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef	struct lex
 	int		ts;			// token start
 	int		te;			// (last) token end
 	int		q;			// quotes = TRUE/FALSE
-	char	c;			// quotes = TRUE/FALSE
+	char	c;			// char comparison
 } 				t_lx;
 
 #endif
