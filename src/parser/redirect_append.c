@@ -12,62 +12,62 @@
 
 #include "minishell.h"
 
-void	append_out(t_list *list, t_pars *pars)
+t_list	*append_out(t_list *list, t_pars *pars)
 {
 	int	fd;
 
 	if (!list->next)
 		if (!list->next->content)
-			return ;
+			return(list);
 	fd = open(list->next->content, O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 	{
 		perror(list->next->content);
-		return ;
+		return(list->next);
 	}
 	if (pars->out > 2)
 		close(pars->out);
-	ft_printf("Apepnding out\n");
 	pars->out = fd;
+	return(list->next);
 }
 
-void	append_err(t_list *list, t_pars *pars)
+t_list	*append_err(t_list *list, t_pars *pars)
 {
 	int	fd;
 
 	if (!list->next)
 		if (!list->next->content)
-			return ;
+			return(list);
 	fd = open(list->next->content, O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 	{
 		perror(list->next->content);
-		return ;
+		return(list->next);
 	}
 	if (pars->err > 2)
 		close(pars->err);
-	ft_printf("Apepnding err\n");
 	pars->err = fd;
+	return(list->next);
 }
 
-void	append_both(t_list *list, t_pars *pars)
+t_list	*append_both(t_list *list, t_pars *pars)
 {
 	int	fd;
 
 	if (!list->next)
 		if (!list->next->content)
-			return ;
+			return(list);
 	fd = open(list->next->content, O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 	{
 		perror(list->next->content);
-		return ;
+		return(list->next);
 	}
 	if (pars->err > 2)
 		close(pars->err);
 	if (pars->out > 2)
 		close(pars->out);
-	ft_printf("Apepnding both\n");
 	pars->err = fd;
 	pars->out = fd;
+	return(list->next);
 }

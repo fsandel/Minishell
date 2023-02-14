@@ -65,6 +65,8 @@ static int	execute_child(t_pars *pars, int infd)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, signal_handler_bash);
 		dup_input(infd, pars);
 		dup_output(fd[1], pars);
 		dup_error(pars);

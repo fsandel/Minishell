@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 11:35:49 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/13 16:15:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 
 // INCLUDE ALL LIBRARIES BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
 # include "../lib/libft/libft.h"
-# include "readline/readline.h"
-# include "readline/history.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 // INCLUDE ALL HEADERS BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
 # include "defines.h"

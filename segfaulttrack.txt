@@ -7,3 +7,22 @@ INPUT TEST STR:
 |test te|st test|
 
 > segfaultet irgendwie immer
+
+----------------
+ls 2> test
+ls
+2>
+
+test
+----------------
+ls &> test -l
+ls&
+>
+test
+-l
+----------------
+ls 2>> test
+segfault im lexer
+----------------
+ls &>> test
+segfault im lexer

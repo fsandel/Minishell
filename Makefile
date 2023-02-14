@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/13 11:32:29 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/14 16:39:41 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c parser_setup.c
+PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c parser_setup.c heredoc.c
 
 REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
 REST_DIR		=	src/rest/
@@ -77,7 +77,7 @@ all: $(NAME)
 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include2/ -I ./lib
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): mkdir submodules readline libft $(ALL_OBJ)
