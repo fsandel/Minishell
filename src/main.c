@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 10:09:45 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:16:38 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ char	**command(char *input, char **old_env)
 	t_list	*tokens;
 	t_pars	**pars;
 	char	**env;
+	int		exec;
 
 	ft_putendl_fd("NOW LEXER", 2);
 	tokens = lexer(input);
-	ft_lstprint(tokens);
+	//ft_lstprint(tokens);
 	free(input);
 	if (ft_lstsize(tokens) == 0)
 		return (g_error = 0, free(tokens), old_env);
@@ -93,16 +94,18 @@ char	**command(char *input, char **old_env)
 		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
 	ft_putendl_fd("NOW PARSER", 2);
 	pars = parser(tokens, old_env);
-	env = pars[0]->env;
 	ft_lstclear(&tokens, free);
+	if (!pars)
+		return (old_env);
+	env = pars[0]->env;
 	ft_putendl_fd("NOW EXPANDER", 2);
 	pars = expander(pars);
 	ft_putendl_fd("NOW EXECUTOR", 2);
-	if (pars && pars[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "cd", 3))
+	if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "cd", 3))
 		b_cd(pars[0]);
-	else if (pars && pars[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "unset", 6))
+	else if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "unset", 6))
 		env = b_unset(pars[0]);
-	else if (pars && pars[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "export", 7))
+	else if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "export", 7))
 		env = b_export(pars[0]);
 	else
 		pars = executor(pars);

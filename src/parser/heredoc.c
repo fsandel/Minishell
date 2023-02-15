@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:38:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 16:39:25 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:22:00 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,22 @@ t_list	*here_doc(t_list *list, t_pars *pars)
 	int		fd[2];
 	char	*limiter_no_quote;
 	pid_t	pid;
+	int		status;
 
-	if (!(list->next || list->next->content))
+	if (!list->next)
 	{
-		ft_putendl_fd("here throw error and exit", 2);
-		exit(258);
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
+	}
+	if (!list->next->content)
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
+	}
+	if (!ft_strncmp(list->next->content, "|", 2))
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
 	}
 	if (pipe(fd) < 0)
 		exit(0);
@@ -130,7 +141,9 @@ t_list	*here_doc(t_list *list, t_pars *pars)
 		exit(0);
 	}
 	close(fd[1]);
-	waitpid(0, NULL, 0);
+	waitpid(0, &status, 0);
+	if (!WIFEXITED(status))
+		pars->heredoc = 1;
 	pars->in = fd[0];
 	signal(SIGINT, signal_handler_interactive);
 	return (list->next);

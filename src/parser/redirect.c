@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:12:40 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 19:47:11 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:23:00 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ t_list	*append_out(t_list *list, t_pars *pars)
 		return (g_error = 258, pars->error = 1, NULL);
 	}
 	if (!list->next->content)
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
+	}
+	if (!ft_strncmp(list->next->content, "|", 2))
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
 		return (g_error = 258, pars->error = 1, NULL);
@@ -45,6 +50,11 @@ t_list	*redirect_in(t_list *list, t_pars *pars)
 		return (g_error = 258, pars->error = 1, NULL);
 	}
 	if (!list->next->content)
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
+	}
+	if (!ft_strncmp(list->next->content, "|", 2))
 	{
 		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
 		return (g_error = 258, pars->error = 1, NULL);
@@ -75,6 +85,11 @@ t_list	*redirect_out(t_list *list, t_pars *pars)
 		pars->error = 1;
 		g_error = 258;
 		return (NULL);
+	}
+	if (!ft_strncmp(list->next->content, "|", 2))
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
+		return (g_error = 258, pars->error = 1, NULL);
 	}
 	fd = open(list->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
