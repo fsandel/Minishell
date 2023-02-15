@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 19:56:45 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:23:12 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_pars
 	int		index;
 	int		amount;
 	char	**env;
+	int		error;
 }			t_pars;
 
 typedef	struct lex

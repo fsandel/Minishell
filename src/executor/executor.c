@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 21:24:48 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/15 10:09:10 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 static int	execute_child(t_pars *pars, int infd);
 static void	execute(t_pars *pars);
 
-extern int err;
-
 t_pars	**executor(t_pars **pars)
 {
-	char	*path;
+
 	int		fd;
 	int		i;
 	int		total;
+	int		status;
 
 	total = pars[0]->total_cmd;
 	i = 0;
 	fd = pars[0]->in;
 	while (i < total)
-	{
 		fd = execute_child(pars[i++], fd);
-	}
-	while (i-- + 1)
-		wait(NULL);
-	waitpid(0, NULL, 0);
+	i = 0;
+	while (i++ < total)
+		waitpid(0, &status, 0);
 	close(fd);
-/* 	err = WEXITSTATUS(pid); */
+	if (WIFEXITED(status))
+		g_error = WEXITSTATUS(status);
+	else
+		g_error = 130;
 	return (pars);
 }
 
@@ -48,9 +48,13 @@ static void	execute(t_pars *pars)
 	builtin(pars);
 	command = check_path(pars, path);
 	free(path);
-	execve(command, &pars->cmd[0], pars->env);
+	if (pars->error == 0)
+		execve(command, &pars->cmd[0], pars->env);
+	else
+		exit(1);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(pars->cmd[0], 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(": command not found\n", 2);
 	free(command);
 	exit(127);
 }
@@ -62,14 +66,14 @@ static int	execute_child(t_pars *pars, int infd)
 	char		*command;
 
 	pipe(fd);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, signal_handler_bash);
+		signal(SIGINT, SIG_DFL);
 		dup_input(infd, pars);
 		dup_output(fd[1], pars);
-		dup_error(pars);
 		smart_close(fd[0], fd[1], 0, 0);
 		smart_close(pars->in, pars->out, pars->err, infd);
 		execute(pars);

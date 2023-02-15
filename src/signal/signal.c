@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:32:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 16:47:05 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 10:01:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	signal_handler_bash(int sig)
 	
 	if (sig == SIGINT)
 	{
+		g_error = 130;
+		exit(130);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

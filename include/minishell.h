@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:10:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 19:58:11 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/14 19:41:54 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
+extern int g_error;
 
 # include "includes.h"
 # define TEST 1
