@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 20:13:14 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/15 10:09:45 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**command(char *input, char **old_env);
 char	**arr_del_line(char **arr, char *ln);
 char	**array_add_line(char **arr, char *nl);
-int		err;
+int		g_error;
 
 char	*get_prompt(void)
 {
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[], char *old_env[])
 	char	**env;
 
 	env = copy_arr(old_env);
+	g_error = 0;
 	while (1)
 	{
 		signal(SIGINT, signal_handler_interactive);
@@ -51,7 +52,7 @@ int	main(int argc, char *argv[], char *old_env[])
 		if (!ft_strncmp(input, "", 1))
 		{
 			free(input);
-			err = 1;
+			g_error = 0;
 			continue;
 		}
 		if (!ft_strncmp(input, "exit", 5))
@@ -65,7 +66,7 @@ int	main(int argc, char *argv[], char *old_env[])
 		{
 			ft_putendl_fd("bad quotes", 2);
 			free(input);
-			err = 2;
+			g_error = 1;
 			continue;
 		}
 		else
@@ -82,13 +83,14 @@ char	**command(char *input, char **old_env)
 	t_pars	**pars;
 	char	**env;
 
-	//signal_bash();
 	ft_putendl_fd("NOW LEXER", 2);
 	tokens = lexer(input);
 	ft_lstprint(tokens);
 	free(input);
 	if (ft_lstsize(tokens) == 0)
-		return (NULL);
+		return (g_error = 0, free(tokens), old_env);
+	if (!tokens->content)
+		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
 	ft_putendl_fd("NOW PARSER", 2);
 	pars = parser(tokens, old_env);
 	env = pars[0]->env;

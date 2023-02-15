@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:48:13 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 15:51:14 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:57:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ char	**get_path(char **env)
 	return (NULL);
 }
 
+char	*check_path_access(t_pars *pars, char *path)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	tmp = ft_calloc(1, ft_strlen(pars->cmd[0]) + ft_strlen(path) + 2);
+	while (path[i] != '\0')
+	{
+		tmp[i] = path[i];
+		i++;
+	}
+	tmp[i++] = '/';
+	while (pars->cmd[0][j] != '\0')
+		tmp[i++] = pars->cmd[0][j++];
+	if (access(tmp, F_OK) == 0)
+		return (tmp);
+	else
+		return (free(tmp), NULL);
+}
+
 char	*check_path(t_pars *pars, char **path)
 {
 	int		i;
@@ -34,23 +57,13 @@ char	*check_path(t_pars *pars, char **path)
 	char	*tmp;
 
 	c = 0;
+	if (pars && pars->cmd && access(tmp, F_OK) == 0)
+		return (ft_strdup(pars->cmd[0]));
 	while (path && path[c])
 	{
-		i = 0;
-		j = 0;
-		tmp = ft_calloc(1, ft_strlen(pars->cmd[0]) + ft_strlen(path[c]) + 2);
-		while (path[c][i] != '\0')
-		{
-			tmp[i] = path[c][i];
-			i++;
-		}
-		tmp[i++] = '/';
-		while (pars->cmd[0][j] != '\0')
-			tmp[i++] = pars->cmd[0][j++];
-		if (access(tmp, F_OK) == 0)
+		tmp = check_path_access(pars, path[c++]);
+		if (tmp)
 			return (tmp);
-		free(tmp);
-		c++;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 10:01:01 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 15:52:49 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:58:14 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ void	dup_input(int inpipe, t_pars *pars)
 	}
 }
 
-void	dup_error(t_pars *pars)
-{
-	if (pars->err != STDERR)
-		dup2(pars->err, STDERR);
-}
 
 void	smart_close(int fd1, int fd2, int fd3, int fd4)
 {

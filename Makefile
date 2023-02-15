@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/14 16:39:41 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/14 18:13:37 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c parser_setup.c heredoc.c
+PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c
 
 REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
 REST_DIR		=	src/rest/
