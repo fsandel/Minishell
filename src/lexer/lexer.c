@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/13 18:17:59 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/15 11:02:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ t_list	*lexer(char *input)
 		check_space(lex, input, tokens);
 		check_left(lex, input, tokens);
 	}
-	printf("-----------------------------------------------------\n");
+	//printf("-----------------------------------------------------\n");
 	//ft_lstprint(tokens);
 	free(lex);
 	return (tokens);

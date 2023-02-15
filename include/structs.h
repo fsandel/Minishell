@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 18:23:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 10:52:26 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_pars
 	int		amount;
 	char	**env;
 	int		error;
+	int		heredoc;
 }			t_pars;
 
 typedef	struct lex
