@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 20:35:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:59:43 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	**copy_arr(char **arr);
 int		array_size(char **arr);
 char	**array_add_line(char **arr, char *nl);
 char	**arr_del_line(char **arr, char *ln);
+char	*array_get_line(char **arr, char *ln);
+
 
 //==============================================================================
 //----------------------------PRINT_UTILS.c-------------------------------------

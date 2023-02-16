@@ -6,12 +6,28 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 16:17:07 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:04:38 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*array_get_line(char **arr, char *ln)
+{
+	char	**ret;
+	int		line;
+
+	if (!ln)
+		return (NULL);
+	line = 0;
+	while(arr[line])
+	{
+		if (!ft_strncmp(arr[line], ln, ft_strlen(ln)) && arr[line][ft_strlen(ln)] == '=')
+			return(ft_strdup(&arr[line][ft_strlen(ln) + 1]));
+		line++;
+	}
+	return (NULL);
+}
 char	**array_add_line(char **arr, char *nl)
 {
 	char	**ret;
