@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 11:16:38 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:01:55 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,27 @@ char	*get_prompt(void)
 	return (prompt);
 }
 
-int	main(int argc, char *argv[], char *old_env[])
+void	empty_input_handler(char *input)
+{
+	free(input);
+	g_error = 1;
+}
+
+void	bad_quote_handler(char *input)
+{
+	ft_putendl_fd("minishell: input: bad quotes", 2);
+	free(input);
+	g_error = 1;
+}
+
+
+int	minishell(int argc, char *argv[], char *old_env[])
 {
 	char	*input;
 	char	*prompt;
 	char	**env;
 
 	env = copy_arr(old_env);
-	g_error = 0;
 	while (1)
 	{
 		signal(SIGINT, signal_handler_interactive);
@@ -44,38 +57,23 @@ int	main(int argc, char *argv[], char *old_env[])
 		input = readline(prompt);
 		free(prompt);
 		if (!input)
-		{
-			free_array(env);
-			free(input);
-			break ;
-		}
-		if (!ft_strncmp(input, "", 1))
-		{
-			free(input);
-			g_error = 0;
-			continue;
-		}
-		if (!ft_strncmp(input, "exit", 5))
-		{
-			free_array(env);
-			free(input);
-			break ;
-		}
-		add_history(input);
-		if (check_input(input))
-		{
-			ft_putendl_fd("bad quotes", 2);
-			free(input);
-			g_error = 1;
-			continue;
-		}
+			return (free_array(env), free(input), g_error);
+		else if (!ft_strncmp(input, "", 1))
+			empty_input_handler(input);
+		else if (check_input(input))
+			bad_quote_handler(input);
 		else
 			env = command(input, env);
 	}
-	//system("leaks minishell");
-	return (0);
+	return (g_error);
 }
 
+int	main(int argc, char *argv[], char *old_env[])
+{
+	g_error = 0;
+	minishell(argc, argv, old_env);
+	return (g_error);
+}
 
 char	**command(char *input, char **old_env)
 {
@@ -84,32 +82,20 @@ char	**command(char *input, char **old_env)
 	char	**env;
 	int		exec;
 
-	ft_putendl_fd("NOW LEXER", 2);
+	add_history(input);
 	tokens = lexer(input);
-	//ft_lstprint(tokens);
 	free(input);
 	if (ft_lstsize(tokens) == 0)
 		return (g_error = 0, free(tokens), old_env);
 	if (!tokens->content)
 		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
-	ft_putendl_fd("NOW PARSER", 2);
 	pars = parser(tokens, old_env);
 	ft_lstclear(&tokens, free);
 	if (!pars)
 		return (old_env);
 	env = pars[0]->env;
-	ft_putendl_fd("NOW EXPANDER", 2);
 	pars = expander(pars);
-	ft_putendl_fd("NOW EXECUTOR", 2);
-	if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "cd", 3))
-		b_cd(pars[0]);
-	else if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "unset", 6))
-		env = b_unset(pars[0]);
-	else if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1 && !ft_strncmp(pars[0]->cmd[0], "export", 7))
-		env = b_export(pars[0]);
-	else
-		pars = executor(pars);
-	waitpid(0, NULL, 0);
+		env = executor(pars);
 	free_struct(pars);
 	return (env);
 }
