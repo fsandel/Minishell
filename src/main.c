@@ -6,16 +6,22 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 15:01:55 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:10:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		minishell(int argc, char *argv[], char *old_env[]);
 char	**command(char *input, char **old_env);
-char	**arr_del_line(char **arr, char *ln);
-char	**array_add_line(char **arr, char *nl);
 int		g_error;
+
+int	main(int argc, char *argv[], char *old_env[])
+{
+	g_error = 0;
+	minishell(argc, argv, old_env);
+	return (g_error);
+}
 
 char	*get_prompt(void)
 {
@@ -27,20 +33,6 @@ char	*get_prompt(void)
 	free(path);
 	return (prompt);
 }
-
-void	empty_input_handler(char *input)
-{
-	free(input);
-	g_error = 1;
-}
-
-void	bad_quote_handler(char *input)
-{
-	ft_putendl_fd("minishell: input: bad quotes", 2);
-	free(input);
-	g_error = 1;
-}
-
 
 int	minishell(int argc, char *argv[], char *old_env[])
 {
@@ -65,13 +57,6 @@ int	minishell(int argc, char *argv[], char *old_env[])
 		else
 			env = command(input, env);
 	}
-	return (g_error);
-}
-
-int	main(int argc, char *argv[], char *old_env[])
-{
-	g_error = 0;
-	minishell(argc, argv, old_env);
 	return (g_error);
 }
 

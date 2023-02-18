@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:38:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 11:22:00 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 09:35:30 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,12 @@ char	*rm_quote(char *str)
 	return (ret);
 }
 
-void	here_doc_loop(char *limiter, int fd, char **env)
+void	here_doc_child(char *limiter_uncut, int fd[2], char **env)
 {
 	char	*temp;
+	char	*limiter;
 
+	limiter = rm_quote(limiter_uncut);
 	signal(SIGINT, SIG_DFL);
 	while (1)
 	{
@@ -98,13 +100,15 @@ void	here_doc_loop(char *limiter, int fd, char **env)
 		if (!ft_strncmp(temp, limiter, ft_strlen(limiter) + 1))
 			break ;
 		if (ft_strchr(limiter, '\"') || ft_strchr(limiter, '\''))
-			ft_putendl_fd(temp, fd);
+			ft_putendl_fd(temp, fd[1]);
 		else
-			expand(temp, env, fd);
+			expand(temp, env, fd[1]);
 		free(temp);
 	}
 	free(temp);
 	free(limiter);
+	smart_close(fd[0], fd[1], 0, 0);
+	exit(0);
 }
 
 t_list	*here_doc(t_list *list, t_pars *pars)
@@ -115,31 +119,20 @@ t_list	*here_doc(t_list *list, t_pars *pars)
 	int		status;
 
 	if (!list->next)
-	{
-		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
-		return (g_error = 258, pars->error = 1, NULL);
-	}
+		return (ft_putendl_fd("minishell: syntax error near unexpected token \
+			'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (!list->next->content)
-	{
-		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
-		return (g_error = 258, pars->error = 1, NULL);
-	}
-	if (!ft_strncmp(list->next->content, "|", 2))
-	{
-		ft_putendl_fd("minishell: syntax error near unexpected token 'newline'", 2);
-		return (g_error = 258, pars->error = 1, NULL);
-	}
-	if (pipe(fd) < 0)
-		exit(0);
+		return (ft_putendl_fd("minishell: syntax error near unexpected token \
+			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+	if (unexpected_token(list->next->content))
+		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
+				2), ft_putendl_fd(list->next->content, 2), g_error = 258,
+			pars->error = 1, NULL);
+	pipe(fd);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
-	{
-		limiter_no_quote = rm_quote(list->next->content);
-		here_doc_loop(limiter_no_quote, fd[1], pars->env);
-		smart_close(fd[0], fd[1], 0, 0);
-		exit(0);
-	}
+		here_doc_child(limiter_no_quote, fd, pars->env);
 	close(fd[1]);
 	waitpid(0, &status, 0);
 	if (!WIFEXITED(status))

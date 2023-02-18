@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:42:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 11:38:06 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 10:54:19 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	b_echo(t_pars *pars)
 	}
 	while (pars->cmd[i])
 	{
-		ft_putstr_fd(pars->cmd[i++], STDOUT); //remove quotes
+		ft_putstr_fd(pars->cmd[i++], STDOUT);
 		if (pars->cmd[i])
 			ft_putchar_fd(' ', STDOUT);
 	}

@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 15:04:38 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:12:09 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ char	*array_get_line(char **arr, char *ln)
 	if (!ln)
 		return (NULL);
 	line = 0;
-	while(arr[line])
+	while (arr[line])
 	{
-		if (!ft_strncmp(arr[line], ln, ft_strlen(ln)) && arr[line][ft_strlen(ln)] == '=')
-			return(ft_strdup(&arr[line][ft_strlen(ln) + 1]));
+		if (!ft_strncmp(arr[line], ln, ft_strlen(ln))
+			&& arr[line][ft_strlen(ln)] == '=')
+			return (ft_strdup(&arr[line][ft_strlen(ln) + 1]));
 		line++;
 	}
 	return (NULL);
 }
+
 char	**array_add_line(char **arr, char *nl)
 {
 	char	**ret;
@@ -68,16 +70,6 @@ char	**arr_del_line(char **arr, char *ln)
 	ret[ret_line] = NULL;
 	free_array(arr);
 	return (ret);
-}
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
 }
 
 char	**copy_arr(char **arr)

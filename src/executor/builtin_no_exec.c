@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 16:21:08 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 11:25:10 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	**update_pwd(char	*new, char **env)
 	old = array_get_line(env, "PWD");
 	if (old)
 	{
-
 		old_string = ft_strjoin("OLDPWD=", old);
 		free(old);
 		env = arr_del_line(env, "OLDPWD");
@@ -34,17 +33,18 @@ char	**update_pwd(char	*new, char **env)
 	free(new_string);
 	return (env);
 }
+
 char	**b_cd(t_pars *pars, char **env)
 {
 	char	*wd;
 	char	*new_dir;
 	char	*temp;
-	
+
 	if (!pars->cmd[1])
 	{
 		new_dir = array_get_line(env, "HOME");
 		if (!new_dir)
-			return(ft_putstr_fd("minishell: cd: HOME not set\n", 2), env);
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), env);
 	}
 	else if (pars->cmd[1][0] == '/')
 	{
@@ -122,6 +122,7 @@ int	string_is_digit(char *str)
 	}
 	return (1);
 }
+
 void	free_all(char **arr, t_pars **pars)
 {
 	free_array(arr);
@@ -139,7 +140,8 @@ char	**b_exit(t_pars **pars, char **env)
 		exit(255);
 	}
 	if (pars[0]->amount > 2)
-		return (ft_putendl_fd("minishell: exit: too many arguments", 2), g_error = 1, env);
+		return (ft_putendl_fd("minishell: exit: too many arguments", 2),
+			g_error = 1, env);
 	if (pars[0]->cmd[1])
 		g_error = ft_atoi(pars[0]->cmd[1]);
 	free_all(env, pars);
