@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 11:39:18 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 11:43:48 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	**executor(t_pars **pars)
 	int		total;
 	int		status;
 	char	**env;
+
 	env = pars[0]->env;
 	if (check_builtin(pars))
 		env = do_builtin(pars, env);
