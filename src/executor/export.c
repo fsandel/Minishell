@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:29:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 13:29:48 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:09:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,56 @@ void	export_error(char **env)
 		display_line(env[i++]);
 }
 
+int	valid_identifier(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(str[0]))
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i++]))
+			return (0);
+	}
+	return (1);
+}
+
+char	**export(char **env, char *str)
+{
+	int		i;
+	char	*copy;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	copy = ft_calloc(i + 1, sizeof(char));
+	ft_memmove(copy, str, i);
+	env = arr_del_line(env, copy);
+	env = array_add_line(env, str);
+	free(copy);
+	return (env);
+}
+
 char	**b_export(t_pars *pars)
 {
 	int	i;
-	int	error;
 
-	error = 0;
+	g_error = 0;
 	i = 1;
 	if (pars->amount == 1)
 		return (export_error(pars->env), pars->env);
 	while (pars->cmd[i])
 	{
-		if (ft_isalpha(pars->cmd[i][0]))
-		{
-			pars->env = arr_del_line(pars->env, pars->cmd[i]);
-			pars->env = array_add_line(pars->env, pars->cmd[i]);
-		}
+		if (valid_identifier(pars->cmd[i]))
+			pars->env = export(pars->env, pars->cmd[i]);
 		else
 		{
 			ft_err_print("minishell: export: '%s': not a valid identifier\n",
 				pars->cmd[i], NULL, NULL);
-			error = 1;
+			g_error = 1;
 		}
 		i++;
 	}
-	g_error = error;
 	return (pars->env);
 }

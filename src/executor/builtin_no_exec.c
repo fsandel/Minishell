@@ -6,19 +6,43 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 13:30:59 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 14:58:50 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	str_is_alpha_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i++]))
+			return (1);
+	}
+	return (0);
+}
+
 char	**b_unset(t_pars *pars)
 {
 	int	i;
 
+	g_error = 0;
 	i = 1;
 	while (pars->cmd[i])
-		pars->env = arr_del_line(pars->env, pars->cmd[i++]);
+	{
+		if (ft_isalpha(pars->cmd[i][0]) && !str_is_alpha_num(pars->cmd[i]))
+			pars->env = arr_del_line(pars->env, pars->cmd[i]);
+		else
+		{
+			ft_err_print("minishell: unset: '%s': not a valid identifier\n",
+				pars->cmd[i], NULL, NULL);
+			g_error = 1;
+		}
+		i++;
+	}
 	return (pars->env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:42:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 10:54:19 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 14:29:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,18 @@ int	b_pwd(t_pars *pars)
 	char	*wd;
 
 	wd = getcwd(NULL, 0);
-	ft_putendl_fd(wd, STDOUT);
-	free(wd);
-	exit(0);
-	return (-1);
+	if (!wd)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(pars->cmd[0]);
+		exit(1);
+	}
+	else
+	{
+		ft_putendl_fd(wd, STDOUT);
+		free(wd);
+		exit(0);
+	}
 }
 
 int	b_env(t_pars *pars)
@@ -53,7 +61,7 @@ int	b_env(t_pars *pars)
 	i = 0;
 	if (pars->amount > 1)
 	{
-		ft_putendl_fd("no arguments in env", 2);
+		ft_putendl_fd("minishell: env: no arguments for env", 2);
 		exit(1);
 	}
 	while (pars->env[i])

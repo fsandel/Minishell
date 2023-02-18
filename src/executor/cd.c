@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:30:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 13:30:49 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 14:20:29 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ char	**b_cd(t_pars *pars, char **env)
 		ft_putendl_fd(new_dir, 1);
 	}
 	else
-		cd_get_realtive_dir(pars->cmd[1]);
+		new_dir = cd_get_realtive_dir(pars->cmd[1]);
 	env = update_pwd(new_dir, env);
-	if (chdir(new_dir))
+	g_error = chdir(new_dir) * -1;
+	if (g_error)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		perror(pars->cmd[1]);
 	}
-	free(new_dir);
-	return (env);
+	return (free(new_dir), env);
 }
