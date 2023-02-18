@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:30:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 14:20:29 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:33:31 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ char	*cd_get_realtive_dir(char *cmd)
 
 char	**b_cd(t_pars *pars, char **env)
 {
-	char	*wd;
 	char	*new_dir;
-	char	*temp;
 
 	if (!pars->cmd[1])
 	{

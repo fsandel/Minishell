@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 17:10:34 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:34:18 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	minishell(int argc, char *argv[], char *old_env[])
 	char	*prompt;
 	char	**env;
 
+	(void)argc;
+	(void)argv;
 	env = copy_arr(old_env);
 	while (1)
 	{
@@ -65,7 +67,6 @@ char	**command(char *input, char **old_env)
 	t_list	*tokens;
 	t_pars	**pars;
 	char	**env;
-	int		exec;
 
 	add_history(input);
 	tokens = lexer(input);
@@ -80,7 +81,7 @@ char	**command(char *input, char **old_env)
 		return (old_env);
 	env = pars[0]->env;
 	pars = expander(pars);
-		env = executor(pars);
+	env = executor(pars);
 	free_struct(pars);
 	return (env);
 }
