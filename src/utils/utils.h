@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 17:13:08 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 13:33:16 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 void	do_exit(int error);
 int		is_whitespace(char c);
 void	ft_free(void **arg, char *loc);
+void	ft_err_print(char *str, char *s1, char *s2, char *s3);
 
 //==============================================================================
 //----------------------------FT_SPLIT_SPECIAL.c--------------------------------
