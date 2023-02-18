@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 15:18:19 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 11:39:18 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	check_builtin(t_pars **pars)
 {
 	if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1)
 	{
-		if (!ft_strncmp(pars[0]->cmd[0], "cd", 3) ||
-			!ft_strncmp(pars[0]->cmd[0], "unset", 6) ||
-			!ft_strncmp(pars[0]->cmd[0], "export", 7) ||
-			!ft_strncmp(pars[0]->cmd[0], "exit", 5))
+		if (!ft_strncmp(pars[0]->cmd[0], "cd", 3)
+			|| !ft_strncmp(pars[0]->cmd[0], "unset", 6)
+			|| !ft_strncmp(pars[0]->cmd[0], "export", 7)
+			|| !ft_strncmp(pars[0]->cmd[0], "exit", 5))
 			return (1);
 		else
 			return (0);
@@ -43,15 +43,14 @@ char	**do_builtin(t_pars **pars, char **env)
 		env = b_exit(pars, env);
 	return (env);
 }
+
 char	**executor(t_pars **pars)
 {
-
 	int		fd;
 	int		i;
 	int		total;
 	int		status;
 	char	**env;
-
 	env = pars[0]->env;
 	if (check_builtin(pars))
 		env = do_builtin(pars, env);
@@ -62,8 +61,7 @@ char	**executor(t_pars **pars)
 		fd = pars[0]->in;
 		while (i < total)
 			fd = execute_child(pars, fd, i++);
-		i = 0;
-		while (i++ < total)
+		while (total--)
 			waitpid(0, &status, 0);
 		close(fd);
 		if (WIFEXITED(status))

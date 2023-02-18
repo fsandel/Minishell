@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:42 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 20:38:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:12:52 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 * ggf argument mitgeben von wo gefreet wird sodass man weiß von woher was kommt
 * argument dann zu void casten 
 */
-extern int err;
-
-void do_exit(int error)
-{
-	printf("error: %i\n", error);
-	err = error;
-	printf("err: %i\n", err);
-	exit(error);
-}
 
 void	ft_free(void **arg, char *loc)
 {
@@ -45,4 +36,14 @@ int	is_whitespace(char c)
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void	free_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }
