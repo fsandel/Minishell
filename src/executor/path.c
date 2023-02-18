@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:48:13 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 18:57:39 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:33:14 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ char	*check_path_access(t_pars *pars, char *path)
 
 char	*check_path(t_pars *pars, char **path)
 {
-	int		i;
-	int		j;
 	int		c;
 	char	*tmp;
 
