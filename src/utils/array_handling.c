@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 17:12:09 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:06:48 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**arr_del_line(char **arr, char *ln)
 	while (arr[line])
 	{
 		if (!ft_strncmp(arr[line], ln, ft_strlen(ln))
-			&& arr[line][ft_strlen(ln)] == '=')
+			&& (arr[line][ft_strlen(ln)] == '=' || !arr[line][ft_strlen(ln)]))
 			line++;
 		else
 			ret[ret_line++] = ft_strdup(arr[line++]);

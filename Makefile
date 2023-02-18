@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/18 13:30:41 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/18 15:26:32 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,15 +73,14 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: $(NAME)
-
+all: mkdir submodules readline libft $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
-$(NAME): mkdir submodules readline libft $(ALL_OBJ)
-	$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
+$(NAME): $(ALL_OBJ)
+	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
@@ -161,8 +160,6 @@ $(READLINE):
 LSAN			=	LeakSanitizer
 LSANLIB			=	/LeakSanitizer/liblsan.a
 
-
-
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
@@ -193,7 +190,5 @@ LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
-
-.SILENT:
 
 .PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan
