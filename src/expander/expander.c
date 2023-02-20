@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 20:09:40 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:54:07 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,31 @@ int	rm_bs(t_pars **pars, int set, int num)
 }
 
 
-void rm_quot(t_pars **pars, int set, int num)
+int rm_quot(t_pars **pars, int set, int num)
 {
 	int		i;
+	int		r;
 	int		j;
 	int		last;
 	char	*str;
 
 	i = 0;
+	r = 0;
 	j = 0;
 	last = 0;
 	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	while (i < ft_strlen(pars[set]->cmd[num]))
 	{
-		if ((pars[set]->cmd[num][i] == '\"'
-			|| pars[set]->cmd[num][i] == '\'')
-			&& pars[set]->cmd[num][i - 1] != '\\'
+		if (((pars[set]->cmd[num][i] == '\"'
+			&& pars[set]->cmd[num][i - 1] != '\\')
+			|| (pars[set]->cmd[num][i] == '\''))
 			&& pars[set]->cmd[num][i] != '\0')
 		{
 			last = i++;
 			while (TRUE && pars[set]->cmd[num][i] != '\0')
 			{
+				if (pars[set]->cmd[num][i] == '$' && pars[set]->cmd[num][last] == '\'')
+					r = 1;
 				if (pars[set]->cmd[num][i] == pars[set]->cmd[num][last])
 				{
 					if (pars[set]->cmd[num][i] == '\"'
@@ -127,6 +131,7 @@ void rm_quot(t_pars **pars, int set, int num)
 	free(pars[set]->cmd[num]);
 	pars[set]->cmd[num] = ft_strdup(str);
 	free(str);
+	return (r);
 }
 //i < ft_strlen(pars[set]->cmd[num]) && 
 
@@ -143,28 +148,39 @@ int	path(t_pars **pars, int set, int num)
 	char	*str;
 	char	*path;
 	char	*prepath;
+	char	*postpath;
 
 	i = 0;
 	j = 0;
 	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	prepath = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
+	postpath = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	while (pars[set]->cmd[num][i] != '$')
 		prepath[j++] = pars[set]->cmd[num][i++];
+	printf("PREPATH: %s\n", prepath);
 	i++;
 	if (pars[set]->cmd[num][i] == '?')
 		return (errorput(pars, set, num, prepath));
 	j = 0;
-	while (check(pars[set]->cmd[num][i], "$\n") == FALSE
-			&& is_whitespace(pars[set]->cmd[num][i]) == FALSE
-			&& pars[set]->cmd[num][i] != '\0')
+	while (check(pars[set]->cmd[num][i + 1], "$\n") == FALSE
+			&& is_whitespace(pars[set]->cmd[num][i + 1]) == FALSE
+			&& pars[set]->cmd[num][i + 1] != '\0')
 			str[j++] = pars[set]->cmd[num][i++];
 	str[j] = '\0';
+	j = 0;
+	while (pars[set]->cmd[num][i] != '\0')
+		postpath[j++] = pars[set]->cmd[num][i++];
+	postpath[j] = '\0';
+	printf("PATH: %s\n", str);
 	i = 0;
 	while(pars[set]->env[i] && ft_strncmp(str, ft_substr(pars[set]->env[i], 0, ft_strlen(str)), ft_strlen(pars[set]->env[i])) != 0)
 		i++;
 	free(pars[set]->cmd[num]);
 	if (pars[set]->env[i] != NULL)
+	{
 		pars[set]->cmd[num] = ft_strjoin(prepath, ft_substr(pars[set]->env[i], ft_strlen(str) + 1, ft_strlen(pars[set]->env[i]) - ft_strlen(str)));
+		pars[set]->cmd[num] = ft_strjoin(pars[set]->cmd[num], postpath);
+	}
 	else
 		pars[set]->cmd[num] = ft_strdup("");
 	return(0);
@@ -179,13 +195,18 @@ void	cmd_expand(t_pars **pars, char **cmds, char **env, int set)
 	num = 0;
 	while (cmds[num])
 	{
+		printf("OG:   %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '\'')
 			|| ft_strchr(pars[set]->cmd[num], '\"'))
-			rm_quot(pars, set, num);
+			v = rm_quot(pars, set, num);
+		printf("quot: %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '\\'))
 			v = rm_bs(pars, set, num);
+		printf("bs:   %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '$') && v == 0)
 			path(pars, set, num);
+		printf("path: %s    v: %i\n", pars[set]->cmd[num], v);
+		printf("----------------------expanddone\n");
 		num++;
 	}
 }
