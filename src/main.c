@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 15:56:02 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:31:19 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**command(char *input, char **old_env)
 	if (!pars)
 		return (old_env);
 	env = pars[0]->env;
-	//pars = expander(pars);
+	pars = expander(pars);
 	env = executor(pars);
 	free_struct(pars);
 	return (env);

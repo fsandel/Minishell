@@ -6,13 +6,12 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 16:54:07 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:49:00 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int err;
 
 void	print_exp(t_pars **pars)
 {
@@ -24,14 +23,9 @@ void	print_exp(t_pars **pars)
 	i = 0;
 	while (i < total)
 	{
-		printf("CURRENTLY WORKING ON PARS[%i]\n", i);
-		printf("-----------------------------------------------------\n");
 		j = 0;
 		while (pars[i]->cmd[j])
-		{
-			printf("CMD#%i:%i:%s:\n", i, j, pars[i]->cmd[j]);
 			j++;
-		}
 		i++;
 	}
 }
@@ -135,9 +129,11 @@ int rm_quot(t_pars **pars, int set, int num)
 }
 //i < ft_strlen(pars[set]->cmd[num]) && 
 
-int	errorput(t_pars **pars, int set, int num, char *prepath)
+int	errorput(t_pars **pars, int set, int num, char *prepath, char *postpath)
 {
-	pars[set]->cmd[num] = ft_strjoin(prepath, ft_itoa(err));
+	free(pars[set]->cmd[num]);
+	pars[set]->cmd[num] = ft_strjoin(prepath, ft_itoa(g_error));
+	pars[set]->cmd[num] = ft_strjoin(pars[set]->cmd[num], postpath);
 	return(1);	
 }
 
@@ -157,24 +153,27 @@ int	path(t_pars **pars, int set, int num)
 	postpath = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	while (pars[set]->cmd[num][i] != '$')
 		prepath[j++] = pars[set]->cmd[num][i++];
-	printf("PREPATH: %s\n", prepath);
 	i++;
-	if (pars[set]->cmd[num][i] == '?')
-		return (errorput(pars, set, num, prepath));
 	j = 0;
+	if (pars[set]->cmd[num][i] != '?')
+	{
 	while (check(pars[set]->cmd[num][i + 1], "$\n") == FALSE
 			&& is_whitespace(pars[set]->cmd[num][i + 1]) == FALSE
 			&& pars[set]->cmd[num][i + 1] != '\0')
 			str[j++] = pars[set]->cmd[num][i++];
+	}
+	else
+		i++;
 	str[j] = '\0';
 	j = 0;
 	while (pars[set]->cmd[num][i] != '\0')
 		postpath[j++] = pars[set]->cmd[num][i++];
 	postpath[j] = '\0';
-	printf("PATH: %s\n", str);
 	i = 0;
 	while(pars[set]->env[i] && ft_strncmp(str, ft_substr(pars[set]->env[i], 0, ft_strlen(str)), ft_strlen(pars[set]->env[i])) != 0)
 		i++;
+	if (ft_strnstr(pars[set]->cmd[num], "$?", ft_strlen(pars[set]->cmd[num])))
+		return (errorput(pars, set, num, prepath, postpath));
 	free(pars[set]->cmd[num]);
 	if (pars[set]->env[i] != NULL)
 	{
@@ -195,18 +194,13 @@ void	cmd_expand(t_pars **pars, char **cmds, char **env, int set)
 	num = 0;
 	while (cmds[num])
 	{
-		printf("OG:   %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '\'')
 			|| ft_strchr(pars[set]->cmd[num], '\"'))
 			v = rm_quot(pars, set, num);
-		printf("quot: %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '\\'))
 			v = rm_bs(pars, set, num);
-		printf("bs:   %s    v: %i\n", pars[set]->cmd[num], v);
 		if (ft_strchr(pars[set]->cmd[num], '$') && v == 0)
 			path(pars, set, num);
-		printf("path: %s    v: %i\n", pars[set]->cmd[num], v);
-		printf("----------------------expanddone\n");
 		num++;
 	}
 }
