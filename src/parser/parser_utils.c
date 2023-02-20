@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:07:20 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 16:03:32 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:36:43 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_struct(t_pars **pars)
 	while (i < total)
 	{
 		j = 0;
+		smart_close(pars[i]->in, pars[i]->out, pars[i]->err, 0);
 		while (pars[i]->cmd[j])
 			free(pars[i]->cmd[j++]);
 		free(pars[i]->cmd);

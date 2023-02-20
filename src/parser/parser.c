@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:05 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 10:34:52 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:34:30 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ t_pars	**fill_struct(t_list *list, t_pars **pars)
 				list = parse_redirect(list, pars, c.line);
 		else if (list && list->content && !ft_strncmp(list->content, "<<", 3))
 		{
-			list = here_doc(list, pars[c.line]);
-			if (pars[c.line])
+			list = here_doc(list, pars[c.line], pars);
+			if (pars[c.line]->heredoc)
 				return (free_struct(pars), NULL);
 		}
 		else
