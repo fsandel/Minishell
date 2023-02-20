@@ -6,6 +6,13 @@ INPUT TEST STR:
 >test >>test te>st te>>st test> test>>
 |test te|st test|
 
+
+echo "1\2\3"4 "5"6 "7"8 "9'10'11'12'13" 14'15"16'17 "18'19"20 '21'22 "23'24?25"26
+\ '''' " ' '?
+
+
+\ " ' " ' '?
+
 > segfaultet irgendwie immer
 
 ----------------
@@ -26,3 +33,65 @@ segfault im lexer
 ----------------
 ls &>> test
 segfault im lexer
+
+		if (pars[set]->cmd[num][i] == '\"' 
+			&& pars[set]->cmd[num][i - 1] != '\\' 
+			|| pars[set]->cmd[num][i] == '\'')
+		{
+			d = 1;
+			if (j == 0)
+				last = i++;
+			while (	pars[set]->cmd[num][i] != pars[set]->cmd[num][last]
+					&& pars[set]->cmd[num][i] != '\0')
+			{
+				if (pars[set]->cmd[num][i] == '\\'
+				&& pars[set]->cmd[num][last] == '\"')
+				{
+					if (s == 1)
+						s = 0;
+					else
+					{
+						i++;
+						s++;
+					}
+				}
+				if (pars[set]->cmd[num][i] == pars[set]->cmd[num][last] 
+					&& i != last)
+				{
+					if (pars[set]->cmd[num][i] == '\"'
+					&& pars[set]->cmd[num][i - 1] == '\\')
+					{
+						if (s == 1 && d != 1)
+						{
+							printf("Writing %i:%c\n", i, pars[set]->cmd[num][i]);
+							str[j++] = pars[set]->cmd[num][i++];
+							printf("str1:%s\n", str);
+							s = 0;
+						}
+						else
+						{
+							printf("since s != 1 && d == 1 skipping %i:%c\n",i, pars[set]->cmd[num][i]);
+							i++;
+							d = 0;
+						}
+					}
+					else
+						break;
+				}
+				else
+				{	
+					printf("Writing %i:%c\n", i, pars[set]->cmd[num][i]);
+					str[j++] = pars[set]->cmd[num][i++];
+					printf("str2:%s\n", str);
+				}
+			}
+		}
+		if (pars[set]->cmd[num][i] != '\"'
+			&& pars[set]->cmd[num][i] != '\'')
+			{
+			printf("Writing %i:%c\n", i, pars[set]->cmd[num][i]);
+			str[j++] = pars[set]->cmd[num][i++];
+			printf("str3:%s\n", str);
+			}
+		else
+			i++;
