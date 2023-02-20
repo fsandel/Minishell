@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:03:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/01/31 14:06:18 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:09:25 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ int	check_input(char *str)
 		return (ERROR);
 	else
 		return (SUCCESS);
+}
+
+void	empty_input_handler(char *input)
+{
+	free(input);
+	g_error = 1;
+}
+
+void	bad_quote_handler(char *input)
+{
+	ft_putendl_fd("minishell: input: bad quotes", 2);
+	free(input);
+	g_error = 1;
 }

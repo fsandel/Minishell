@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/14 16:40:43 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/18 09:34:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef struct s_q
 	int	esc;
 }	t_q;
 
+typedef struct s_c
+{
+	int	i;
+	int	line;
+}	t_c;
+
 //==============================================================================
 //--------------------------------parser.c--------------------------------------
 //==============================================================================
@@ -41,6 +47,7 @@ t_pars	**parser(t_list *list, char **env);
 t_list	*redirect_out(t_list *list, t_pars *pars);
 t_list	*redirect_err(t_list *list, t_pars *pars);
 t_list	*redirect_both(t_list *list, t_pars *pars);
+int		unexpected_token(char *str);
 
 //==============================================================================
 //--------------------------------redirect_append.c-----------------------------

@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/14 16:39:41 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/18 15:26:32 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_FILES		=	main.c
 
 EXECUTOR		=	$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 EXECUTOR_DIR	=	src/executor/
-EXECUTOR_FILES	=	executor.c duping.c builtin.c builtin_in_exec.c builtin_no_exec.c path.c
+EXECUTOR_FILES	=	executor.c duping.c builtin.c builtin_in_exec.c builtin_no_exec.c path.c export.c cd.c
 
 EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
 EXPANDER_DIR	=	src/expander/
@@ -38,7 +38,7 @@ LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c redirect_out.c redirect_append.c redirect_in.c parser_utils.c parser_setup.c heredoc.c
+PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c
 
 REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
 REST_DIR		=	src/rest/
@@ -73,15 +73,14 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: $(NAME)
-
+all: mkdir submodules readline libft $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
-$(NAME): mkdir submodules readline libft $(ALL_OBJ)
-	$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
+$(NAME): $(ALL_OBJ)
+	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
@@ -161,8 +160,6 @@ $(READLINE):
 LSAN			=	LeakSanitizer
 LSANLIB			=	/LeakSanitizer/liblsan.a
 
-
-
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
@@ -193,7 +190,5 @@ LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
-
-.SILENT:
 
 .PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan

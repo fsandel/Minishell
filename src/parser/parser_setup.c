@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:00:18 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/10 16:07:27 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/15 10:52:45 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_pars	*setup_single_pars(char **env)
 	pars->in = 0;
 	pars->out = 1;
 	pars->amount = 0;
+	pars->error = 0;
+	pars->heredoc = 0;
 	return (pars);
 }
 

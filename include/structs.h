@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 19:56:45 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/18 17:10:47 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ typedef struct s_pars
 	int		index;
 	int		amount;
 	char	**env;
+	int		error;
+	int		heredoc;
 }			t_pars;
 
-typedef	struct lex
+typedef struct lex
 {
 	t_list	*tokens;	// output list coming out of lexer 
 	int		i;			// current position in iteration of input
@@ -40,6 +42,6 @@ typedef	struct lex
 	int		te;			// (last) token end
 	int		q;			// quotes = TRUE/FALSE
 	char	c;			// char comparison
-} 				t_lx;
+}			t_lx;
 
 #endif
