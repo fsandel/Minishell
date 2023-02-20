@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 15:07:17 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:27:26 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,17 @@
 //==============================================================================
 //---------------------------------LEXER.c--------------------------------------
 //==============================================================================
-int     check(char input, char const *it);
-int	    check_null(t_lx *lex, char *input, t_list *tokens);
+int		check(char input, char const *it);
+int		check_null(t_lx *lex, char *input, t_list *tokens);
 void	assign_checks(t_lx *lex);
 void	token(t_lx *lex, char *input, t_list *tokens);
 t_list	*lexer(char *input);
-void    check_pird(t_lx *lex, char *input, t_list *tokens);
+void	check_pird(t_lx *lex, char *input, t_list *tokens);
 void	check_quote(t_lx *lex, char *input, t_list *tokens);
 void	check_space(t_lx *lex, char *input, t_list *tokens);
 void	check_dollar(t_lx *lex, char *input, t_list *tokens);
-void	check_pirdnw(t_lx *lex, char * input, t_list *tokens);
+void	check_pirdnw(t_lx *lex, char *input, t_list *tokens);
 void	ft_lstprint(t_list *list);
-
-//==============================================================================
-//---------------------------------LEXEROLD.c-----------------------------------
-//==============================================================================
-// void	lexer(char	*input);
-// void	ft_lstprint(t_list *list);
-// void	token(t_list *lst, char *input, int start, int end);
-// int     is_whitespace(char c);
-// int 	quotes(t_list **tokens, char *input, int i);
-// int 	get_token(t_list **tokens, char *input, int i);
-// int	    doublequotes(t_list *tokens, char *input, int i, int end);
-// int	    singlequotes(t_list *tokens, char *input, int i, int end);
 //==============================================================================
 //------------------------------SMALLERTHAN.c-----------------------------------
 //==============================================================================
@@ -57,7 +45,7 @@ char	**smallerthanfront(char *content);
 //==============================================================================
 //-------------------------------BIGGERTHAN.c-----------------------------------
 //==============================================================================
-char    **biggerthan(char *content);
+char	**biggerthan(char *content);
 //==============================================================================
 //---------------------------------PIPE.c---------------------------------------
 //==============================================================================

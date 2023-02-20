@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:50:06 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/02 16:59:24 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:26:33 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**pipeback(char *content)
 
 	res = ft_split_special(content, '|');
 	res[1] = ft_strdup("|");
-	return(res);
+	return (res);
 }
 
 char	**pipefront(char *content)
@@ -29,7 +29,7 @@ char	**pipefront(char *content)
 	res[1] = ft_strdup(res[0]);
 	ft_bzero(res[0], ft_strlen(res[0]));
 	res[0] = ft_strdup("|");
-	return(res);
+	return (res);
 }
 
 char	**pipemid(char *content)
@@ -37,9 +37,9 @@ char	**pipemid(char *content)
 	char	**res;
 
 	res = ft_split_special(content, '|');
-    res[2] = ft_strdup(res[1]);
+	res[2] = ft_strdup(res[1]);
 	res[1] = ft_strdup("|");
-	return(res);
+	return (res);
 }
 
 char	**pipeall(char *content)
@@ -48,9 +48,9 @@ char	**pipeall(char *content)
 
 	res = ft_split_special(content, '|');
 	res[1] = ft_strdup(res[0]);
-    res[0] = ft_strdup("|");
+	res[0] = ft_strdup("|");
 	res[2] = ft_strdup("|");
-	return(res);
+	return (res);
 }
 
 char	**haspipe(char *content)
@@ -64,13 +64,13 @@ char	**haspipe(char *content)
 		if (content[ft_strlen(content) - 1] == '|')
 			res = pipeback(content);
 		if (content[0] == '|'
-		&& content[ft_strlen(content) - 1] == '|')
+			&& content[ft_strlen(content) - 1] == '|')
 			res = pipeall(content);
 		if (content[0] != '|'
-		&& content[ft_strlen(content) - 1] != '|')
+			&& content[ft_strlen(content) - 1] != '|')
 			res = pipemid(content);
 	}
-	else/* (counter(content, '|') == ft_strlen(content) -1) */
+	else
 		res = ft_split_special(content, ' ');
 	return (res);
 }

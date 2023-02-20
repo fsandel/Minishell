@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:28:07 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/10 16:17:18 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:33:23 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,18 @@ size_t	counter(char *content, char c)
 		i++;
 	}
 	return (j);
+}
+
+int	check(char input, char const *it)
+{
+	int	c;
+
+	c = 0;
+	while (it[c])
+	{
+		if (it[c] == input)
+			return (TRUE);
+		c++;
+	}
+	return (FALSE);
 }

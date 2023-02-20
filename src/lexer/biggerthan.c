@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:40:58 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/02 17:00:27 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:31:09 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**biggerthanback(char *content)
 		res[1] = ft_strdup(">>");
 	else
 		res[1] = ft_strdup(">");
-	return(res);
+	return (res);
 }
 
 char	**biggerthanfront(char *content)
@@ -36,7 +36,7 @@ char	**biggerthanfront(char *content)
 		res[0] = ft_strdup(">>");
 	else
 		res[0] = ft_strdup(">");
-	return(res);
+	return (res);
 }
 
 char	**biggerthanmid(char *content)
@@ -44,12 +44,12 @@ char	**biggerthanmid(char *content)
 	char	**res;
 
 	res = ft_split_special(content, '>');
-    res[2] = ft_strdup(res[1]);
+	res[2] = ft_strdup(res[1]);
 	if (counter(content, '>') == 2)
 		res[1] = ft_strdup(">>");
 	else
 		res[1] = ft_strdup(">");
-	return(res);
+	return (res);
 }
 
 char	**biggerthanall(char *content)
@@ -60,34 +60,34 @@ char	**biggerthanall(char *content)
 	res[1] = ft_strdup(res[0]);
 	if (content[0] == '>' && content[1] == '>')
 		res[0] = ft_strdup(">>");
-    else
-        res[0] = ft_strdup(">");
+	else
+		res[0] = ft_strdup(">");
 	if (content[ft_strlen(content)] == '>'
-        &&content[ft_strlen(content) - 1] == '>')
+		&&content[ft_strlen(content) - 1] == '>')
 		res[1] = ft_strdup(">>");
-    else
+	else
 		res[1] = ft_strdup(">");
-	return(res);
+	return (res);
 }
 
-char    **biggerthan(char *content)
+char	**biggerthan(char *content)
 {
-    char **res;
+	char	**res;
 
-    if (counter(content, '>') != (ft_strlen(content)))
-    {
-        if (content[0] == '>'
-	    && content[ft_strlen(content) - 1] == '>')
-	    	return(res = biggerthanall(content));
-	    else if (content[0] == '>')
-	    	return(res = biggerthanfront(content));
-	    else if (content[ft_strlen(content) - 1] == '>')
-	    	return(res = biggerthanback(content));
-	    else if (content[0] != '>'
-	    && content[ft_strlen(content) - 1] != '>')
-	    	return(res = biggerthanmid(content));
-    }
-    else if (counter(content, '>') == ft_strlen(content))
-	    res = ft_split_special(content, ' ');
-	return(res);
+	if (counter(content, '>') != (ft_strlen(content)))
+	{
+		if (content[0] == '>'
+			&& content[ft_strlen(content) - 1] == '>')
+			return (res = biggerthanall(content));
+		else if (content[0] == '>')
+			return (res = biggerthanfront(content));
+		else if (content[ft_strlen(content) - 1] == '>')
+			return (res = biggerthanback(content));
+		else if (content[0] != '>'
+			&& content[ft_strlen(content) - 1] != '>')
+			return (res = biggerthanmid(content));
+	}
+	else if (counter(content, '>') == ft_strlen(content))
+	res = ft_split_special(content, ' ');
+	return (res);
 }
