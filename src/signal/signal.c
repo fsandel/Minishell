@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:32:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/16 17:13:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:28:45 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	signal_handler_interactive(int sig)
 {
+	enable_echo();
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -41,4 +42,15 @@ void	signal_interactive(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler_interactive);
 	return ;
+}
+
+void	set_g_error(int status)
+{
+	if (WIFSIGNALED(status))
+		if (WTERMSIG(status) == 2)
+			g_error = 130;
+		else
+			g_error = 131;
+	else
+		g_error = WEXITSTATUS(status);
 }

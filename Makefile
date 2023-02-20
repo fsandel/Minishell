@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/18 15:26:32 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/20 14:44:20 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c
+PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c heredoc_utils.c
 
 REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
 REST_DIR		=	src/rest/
@@ -54,7 +54,7 @@ INPUT_FILES		=	input.c
 
 SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
 SIGNAL_DIR		=	src/signal/
-SIGNAL_FILES	=	signal.c
+SIGNAL_FILES	=	signal.c echo.c
 
 ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL)
 
@@ -102,6 +102,11 @@ re:	fclean all
 mkdir:
 	@mkdir -p $(dir $(ALL_OBJ))
 
+fnorm:
+	norminette $(SRC) $(EXECUTOR) $(INPUT) $(PARSER) $(REST) $(UTILS) | grep Error
+
+env:
+	make all && env -i ./minishell
 ################################################################################
 ################################################################################
 

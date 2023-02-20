@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:33:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:25:21 by fsandel          ###   ########.fr       */
+/*   Created: 2023/02/20 14:22:51 by fsandel           #+#    #+#             */
+/*   Updated: 2023/02/20 14:25:06 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#include "minishell.h"
 
-# include "minishell.h"
+void	disable_echo(void)
+{
+	struct termios t;
 
-void	signal_interactive(void);
-void	signal_bash(void);
-void	signal_handler_interactive(int sig);
-void	signal_handler_bash(int sig);
-void	set_g_error(int status);
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag &= ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+}
 
-void	disable_echo(void);
-void	enable_echo(void);
+void	enable_echo(void)
+{
+	struct termios t;
 
-#endif
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag |= ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+}

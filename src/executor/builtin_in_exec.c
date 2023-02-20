@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:42:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 14:29:34 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 14:51:15 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	b_echo(t_pars *pars)
+void	b_echo(t_pars *pars)
 {
 	int	line;
 	int	i;
@@ -32,10 +32,10 @@ int	b_echo(t_pars *pars)
 	}
 	if (line)
 		ft_putchar_fd('\n', STDOUT);
-	exit(0);
+	g_error = 0;
 }
 
-int	b_pwd(t_pars *pars)
+void	b_pwd(t_pars *pars)
 {
 	char	*wd;
 
@@ -50,11 +50,11 @@ int	b_pwd(t_pars *pars)
 	{
 		ft_putendl_fd(wd, STDOUT);
 		free(wd);
-		exit(0);
 	}
+	g_error = 0;
 }
 
-int	b_env(t_pars *pars)
+void	b_env(t_pars *pars)
 {
 	int	i;
 
@@ -70,5 +70,5 @@ int	b_env(t_pars *pars)
 			ft_putendl_fd(pars->env[i], STDOUT);
 		i++;
 	}
-	exit(0);
+	g_error = 0;
 }
