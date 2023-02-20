@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:58:18 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/02 16:36:13 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/20 19:18:52 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,7 @@ char	**special(char *content)
 		str[0] = ft_strdup(content);
 		str[1] = NULL;
 	}
-/* 	while(str[i])
-	{
-		printf("return %i: %s\n", i, str[i]);
-		i++;
-	} */
-	return(str);
+	return (str);
 }
 
 t_list	*lstspecial(t_list *lst)
@@ -52,32 +47,29 @@ t_list	*lstspecial(t_list *lst)
 	t_list	*out;
 	t_list	*tail;
 	char	**res;
-	int		i;
-	int		c;
+	int		i[2];
 
-	i = 0;
-	c = 0;
+	i[0] = 0;
 	out = NULL;
 	while (lst)
 	{
-		i = 0;
+		i[1] = -1;
 		res = special(lst->content);
-		while(res[i] != NULL)
+		while (res[++i[1]] != NULL)
 		{
-			new = ft_lstnew(res[i]);
-			if (c == 0)
+			new = ft_lstnew(res[i[1]]);
+			if (i[0] == 0)
 			{
-			ft_lstadd_back(&out, new);
-			tail = out;
+				ft_lstadd_back(&out, new);
+				tail = out;
 			}
 			else
 			{
-			ft_lstadd_back(&tail, new);
-			tail = tail->next;
+				ft_lstadd_back(&tail, new);
+				tail = tail->next;
 			}
-			i++;
 		}
-		c++;
+		i[0]++;
 		lst = lst ->next;
 	}
 	return (out);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 13:33:16 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/20 21:16:02 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ char	*array_get_line(char **arr, char *ln);
 //==============================================================================
 void	ft_puttarr_fd(char **arr, int fd);
 void	ft_putcube_fd(char ***cube, int fd);
+void	ft_lstprint(t_list *list);
+void	print_exp(t_pars **pars);
 
 #endif
