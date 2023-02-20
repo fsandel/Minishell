@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/20 14:44:20 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/20 18:57:14 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,9 @@ mkdir:
 
 fnorm:
 	norminette $(SRC) $(EXECUTOR) $(INPUT) $(PARSER) $(REST) $(UTILS) | grep Error
+
+pnorm:
+	norminette $(EXPANDER) $(LEXER) | grep Error
 
 env:
 	make all && env -i ./minishell
