@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 21:49:56 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/14 20:09:40 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,90 +22,113 @@ void	print_exp(t_pars **pars)
 	
 	total = pars[0]->total_cmd; 
 	i = 0;
-	j = 0;
-	while (i <total)
+	while (i < total)
 	{
 		printf("CURRENTLY WORKING ON PARS[%i]\n", i);
 		printf("-----------------------------------------------------\n");
+		j = 0;
 		while (pars[i]->cmd[j])
 		{
-			printf("CMD#%i:%s:\n", i, pars[i]->cmd[i]);
+			printf("CMD#%i:%i:%s:\n", i, j, pars[i]->cmd[j]);
 			j++;
 		}
 		i++;
 	}
 }
 
+int	rm_bs(t_pars **pars, int set, int num)
+{
+	int r;
+	int b;
+	int i;
+	int j;
+	char *str;
+
+	r = 0;
+	b = 0;
+	i = 0;
+	j = 0;
+	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
+	while (TRUE)
+	{
+		if(pars[set]->cmd[num][i] == '\\')
+		{
+			if (b == TRUE)
+			{
+				if (pars[set]->cmd[num][i] == '$')
+					r = 1;
+				str[j++] = pars[set]->cmd[num][i++];
+				b = FALSE;
+			}
+			if (b == FALSE)
+			{
+				i++;
+				b = TRUE;
+			}
+		}
+		else if (pars[set]->cmd[num][i] == '\0')
+			str[j++] = pars[set]->cmd[num][i++];
+		else
+			break;
+	}
+	str[j] = '\0';
+	free(pars[set]->cmd[num]);
+	pars[set]->cmd[num] = ft_strdup(str);
+	free(str);
+	return(r);
+}
+
+
 void rm_quot(t_pars **pars, int set, int num)
 {
 	int		i;
 	int		j;
-	int		k;
-	int		c;
-	int		s;
 	int		last;
 	char	*str;
 
-	if (pars[set]->cmd[num][0] == '\"')
-		k = 1;
 	i = 0;
-	s = 0;
-	c = 0;
 	j = 0;
-	last = -1;
-	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]) - 2);
+	last = 0;
+	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	while (i < ft_strlen(pars[set]->cmd[num]))
 	{
-		if (pars[set]->cmd[num][i] == '\"' 
-			&& pars[set]->cmd[num][i - 1] != '\\' 
+		if ((pars[set]->cmd[num][i] == '\"'
 			|| pars[set]->cmd[num][i] == '\'')
+			&& pars[set]->cmd[num][i - 1] != '\\'
+			&& pars[set]->cmd[num][i] != '\0')
 		{
 			last = i++;
-			while (pars[set]->cmd[num][i] != '\0')
+			while (TRUE && pars[set]->cmd[num][i] != '\0')
 			{
-				if (pars[set]->cmd[num][i] == '\\'
-				&& pars[set]->cmd[num][last] == '\"')
-				{
-					if (s == 1)
-						s = 0;
-					else
-					{
-						i++;
-						s++;
-					}
-				}
-				if (pars[set]->cmd[num][i] == pars[set]->cmd[num][last] 
-					&& i != last)
+				if (pars[set]->cmd[num][i] == pars[set]->cmd[num][last])
 				{
 					if (pars[set]->cmd[num][i] == '\"'
 					&& pars[set]->cmd[num][i - 1] == '\\')
-					{
-						if (s == 1)
-						{
-							str[j++] = pars[set]->cmd[num][i++];
-							s = 0;
-						}
-						else
-							i++;
-					}
+						str[j++] = pars[set]->cmd[num][i++];
 					else
+					{
+						if (pars[set]->cmd[num][i + 1] != '\0')
+							i++;
 						break;
+					}
 				}
-				str[j++] = pars[set]->cmd[num][i++];
+				else
+					str[j++] = pars[set]->cmd[num][i++];
 			}
 		}
-		if (pars[set]->cmd[num][i] != '\"'
-			&& pars[set]->cmd[num][i] != '\'')
+		if (pars[set]->cmd[num][i + 1] == '\0')
+			break;
+		if(check(pars[set]->cmd[num][i], "\"\'") == FALSE
+			|| (pars[set]->cmd[num][i] == '\"'
+			&& pars[set]->cmd[num][i - 1] == '\\'))
 			str[j++] = pars[set]->cmd[num][i++];
-		else
-			i++;
 	}
 	str[j] = '\0';
 	free(pars[set]->cmd[num]);
 	pars[set]->cmd[num] = ft_strdup(str);
 	free(str);
 }
-
+//i < ft_strlen(pars[set]->cmd[num]) && 
 
 int	errorput(t_pars **pars, int set, int num, char *prepath)
 {
@@ -143,21 +166,25 @@ int	path(t_pars **pars, int set, int num)
 	if (pars[set]->env[i] != NULL)
 		pars[set]->cmd[num] = ft_strjoin(prepath, ft_substr(pars[set]->env[i], ft_strlen(str) + 1, ft_strlen(pars[set]->env[i]) - ft_strlen(str)));
 	else
-		pars[set]->cmd[num] = ft_strdup("\n");
+		pars[set]->cmd[num] = ft_strdup("");
 	return(0);
 }
 
 void	cmd_expand(t_pars **pars, char **cmds, char **env, int set)
 {
 	int num;
+	int v;
 	
+	v = 0;
 	num = 0;
 	while (cmds[num])
 	{
 		if (ft_strchr(pars[set]->cmd[num], '\'')
 			|| ft_strchr(pars[set]->cmd[num], '\"'))
 			rm_quot(pars, set, num);
-		if (ft_strchr(pars[set]->cmd[num], '$'))
+		if (ft_strchr(pars[set]->cmd[num], '\\'))
+			v = rm_bs(pars, set, num);
+		if (ft_strchr(pars[set]->cmd[num], '$') && v == 0)
 			path(pars, set, num);
 		num++;
 	}
@@ -175,20 +202,6 @@ t_pars	**expander(t_pars **pars)
 		cmd_expand(pars, pars[i]->cmd, pars[i]->env, i);
 		i++;
 	}
+	print_exp(pars);
 	return (pars);
 }
-
-/* "<>|" fällt wgetasd
-asd$US asd
-asd asd
-pgorner
-
-
-if $ not found rm until whitespace?
-rm "" & ''
-if '' no expand
-if escape character also no expand??
-
-
-asdasdasd$USER
- */
