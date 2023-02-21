@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:00:18 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/15 10:52:45 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:57:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_pars	**setup_struct(t_list *list, char **env)
 		pars[i] = setup_single_pars(env);
 		pars[i]->total_cmd = commands;
 		pars[i]->index = i;
+		pars[i]->list = list;
 		len = 0;
 		while (list && ft_strncmp(list->content, "|", 2))
 		{
