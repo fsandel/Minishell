@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:38:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:58:20 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:29:30 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 void	handle_heredoc_quit(int status, t_pars *pars);
 void	finish_heredoc(int fd[], t_pars *pars);
+
+void	finish_heredoc_child(char **env, t_pars **pars, int *fd, char *limiter)
+{
+	free(limiter);
+	smart_close(fd[0], fd[1], 0, 0);
+	ft_lstclear(&pars[0]->list, free);
+	free_array(env);
+	free_struct(pars);
+}
 
 void	here_doc_child(char *limiter_uncut, int fd[2],
 	char **env, t_pars **pars_full)
@@ -39,18 +48,13 @@ void	here_doc_child(char *limiter_uncut, int fd[2],
 		free(temp);
 	}
 	free(temp);
-	free(limiter);
-	smart_close(fd[0], fd[1], 0, 0);
-	ft_lstclear(&pars_full[0]->list, free);
-	free_array(env);
-	free_struct(pars_full);
+	finish_heredoc_child(env, pars_full, fd, limiter);
 	exit(0);
 }
 
 t_list	*here_doc(t_list *list, t_pars *pars, t_pars **pars_full)
 {
 	int		fd[2];
-	char	*limiter_no_quote;
 	pid_t	pid;
 	int		status;
 

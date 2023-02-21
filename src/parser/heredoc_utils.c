@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:44:02 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:44:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:30:05 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	replace(char *line, char **env, int fd)
 	int	j;
 
 	i = 0;
-	while (line[i] && ft_isalpha(line[i]) || ft_isdigit(line[i]))
+	while (line[i] && (ft_isalpha(line[i]) || ft_isdigit(line[i])))
 		i++;
 	j = 0;
 	while (env[j])
@@ -35,7 +35,6 @@ int	replace(char *line, char **env, int fd)
 
 void	expand(char *line, char **env, int fd)
 {
-	char	*ret;
 	t_q		q;
 
 	q = (t_q){0, 0, 0, 0};

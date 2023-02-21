@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 14:03:41 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:23:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(int argc, char *argv[], char *old_env[])
 	(void)argc;
 	(void)argv;
 	g_error = 0;
+	ft_putendl_fd("\nThe default interactive shell is now minishell.", 2);
+	ft_putendl_fd("If you dont want to, feels bad, you are trapped here.", 2);
+	ft_putendl_fd("forever", 2);
 	minishell(old_env);
 	return (g_error);
 }
@@ -34,6 +37,17 @@ char	*get_prompt(void)
 	prompt = ft_strjoin(path, ": ");
 	free(path);
 	return (prompt);
+}
+
+void	nice_exit(char **env, char *input)
+{
+	char	*prompt;
+
+	prompt = get_prompt();
+	ft_printf("%s%sexit\n", "\033[A", prompt);
+	free(prompt);
+	free_array(env);
+	free(input);
 }
 
 int	minishell(char *old_env[])
@@ -54,7 +68,7 @@ int	minishell(char *old_env[])
 		disable_echo();
 		free(prompt);
 		if (!input)
-			return (free_array(env), free(input), g_error);
+			return (nice_exit(env, input), g_error);
 		else if (!ft_strncmp(input, "", 1))
 			empty_input_handler(input);
 		else if (check_input(input))

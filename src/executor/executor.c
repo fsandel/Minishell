@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 16:46:45 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:18:11 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static void	execute(t_pars **pars, int i)
 static int	execute_child(t_pars **pars, int infd, int i)
 {
 	int			fd[2];
-	pid_t		pid;
 
 	pipe(fd);
 	signal(SIGINT, SIG_IGN);

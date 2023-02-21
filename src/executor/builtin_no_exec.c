@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 14:58:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:11:12 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ char	**b_exit(t_pars **pars, char **env)
 		g_error = ft_atoi(pars[0]->cmd[1]);
 	free_array(env);
 	free_struct(pars);
+	ft_putstr_fd("exit\n", 1);
 	exit(g_error);
 }

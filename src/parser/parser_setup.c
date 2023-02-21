@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:00:18 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:57:33 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:59:58 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pars	*setup_single_pars(char **env)
+t_pars	*setup_single_pars(char **env, t_list *list)
 {
 	t_pars	*pars;
 
@@ -24,6 +24,7 @@ t_pars	*setup_single_pars(char **env)
 	pars->amount = 0;
 	pars->error = 0;
 	pars->heredoc = 0;
+	pars->list = list;
 	return (pars);
 }
 
@@ -39,10 +40,9 @@ t_pars	**setup_struct(t_list *list, char **env)
 	i = 0;
 	while (i < commands)
 	{
-		pars[i] = setup_single_pars(env);
+		pars[i] = setup_single_pars(env, list);
 		pars[i]->total_cmd = commands;
 		pars[i]->index = i;
-		pars[i]->list = list;
 		len = 0;
 		while (list && ft_strncmp(list->content, "|", 2))
 		{

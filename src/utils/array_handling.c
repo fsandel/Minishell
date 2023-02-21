@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 17:06:48 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:30:28 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*array_get_line(char **arr, char *ln)
 {
-	char	**ret;
 	int		line;
 
 	if (!ln)

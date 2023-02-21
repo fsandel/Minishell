@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:57:11 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:33:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ typedef struct s_pars
 typedef struct lex
 {
 	t_list	*tokens;
-	int		i;
-	int		ts;
-	int		te;
+	size_t	i;
+	size_t	ts;
+	size_t	te;
 	int		q;
 	char	c;
 }			t_lx;
 
 typedef struct t_qu
 {
-	int		i;
-	int		r;
-	int		j;
-	int		last;
-	char	*str;
-}			t_qu;
+	size_t		i;
+	int			r;
+	int			j;
+	int			last;
+	char		*str;
+}				t_qu;
 
 typedef struct t_bs
 {

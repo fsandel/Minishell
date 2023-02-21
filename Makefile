@@ -6,19 +6,18 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/21 13:56:15 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/21 17:26:54 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LINKFLAGS = 
 
 ################################################################################
 ################################################################################
-
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
@@ -39,7 +38,6 @@ LEXER_FILES		=	lexer.c lexercheck.c
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
 PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c heredoc_utils.c
-
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
@@ -145,17 +143,11 @@ $(READLINE):
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
-	@cd lib/$(READLINE_VERSION); ./configure --prefix=$(PWD)/lib/readline_out; cd ../..
+	@cd lib/$(READLINE_VERSION); ./configure --prefix=$(PWD)/lib/readline_out
 	@make -C lib/$(READLINE_VERSION)
 	@make install -C lib/$(READLINE_VERSION)
 	@rm -rf lib/$(READLINE_VERSION)
 	@rm -f lib/$(READLINE_VERSION).tar.gz
-	
-#	@mv -f lib/$(READLINE_VERSION) lib/readline
-#	@rm -f lib/$(READLINE_VERSION).tar.gz
-
-# >/dev/null 2>&1
-
 
 ################################################################################
 ################################################################################
