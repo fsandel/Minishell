@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/21 17:26:54 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/21 18:09:06 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,6 +186,5 @@ GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
-
 
 .PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan
