@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:28:40 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/21 14:19:34 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 21:01:38 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	retpath(t_pars **pars, int set, int num, t_ph *ph)
 	else
 		pars[set]->cmd[num] = ft_strdup("");
 	free(ph->pre);
-	free(ph->post);
 	free(ph->str);
+	free(ph->post);
 	return (0);
 }
 
