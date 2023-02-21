@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:28:40 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/21 13:25:21 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:19:34 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,29 @@ void	post(t_pars **pars, int set, int num, t_ph *ph)
 
 int	retpath(t_pars **pars, int set, int num, t_ph *ph)
 {
+	char	*tmp;
+
 	if (ft_strnstr(pars[set]->cmd[num], "$?", ft_strlen(pars[set]->cmd[num])))
 		return (errorput(pars, set, num, ph));
 	free(pars[set]->cmd[num]);
-	if (pars[set]->env[ph->i] != NULL)
+	if (ph->str != NULL)
 	{
-		pars[set]->cmd[num] = ft_strjoin(ph->pre, ph->str);
-		pars[set]->cmd[num] = ft_strjoin(pars[set]->cmd[num], ph->post);
+		tmp = ft_strjoin(ph->pre, ph->str);
+		pars[set]->cmd[num] = ft_strjoin(tmp, ph->post);
+		free(tmp);
 	}
 	else
 		pars[set]->cmd[num] = ft_strdup("");
+	free(ph->pre);
+	free(ph->post);
+	free(ph->str);
 	return (0);
 }
 
 int	path(t_pars **pars, int set, int num)
 {
 	t_ph	ph;
+	char	*tmp;
 
 	ph = (t_ph){0, 0, (char *) NULL, (char *) NULL, (char *) NULL};
 	ph.str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
@@ -67,7 +74,10 @@ int	path(t_pars **pars, int set, int num)
 		middle(pars, set, num, &ph);
 	else
 		ph.i++;
-	ph.str = array_get_line(pars[set]->env, ph.str);
+	post(pars, set, num, &ph);
+	tmp = array_get_line(pars[set]->env, ph.str);
+	free(ph.str);
+	ph.str = tmp;
 	retpath(pars, set, num, &ph);
 	return (0);
 }

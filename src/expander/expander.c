@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:51:32 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:04:22 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ t_pars	**expander(t_pars **pars)
 		cmd_expand(pars, pars[i]->cmd, pars[i]->env, i);
 		i++;
 	}
-	print_exp(pars);
 	return (pars);
 }
