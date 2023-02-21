@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:46:36 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 11:00:10 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:18:44 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_empty_input(t_pars **pars, int i)
 
 void	free_exit(t_pars **pars, char **env)
 {
-	free_array(pars[0]->env);
+	free_array(env);
 	free_struct(pars);
 	exit(g_error);
 }

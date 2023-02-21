@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:41:27 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/20 19:35:43 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_space(t_lx *lex, char *input, t_list *tokens)
 	}
 }
 
-void	check_left(t_lx *lex, char *input, t_list *tokens)
+void	check_left(t_lx *lex, char *input)
 {
 	if (lex->q > 1 && input[lex->i] != '\0')
 		lex->i++;
@@ -65,7 +65,7 @@ t_list	*lexer(char *input)
 		check_pird(lex, input, tokens);
 		check_quote(lex, input, tokens);
 		check_space(lex, input, tokens);
-		check_left(lex, input, tokens);
+		check_left(lex, input);
 	}
 	free(lex);
 	return (tokens);
