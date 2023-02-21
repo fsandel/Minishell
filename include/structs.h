@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 13:16:55 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 12:09:44 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,13 @@ typedef struct lex
 	int		q;			// quotes = TRUE/FALSE
 	char	c;			// char comparison
 }			t_lx;
+
+typedef struct t_qu{
+	int		i;
+	int		r;
+	int		j;
+	int		last;
+	char	*str;
+}			t_qu;
 
 #endif
