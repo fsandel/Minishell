@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/13 16:15:39 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:56:04 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 # include "../src/input/input.h"
 # include "../src/lexer/lexer.h"
 # include "../src/parser/parser.h"
-# include "../src/rest/rest.h"
 # include "../src/utils/utils.h"
 # include "../src/signal/signal.h"
 

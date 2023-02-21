@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/21 13:48:09 by pgorner          ###   ########.fr        #
+#    Updated: 2023/02/21 13:56:15 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,6 @@ PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
 PARSER_FILES	=	parser.c redirect.c parser_utils.c parser_setup.c heredoc.c heredoc_utils.c
 
-REST			=	$(addprefix $(REST_DIR), $(REST_FILES))
-REST_DIR		=	src/rest/
-REST_FILES		=	rest.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
