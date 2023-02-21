@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:28:07 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/20 19:33:23 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:06:36 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ int	check(char input, char const *it)
 		c++;
 	}
 	return (FALSE);
+}
+
+int	errorput(t_pars **pars, int set, int num, t_ph *ph)
+{
+	free(pars[set]->cmd[num]);
+	pars[set]->cmd[num] = ft_strjoin(ph->pre, ft_itoa(g_error));
+	pars[set]->cmd[num] = ft_strjoin(pars[set]->cmd[num], ph->post);
+	return (1);
 }

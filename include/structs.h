@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 12:09:44 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:50:29 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,49 @@ typedef struct s_pars
 
 typedef struct lex
 {
-	t_list	*tokens;	// output list coming out of lexer 
-	int		i;			// current position in iteration of input
-	int		ts;			// token start
-	int		te;			// (last) token end
-	int		q;			// quotes = TRUE/FALSE
-	char	c;			// char comparison
+	t_list	*tokens;
+	int		i;
+	int		ts;
+	int		te;
+	int		q;
+	char	c;
 }			t_lx;
 
-typedef struct t_qu{
+typedef struct t_qu
+{
 	int		i;
 	int		r;
 	int		j;
 	int		last;
 	char	*str;
 }			t_qu;
+
+typedef struct t_bs
+{
+	int		b;
+	int		i;
+	int		j;
+	int		r;
+	char	*str;
+}			t_bs;
+
+typedef struct t_ph
+{
+	int		i;
+	int		j;
+	char	*str;
+	char	*pre;
+	char	*post;
+}			t_ph;
+
+typedef struct t_lt
+{
+	t_list	*new;
+	t_list	*out;
+	t_list	*tail;
+	char	**res;
+	int		i;
+	int		j;
+}			t_lt;
 
 #endif

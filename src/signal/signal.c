@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:32:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:28:45 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:27:35 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ void	signal_interactive(void)
 void	set_g_error(int status)
 {
 	if (WIFSIGNALED(status))
+	{
 		if (WTERMSIG(status) == 2)
 			g_error = 130;
 		else
 			g_error = 131;
+	}
 	else
 		g_error = WEXITSTATUS(status);
 }

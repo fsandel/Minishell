@@ -6,53 +6,50 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:39 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 12:08:51 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:51:32 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell.h"
 
-int	rm_bs(t_pars **pars, int set, int num)
+void	bs_loop(t_pars **pars, int set, int num, t_bs *bs)
 {
-	int		r;
-	int		b;
-	int		i;
-	int		j;
-	char	*str;
-
-	r = 0;
-	b = 0;
-	i = 0;
-	j = 0;
-	str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
 	while (TRUE)
 	{
-		if (pars[set]->cmd[num][i] == '\\')
+		if (pars[set]->cmd[num][bs->i] == '\\')
 		{
-			if (b == TRUE)
+			if (bs->b == TRUE)
 			{
-				if (pars[set]->cmd[num][i] == '$')
-					r = 1;
-				str[j++] = pars[set]->cmd[num][i++];
-				b = FALSE;
+				if (pars[set]->cmd[num][bs->i] == '$')
+					bs->r = 1;
+				bs->str[bs->j++] = pars[set]->cmd[num][bs->i++];
+				bs->b = FALSE;
 			}
-			if (b == FALSE)
+			else if (bs->b == FALSE)
 			{
-				i++;
-				b = TRUE;
+				bs->i++;
+				bs->b = TRUE;
 			}
 		}
-		else if (pars[set]->cmd[num][i] == '\0')
-			str[j++] = pars[set]->cmd[num][i++];
+		else if (pars[set]->cmd[num][bs->i] != '\0')
+			bs->str[bs->j++] = pars[set]->cmd[num][bs->i++];
 		else
 			break ;
 	}
-	str[j] = '\0';
+}
+
+int	rm_bs(t_pars **pars, int set, int num)
+{
+	t_bs	bs;
+
+	bs = (t_bs){0, 0, 0, 0, (char *) NULL};
+	bs.str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
+	bs_loop(pars, set, num, &bs);
+	bs.str[bs.j] = '\0';
 	free(pars[set]->cmd[num]);
-	pars[set]->cmd[num] = ft_strdup(str);
-	free(str);
-	return (r);
+	pars[set]->cmd[num] = ft_strdup(bs.str);
+	free(bs.str);
+	return (bs.r);
 }
 
 void	cmd_expand(t_pars **pars, char **cmds, char **env, int set)
@@ -62,19 +59,15 @@ void	cmd_expand(t_pars **pars, char **cmds, char **env, int set)
 
 	v = 0;
 	num = 0;
-	printf("-------------------\n");
 	while (cmds[num])
 	{
 		if (ft_strchr(pars[set]->cmd[num], '\'')
 			|| ft_strchr(pars[set]->cmd[num], '\"'))
 			v = rm_quot(pars, set, num);
-		printf("/:%s:/\n", pars[set]->cmd[num]);
 		if (ft_strchr(pars[set]->cmd[num], '\\'))
 			v = rm_bs(pars, set, num);
-		printf("/:%s:/\n", pars[set]->cmd[num]);
 		if (ft_strchr(pars[set]->cmd[num], '$') && v == 0)
 			path(pars, set, num);
-		printf("/:%s:/\n", pars[set]->cmd[num]);
 		num++;
 	}
 }

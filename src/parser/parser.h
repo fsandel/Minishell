@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:48:42 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:26:13 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_pars	**setup_struct(t_list *list, char **env);
 //==============================================================================
 //--------------------------------heredoc_utils.c-------------------------------
 //==============================================================================
-int	replace(char *line, char **env, int fd);
+int		replace(char *line, char **env, int fd);
 void	expand(char *line, char **env, int fd);
 char	*rm_quote(char *str);
 
