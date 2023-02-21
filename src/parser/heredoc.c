@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:38:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 17:29:30 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 21:37:26 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	handle_heredoc_quit(int status, t_pars *pars)
 {
 	if (WIFSIGNALED(status))
 	{
+		write(1, "\n", 1);
 		g_error = 1;
 		pars->heredoc = 1;
 	}

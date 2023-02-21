@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:56:04 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 20:50:13 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <termios.h> //tcsetattr tcgetattr
 # include <curses.h> // tgetent, tgetflag tgetstr, tgoto, tpus
 # include <term.h>
+# include <termcap.h>
 
 // INCLUDE ALL LIBRARIES BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
 # include "../lib/libft/libft.h"

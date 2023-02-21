@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:08:34 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 16:23:07 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 21:29:21 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,13 @@ int	minishell(char *old_env[])
 	char	*prompt;
 	char	**env;
 
-	disable_echo();
 	env = copy_arr(old_env);
 	while (1)
 	{
 		signal(SIGINT, signal_handler_interactive);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt();
-		enable_echo();
 		input = readline(prompt);
-		disable_echo();
 		free(prompt);
 		if (!input)
 			return (nice_exit(env, input), g_error);
