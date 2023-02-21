@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:28:07 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/21 13:06:36 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 21:04:07 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,17 @@ int	check(char input, char const *it)
 
 int	errorput(t_pars **pars, int set, int num, t_ph *ph)
 {
+	char *c;
+	char *tmp;
+	
+	c = ft_itoa(g_error);
 	free(pars[set]->cmd[num]);
-	pars[set]->cmd[num] = ft_strjoin(ph->pre, ft_itoa(g_error));
-	pars[set]->cmd[num] = ft_strjoin(pars[set]->cmd[num], ph->post);
+	tmp = ft_strjoin(ph->pre, c);
+	pars[set]->cmd[num] = ft_strjoin(tmp, ph->post);
+	free(c);
+	free(tmp);
+	free(ph->str);
+	free(ph->pre);
+	free(ph->post);
 	return (1);
 }
