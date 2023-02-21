@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 22:31:32 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 12:56:29 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	findend(t_pars **pars, int set, int num, t_qu *qu);
 //==============================================================================
 //------------------------------------PATH.c------------------------------------
 //==============================================================================
-int	errorput(t_pars **pars, int set, int num, char *prepath, char *postpath);
-int	path(t_pars **pars, int set, int num);
+int		errorput(t_pars **pars, int set, int num, t_ph *ph);
+int		path(t_pars **pars, int set, int num);
 
 #endif

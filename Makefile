@@ -6,7 +6,7 @@
 #    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/21 12:11:57 by pgorner          ###   ########.fr        #
+#    Updated: 2023/02/21 13:48:09 by pgorner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ EXPANDER_FILES	=	expander.c expcheck.c path.c qu.c
 
 LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
 LEXER_DIR		=	src/lexer/
-LEXER_FILES		=	lexer.c special.c smallerthan.c pipe.c biggerthan.c redirection.c lexercheck.c
+LEXER_FILES		=	lexer.c lexercheck.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/

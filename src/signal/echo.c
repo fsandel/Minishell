@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:22:51 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:25:06 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:26:50 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	disable_echo(void)
 {
-	struct termios t;
+	struct termios	t;
 
 	tcgetattr(STDIN_FILENO, &t);
 	t.c_lflag &= ~ECHO;
@@ -23,7 +23,7 @@ void	disable_echo(void)
 
 void	enable_echo(void)
 {
-	struct termios t;
+	struct termios	t;
 
 	tcgetattr(STDIN_FILENO, &t);
 	t.c_lflag |= ECHO;
