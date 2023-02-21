@@ -84,6 +84,5 @@ t_pars	**expander(t_pars **pars)
 		cmd_expand(pars, pars[i]->cmd, i);
 		i++;
 	}
-	print_exp(pars);
 	return (pars);
 }

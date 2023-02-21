@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:53 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:52:06 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/21 14:05:01 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,6 @@ void	ft_lstprint(t_list *list)
 	{
 		ft_printf("LIST ITEM:%i:%s:\n", i, list->content);
 		list = list->next;
-		i++;
-	}
-}
-
-void	print_exp(t_pars **pars)
-{
-	int	i;
-	int	j;
-	int	total;
-
-	total = pars[0]->total_cmd;
-	i = 0;
-	while (i < total)
-	{
-		j = 0;
-		while (pars[i]->cmd[j])
-			j++;
 		i++;
 	}
 }
