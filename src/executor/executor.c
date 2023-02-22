@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 11:24:00 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 15:51:40 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 
 static int	execute_child(t_pars **pars, int infd, int i);
 static void	execute(t_pars **pars, int i);
-
-int	check_builtin(t_pars **pars)
-{
-	if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1)
-	{
-		if (!ft_strncmp(pars[0]->cmd[0], "cd", 3)
-			|| !ft_strncmp(pars[0]->cmd[0], "unset", 6)
-			|| !ft_strncmp(pars[0]->cmd[0], "export", 7)
-			|| !ft_strncmp(pars[0]->cmd[0], "exit", 5))
-			return (1);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}
-
-char	**do_builtin(t_pars **pars, char **env)
-{
-	if (!ft_strncmp(pars[0]->cmd[0], "cd", 3))
-		env = b_cd(pars[0], env);
-	else if (!ft_strncmp(pars[0]->cmd[0], "unset", 6))
-		env = b_unset(pars[0]);
-	else if (!ft_strncmp(pars[0]->cmd[0], "export", 7))
-		env = b_export(pars[0]);
-	else if (!ft_strncmp(pars[0]->cmd[0], "exit", 5))
-		env = b_exit(pars, env, 0);
-	return (env);
-}
 
 char	**executor(t_pars **pars)
 {
@@ -71,6 +42,33 @@ char	**executor(t_pars **pars)
 	return (env);
 }
 
+int	execve_error(char *cmd, char *og_cmd)
+{
+	int			error;
+	struct stat	st;
+	int			status;
+
+	status = stat(og_cmd, &st);
+	error = 0;
+	if (!cmd)
+	{
+		error = 127;
+		ft_err_print("minishell: %s: command not found\n", og_cmd, NULL, NULL);
+	}
+	else if (!status && S_ISDIR(st.st_mode))
+	{
+		error = 127;
+		ft_err_print("minishell: %s: is a directory\n", og_cmd, NULL, NULL);
+	}
+	else
+	{
+		ft_err_print("minishell: %s ", og_cmd, NULL, NULL);
+		perror("");
+		error = 126;
+	}
+	return (error);
+}
+
 static void	execute(t_pars **pars, int i)
 {
 	char	*command;
@@ -85,13 +83,11 @@ static void	execute(t_pars **pars, int i)
 		execve(command, &pars[i]->cmd[0], pars[i]->env);
 	else
 		exit(1);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(pars[i]->cmd[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	g_error = execve_error(command, pars[i]->cmd[0]);
 	free(command);
 	free_array(pars[0]->env);
 	free_struct(pars);
-	exit(127);
+	exit(g_error);
 }
 
 static int	execute_child(t_pars **pars, int infd, int i)

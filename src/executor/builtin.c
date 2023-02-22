@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:46:36 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 11:22:04 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 15:03:29 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,33 @@ void	builtin(t_pars **pars, int i)
 		|| !ft_strncmp(pars[i]->cmd[0], "unset", 6)
 		|| !ft_strncmp(pars[i]->cmd[0], "env", 4))
 		free_exit(pars, pars[0]->env);
+}
+
+int	check_builtin(t_pars **pars)
+{
+	if (pars && pars[0] && pars[0]->cmd[0] && pars[0]->total_cmd == 1)
+	{
+		if (!ft_strncmp(pars[0]->cmd[0], "cd", 3)
+			|| !ft_strncmp(pars[0]->cmd[0], "unset", 6)
+			|| !ft_strncmp(pars[0]->cmd[0], "export", 7)
+			|| !ft_strncmp(pars[0]->cmd[0], "exit", 5))
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
+char	**do_builtin(t_pars **pars, char **env)
+{
+	if (!ft_strncmp(pars[0]->cmd[0], "cd", 3))
+		env = b_cd(pars[0], env);
+	else if (!ft_strncmp(pars[0]->cmd[0], "unset", 6))
+		env = b_unset(pars[0]);
+	else if (!ft_strncmp(pars[0]->cmd[0], "export", 7))
+		env = b_export(pars[0]);
+	else if (!ft_strncmp(pars[0]->cmd[0], "exit", 5))
+		env = b_exit(pars, env, 0);
+	return (env);
 }

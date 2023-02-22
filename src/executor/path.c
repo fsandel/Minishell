@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:48:13 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 16:29:22 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 15:19:41 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ char	*check_path(t_pars *pars, char **path)
 		if (tmp)
 			return (tmp);
 	}
-	if (pars && pars->cmd && access(pars->cmd[0], F_OK) == 0)
+	if (pars && pars->cmd && access(pars->cmd[0], F_OK) == 0
+		&& ft_strchr(pars->cmd[0], '/'))
 		return (ft_strdup(pars->cmd[0]));
 	return (NULL);
 }
