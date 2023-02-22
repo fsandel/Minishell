@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 16:11:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:39:20 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,37 @@ int	string_is_digit(char *str)
 	return (1);
 }
 
-char	**b_exit(t_pars **pars, char **env)
+void	exit_message(t_pars **pars)
 {
-	if (pars[0]->cmd[1] && !string_is_digit(pars[0]->cmd[1]))
+	if (pars[0]->total_cmd == 1)
+		ft_putstr_fd("exit\n", 1);
+}
+
+char	**b_exit(t_pars **pars, char **env, int i)
+{
+	if (pars[i]->cmd[1] && !string_is_digit(pars[i]->cmd[1]))
 	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(pars[0]->cmd[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		ft_err_print("minishell: exit: %s: numeric argument required\n",
+			pars[0]->cmd[1], NULL, NULL);
+		exit_message(pars);
 		free_array(env);
 		free_struct(pars);
 		exit(255);
 	}
-	if (pars[0]->amount > 2)
+	if (pars[i]->amount > 2 && pars[i]->total_cmd > 1)
+	{
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		free_array(env);
+		free_struct(pars);
+		exit(1);
+	}
+	if (pars[i]->amount > 2)
 		return (ft_putendl_fd("minishell: exit: too many arguments", 2),
 			g_error = 1, env);
-	if (pars[0]->cmd[1])
+	if (pars[i]->cmd[1])
 		g_error = ft_atoi(pars[0]->cmd[1]);
 	free_array(env);
 	free_struct(pars);
-	ft_putstr_fd("exit\n", 1);
+	exit_message(pars);
 	exit(g_error);
 }

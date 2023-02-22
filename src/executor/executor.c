@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 17:50:15 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:24:00 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**do_builtin(t_pars **pars, char **env)
 	else if (!ft_strncmp(pars[0]->cmd[0], "export", 7))
 		env = b_export(pars[0]);
 	else if (!ft_strncmp(pars[0]->cmd[0], "exit", 5))
-		env = b_exit(pars, env);
+		env = b_exit(pars, env, 0);
 	return (env);
 }
 
