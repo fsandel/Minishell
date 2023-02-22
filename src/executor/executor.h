@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:41 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 09:52:48 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:22:18 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	b_env(t_pars *pars);
 char	**b_cd(t_pars *pars, char **env);
 char	**b_export(t_pars *pars);
 char	**b_unset(t_pars *pars);
-char	**b_exit(t_pars **pars, char **env);
+char	**b_exit(t_pars **pars, char **env, int i);
 
 //==============================================================================
 //--------------------------------PATH.c----------------------------------------

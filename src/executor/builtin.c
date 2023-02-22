@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:46:36 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 16:18:44 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:22:04 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	builtin(t_pars **pars, int i)
 	if (!ft_strncmp(pars[i]->cmd[0], "env", 4))
 		b_env(pars[i]);
 	if (!ft_strncmp(pars[i]->cmd[0], "exit", 5))
-		b_exit(pars, pars[i]->env);
+		b_exit(pars, pars[i]->env, i);
 	if (!ft_strncmp(pars[i]->cmd[0], "echo", 5)
 		|| !ft_strncmp(pars[i]->cmd[0], "cd", 3)
 		|| !ft_strncmp(pars[i]->cmd[0], "pwd", 4)
