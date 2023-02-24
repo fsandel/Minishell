@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:28:53 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/22 18:53:18 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 void	do_exit(int error);
 int		is_whitespace(char c);
 void	ft_err_print(char *str, char *s1, char *s2, char *s3);
+char	*str_append(char *s1, char c);
 
 //==============================================================================
 //----------------------------FT_SPLIT_SPECIAL.c--------------------------------

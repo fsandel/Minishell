@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 15:38:43 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/22 16:36:25 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	check_empty(t_pars **pars)
 		if (pars[i] && pars[i]->cmd && !pars[i]->cmd[0])
 		{
 			if (pars[i]->in == STDIN && pars[i]->out == STDOUT)
-				return (1);
+				return (free_struct(pars), g_error = 258,
+					ft_putendl_fd("minishell: syn\
+	tax error near unexpecte token '|'", 2), 1);
 		}
 	}
 	return (0);
@@ -67,10 +69,7 @@ char	**command(char *input, char **old_env)
 		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
 	pars = parser(tokens, old_env);
 	ft_lstclear(&tokens, free);
-	if (check_empty(pars))
-		return (free_struct(pars), g_error = 258, ft_putendl_fd("minishell: syn\
-	tax error near unexpecte token '|'", 2), old_env);
-	if (!pars)
+	if (!pars || check_empty(pars))
 		return (old_env);
 	env = pars[0]->env;
 	pars = expander(pars);

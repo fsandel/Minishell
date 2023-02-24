@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:42 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:28:57 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/22 18:50:56 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*str_append(char *s1, char c)
+{
+	int		i;
+	char	*ret;
+
+	if (!c)
+		return (s1);
+	if (!s1)
+		return (ret = ft_calloc(2, sizeof(char)), ret[0] = c, ret);
+	i = 0;
+	ret = ft_calloc(ft_strlen(s1) + 1 + 1, sizeof(char));
+	ft_memcpy(ret, s1, ft_strlen(s1));
+	ret[ft_strlen(s1)] = c;
+	free(s1);
+	return (ret);
+}
 
 int	is_whitespace(char c)
 {
