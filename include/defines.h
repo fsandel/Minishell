@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:32:37 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/06 11:31:20 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:49:29 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,13 @@
 # define STDOUT 1
 # define STDIN 0
 # define STDERR 2
+
+# define RED "\033[0;31m"
+# define DEFAULT "\033[0m"
+# define YELLOW "\33[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define GREEN "\033[32m"
 
 #endif

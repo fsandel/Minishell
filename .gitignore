@@ -2,5 +2,4 @@ minishell
 obj
 lib/readline_out
 .vscode
-test*
 LeakSanitizer

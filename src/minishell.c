@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 16:36:25 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/24 21:18:57 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,24 @@ char	*get_prompt(void)
 {
 	char	*path;
 	char	*prompt;
+	char	*temp;
 
 	path = getcwd(NULL, 0);
-	prompt = ft_strjoin(path, ": ");
-	free(path);
-	return (prompt);
+	if (g_error)
+	{
+		temp = ft_strjoin(path, RED);
+		prompt = ft_strjoin(temp, " > ");
+		free(temp);
+		temp = ft_strjoin(prompt, DEFAULT);
+		free(prompt);
+		return (free(path), temp);
+		prompt = ft_strjoin(path, ": ");
+	}
+	else
+	{
+		prompt = ft_strjoin(path, " >");
+		return (free(path), prompt);
+	}
 }
 
 void	nice_exit(char **env, char *input)
@@ -28,7 +41,7 @@ void	nice_exit(char **env, char *input)
 	char	*prompt;
 
 	prompt = get_prompt();
-	ft_printf("%s%sexit\n", "\033[A", prompt);
+	//ft_printf("%s%sexit\n", "\033[A", prompt);
 	free(prompt);
 	free_array(env);
 	free(input);
@@ -83,14 +96,16 @@ int	minishell(char *old_env[])
 	char	*input;
 	char	*prompt;
 	char	**env;
-
 	env = copy_arr(old_env);
 	while (1)
 	{
 		signal(SIGINT, signal_handler_interactive);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt();
-		input = readline(prompt);
+		if (isatty(STDIN))
+			input = readline(prompt);
+		else
+			input = get_next_line(STDIN);
 		free(prompt);
 		if (!input)
 			return (nice_exit(env, input), g_error);

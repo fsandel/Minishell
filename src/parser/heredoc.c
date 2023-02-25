@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 16:42:36 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/24 21:19:16 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	here_doc_child(char *limiter_uncut, int fd[2],
 	while (1)
 	{
 		enable_echo();
-		temp = readline("> ");
+		
+		if (isatty(STDIN))
+			temp = readline("> ");
+		else
+			temp = get_next_line(STDIN);
 		disable_echo();
 		if (temp == NULL)
 			break ;

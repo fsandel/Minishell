@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/22 15:06:25 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/24 17:02:52 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
 ################################################################################
 ################################################################################
 
-all: mkdir submodules readline libft $(NAME)
+all: mkdir readline libft $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
@@ -97,12 +97,6 @@ re:	fclean all
 mkdir:
 	@mkdir -p $(dir $(ALL_OBJ))
 
-fnorm:
-	norminette $(SRC) $(EXECUTOR) $(INPUT) $(PARSER) $(REST) $(UTILS) | grep Error
-
-pnorm:
-	norminette $(EXPANDER) $(LEXER) | grep Error
-
 env:
 	make all && env -i ./minishell
 ################################################################################
@@ -113,16 +107,16 @@ LIBFT_LIB		=	libft.a
 LIBFT_DIR		=	lib/libft/
 
 $(LIBFT):
-	@make -C lib/libft
+	git submodule init
+	git submodule update
+	make -C lib/libft
 
 libft: $(LIBFT)
 
 ################################################################################
 ################################################################################
 
-submodules:
-	@git submodule init
-	@git submodule update
+
 
 ################################################################################
 ################################################################################
@@ -188,3 +182,6 @@ DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
 .PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan
+
+tester:
+	cd tests && bash tester.sh m
