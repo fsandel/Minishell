@@ -6,15 +6,16 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/24 17:02:52 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/25 12:51:30 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME			=	minishell
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LINKFLAGS = 
+CC				=	cc
+CFLAGS			=	-Wall -Wextra -Werror
+LINKFLAGS		=
+REDIRECT		=	2> /dev/null 1> /dev/null
 
 ################################################################################
 ################################################################################
@@ -51,84 +52,87 @@ SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
 SIGNAL_DIR		=	src/signal/
 SIGNAL_FILES	=	signal.c echo.c
 
-ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL)
-
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
 HDR_FILES		=	minishell.h
 
+ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL)
 
 ################################################################################
 ################################################################################
 
-OBJ_DIR = obj/
-ALL_OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
-
+OBJ_DIR			=	obj/
+ALL_OBJ			=	$(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(ALL_SRC))
+ALL_OBJ_DIR		=	$(sort $(dir $(ALL_OBJ)))
 
 ################################################################################
 ################################################################################
 
-all: mkdir readline libft $(NAME)
+all: libft readline $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) -I ./lib/readline_out/include/ -I ./lib
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) $(READLINE_INCLUDE) $(LIBFT_INCLUDE)
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
-$(NAME): $(ALL_OBJ)
-	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) -Llib/readline_out/lib -lreadline -lhistory
+$(NAME): $(ALL_OBJ_DIR) $(ALL_OBJ)
+	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) $(READLINE_FLAG)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
-	@rm -rf $(OBJ_DIR)
-	@echo $(RED)"cleaned"$(DEFAULT)
+	@echo $(RED)"cleaning:"
+	@rm -rfv $(patsubst %/,%,$(OBJ_DIR))
+	@echo "cleaned"$(DEFAULT)
 
 fclean:
-	@rm -rf $(OBJ_DIR) $(NAME)
-	@echo $(RED)"fcleaned"$(DEFAULT)
-
-ffclean:
-	@rm -rf $(OBJ_DIR) $(NAME)
-	@echo $(RED)"ffcleaned"$(DEFAULT)
-	@echo $(RED)"deleted readline"$(DEFAULT)
-	@rm -rf lib
+	@echo $(RED)"fcleaning:"
+	@rm -rfv $(patsubst %/,%,$(OBJ_DIR)) $(NAME)
+	@echo "fcleaned"$(DEFAULT)
 
 re:	fclean all
 
-mkdir:
-	@mkdir -p $(dir $(ALL_OBJ))
+$(ALL_OBJ_DIR):
+	@mkdir -p $(ALL_OBJ_DIR)
+
+################################################################################
+################################################################################
+
+ffclean: fclean
+	@echo $(RED)
+	@echo "deleted readline"
+	@echo "deleted libft"
+	@rm -rf lib
+	@echo $(DEFAULT)
 
 env:
 	make all && env -i ./minishell
+
+tester:
+	cd tests && bash tester.sh
+
 ################################################################################
 ################################################################################
 
 LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
 LIBFT_LIB		=	libft.a
 LIBFT_DIR		=	lib/libft/
+LIBFT_INCLUDE	=	-I ./lib/libft
 
 $(LIBFT):
-	git submodule init
-	git submodule update
-	make -C lib/libft
+	@git submodule init $(REDIRECT)
+	@git submodule update $(REDIRECT)
+	@make -C lib/libft
 
 libft: $(LIBFT)
 
 ################################################################################
 ################################################################################
 
-
-
-################################################################################
-################################################################################
-
-
 READLINE_VERSION=	readline-8.1.2
 READLINE_LIB	=	libreadline.a
 READLINE_DIR	=	lib/readline/
 READLINE		=	lib/readline_out/lib/libreadline.a
-
-ani_readline:
-	bash ./spinner.sh "make readline" "building readline" "Spinner_Braille"
+READLINE_FLAG	=	-Llib/readline_out/lib -lreadline -lhistory
+READLINE_INCLUDE=	-I ./lib/readline_out/include/
 
 readline: $(READLINE)
 
@@ -137,16 +141,14 @@ $(READLINE):
 	@mkdir -p lib
 	@curl -s https://ftp.gnu.org/gnu/readline/$(READLINE_VERSION).tar.gz --output lib/$(READLINE_VERSION).tar.gz
 	@tar xfz lib/$(READLINE_VERSION).tar.gz -C lib
-	@cd lib/$(READLINE_VERSION); ./configure --prefix=$(PWD)/lib/readline_out
-	@make -C lib/$(READLINE_VERSION)
-	@make install -C lib/$(READLINE_VERSION)
+	@cd lib/$(READLINE_VERSION); ./configure --prefix=$(PWD)/lib/readline_out $(REDIRECT)
+	@make -C lib/$(READLINE_VERSION) $(REDIRECT)
+	@make install -C lib/$(READLINE_VERSION) $(REDIRECT)
 	@rm -rf lib/$(READLINE_VERSION)
 	@rm -f lib/$(READLINE_VERSION).tar.gz
 
 ################################################################################
 ################################################################################
-
-
 
 LSAN			=	LeakSanitizer
 LSANLIB			=	/LeakSanitizer/liblsan.a
@@ -161,7 +163,6 @@ ifeq ($(UNAME_S),Darwin)
 	LSANLFLAGS := -LLeakSanitizer -llsan -lc++
 endif
 
-
 lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
 lsan: LINK_FLAGS += $(LSANLFLAGS)
 lsan: fclean $(LSANLIB)
@@ -171,17 +172,15 @@ $(LSAN):
 $(LSANLIB): $(LSAN)
 	@$(MAKE) -C LeakSanitizer
 
-
 ################################################################################
 ################################################################################
-
 
 GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
-.PHONY: all clean fclean ffclean re mkdir libft submodules ani_readline readline lsan
+################################################################################
+################################################################################
 
-tester:
-	cd tests && bash tester.sh m
+.PHONY: all clean fclean ffclean re libft readline lsan tester env
