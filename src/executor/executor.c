@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 20:54:10 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:15:46 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static int	execute_child(t_pars **pars, int infd, int i)
 	pars[i]->pid = fork();
 	if (pars[i]->pid == 0)
 	{
-		enable_echo();
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		dup_input(infd, pars[i]);

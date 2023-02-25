@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:44:02 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 17:30:05 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:12:56 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	replace(char *line, char **env, int fd)
 
 void	expand(char *line, char **env, int fd)
 {
-	t_q		q;
+	t_q	q;
 
 	q = (t_q){0, 0, 0, 0};
 	while (line[q.i])

@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:22:51 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 13:26:50 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:15:21 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	disable_echo(void)
-{
-	struct termios	t;
+// void	disable_echo(void)
+// {
+// 	struct termios	t;
 
-	tcgetattr(STDIN_FILENO, &t);
-	t.c_lflag &= ~ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
+// 	tcgetattr(STDIN_FILENO, &t);
+// 	t.c_lflag &= ~ECHO;
+// 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+// }
 
-void	enable_echo(void)
-{
-	struct termios	t;
+// void	enable_echo(void)
+// {
+// 	struct termios	t;
 
-	tcgetattr(STDIN_FILENO, &t);
-	t.c_lflag |= ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
+// 	tcgetattr(STDIN_FILENO, &t);
+// 	t.c_lflag |= ECHO;
+// 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+// }
