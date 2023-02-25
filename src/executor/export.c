@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:29:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 17:09:33 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:06:55 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int	valid_identifier(char *str)
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha(str[0]))
+	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i++]))
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (0);
+		i++;
 	}
 	return (1);
 }

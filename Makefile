@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/25 12:51:30 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/25 15:29:40 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,8 @@ env:
 	make all && env -i ./minishell
 
 tester:
-	cd tests && bash tester.sh
+	make re
+	cd tests && bash tester.sh m
 
 ################################################################################
 ################################################################################
@@ -168,9 +169,9 @@ lsan: LINK_FLAGS += $(LSANLFLAGS)
 lsan: fclean $(LSANLIB)
 lsan: all
 $(LSAN):
-	git clone https://github.com/mhahnFr/LeakSanitizer.git
+	git clone https://github.com/mhahnFr/LeakSanitizer.git $(REDIRECT)
 $(LSANLIB): $(LSAN)
-	@$(MAKE) -C LeakSanitizer
+	@$(MAKE) -C LeakSanitizer $(REDIRECT)
 
 ################################################################################
 ################################################################################

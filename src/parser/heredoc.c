@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 21:19:16 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:13:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,10 @@ void	here_doc_child(char *limiter_uncut, int fd[2],
 	signal(SIGINT, SIG_DFL);
 	while (1)
 	{
-		enable_echo();
-		
 		if (isatty(STDIN))
 			temp = readline("> ");
 		else
 			temp = get_next_line(STDIN);
-		disable_echo();
 		if (temp == NULL)
 			break ;
 		if (!ft_strncmp(temp, limiter, ft_strlen(limiter) + 1))

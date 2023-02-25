@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 21:18:57 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 13:05:02 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	nice_exit(char **env, char *input)
 	char	*prompt;
 
 	prompt = get_prompt();
-	//ft_printf("%s%sexit\n", "\033[A", prompt);
 	free(prompt);
 	free_array(env);
 	free(input);
@@ -96,16 +95,14 @@ int	minishell(char *old_env[])
 	char	*input;
 	char	*prompt;
 	char	**env;
+
 	env = copy_arr(old_env);
 	while (1)
 	{
 		signal(SIGINT, signal_handler_interactive);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt();
-		if (isatty(STDIN))
-			input = readline(prompt);
-		else
-			input = get_next_line(STDIN);
+		input = get_input(prompt);
 		free(prompt);
 		if (!input)
 			return (nice_exit(env, input), g_error);

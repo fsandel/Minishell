@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 14:45:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 20:50:13 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:13:17 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include <termcap.h>
 
 // INCLUDE ALL LIBRARIES BEFORE THE HEADER FILES WHERE THEY ARE NEEDED!!!!
-# include "../lib/libft/libft.h"
+# include <libft.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

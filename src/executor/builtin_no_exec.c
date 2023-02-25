@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 11:39:20 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 17:53:30 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,34 @@ char	**b_unset(t_pars *pars)
 
 int	string_is_digit(char *str)
 {
-	int	i;
+	int		i;
+	size_t	sign;
 
+	sign = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]))
-			i++;
+		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
+			if (str[i] == '+' || str[i] == '-')
+				sign++;
+			else
+				(void)0;
 		else
 			return (0);
+		i++;
 	}
+	if (ft_strlen(str) == sign)
+		return (0);
 	return (1);
 }
 
 void	exit_message(t_pars **pars)
 {
-	if (pars[0]->total_cmd == 1)
-		ft_putstr_fd("exit\n", 1);
+	if (isatty(STDIN))
+	{
+		if (pars[0]->total_cmd == 1)
+			ft_putstr_fd("exit\n", 1);
+	}
 }
 
 char	**b_exit(t_pars **pars, char **env, int i)
