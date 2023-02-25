@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 13:05:02 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:42:02 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	**command(char *input, char **old_env)
 
 	add_history(input);
 	tokens = lexer(input);
+	//ft_lstprint(tokens);
 	free(input);
 	if (ft_lstsize(tokens) == 0)
 		return (g_error = 0, free(tokens), old_env);
