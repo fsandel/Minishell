@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:53:44 by pgorner           #+#    #+#             */
 /*   Updated: 2023/02/27 13:11:07 by pgorner          ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	bs_loop(t_pars **pars, int set, int num, t_bs *bs)
+void	app(t_pars **pars, t_x *x)
 {
 	x->str = str_append(x->str, pars[x->s]->cmd[x->n][x->i++]);
 }
@@ -99,47 +99,94 @@ void	qq(t_pars **pars, t_x *x)
 	x->i++;
 	while (TRUE)
 	{
-		if (pars[set]->cmd[num][bs->i] == '\\')
+		if (pars[x->s]->cmd[x->n][x->i] == '$')
+			dollar(pars, x);
+		else if (pars[x->s]->cmd[x->n][x->i] == '\\')
+			backslash(pars, x);
+		else if (pars[x->s]->cmd[x->n][x->i] == '\"'
+				&& x->b == FALSE)
 		{
-			if (bs->b == TRUE)
-			{
-				if (pars[set]->cmd[num][bs->i] == '$')
-					bs->r = 1;
-				bs->str[bs->j++] = pars[set]->cmd[num][bs->i++];
-				bs->b = FALSE;
-			}
-			else if (bs->b == FALSE)
-			{
-				bs->i++;
-				bs->b = TRUE;
-			}
-		}
-		else if (pars[set]->cmd[num][bs->i] != '\0')
-			bs->str[bs->j++] = pars[set]->cmd[num][bs->i++];
-		else
+			x->i++;
 			break ;
+		}
+		else if (pars[x->s]->cmd[x->n][x->i] != '\0'
+				&& x->b == TRUE)
+		{
+			app(pars, x);
+			x->b = FALSE;
+		}
+		else if (pars[x->s]->cmd[x->n][x->i] != '\0')
+			app(pars, x);
 	}
 }
 
-int	rm_bs(t_pars **pars, int set, int num)
+void	q(t_pars **pars, t_x *x)
 {
-	t_bs	bs;
-
-	bs = (t_bs){0, 0, 0, 0, (char *) NULL};
-	bs.str = ft_calloc(sizeof(char), ft_strlen(pars[set]->cmd[num]));
-	bs_loop(pars, set, num, &bs);
-	bs.str[bs.j] = '\0';
-	free(pars[set]->cmd[num]);
-	pars[set]->cmd[num] = ft_strdup(bs.str);
-	free(bs.str);
-	return (bs.r);
+	x->i++;
+	while (pars[x->s]->cmd[x->n][x->i] != '\'')
+		app(pars, x);
+	x->i++;
 }
 
-void	cmd_expand(t_pars **pars, char **cmds, int set)
+void	set_str(t_pars **pars, t_x *x)
 {
-	int	num;
-	int	v;
-  
+	if (x->str != NULL)
+	{
+		free(pars[x->s]->cmd[x->p]);
+		pars[x->s]->cmd[x->p] = ft_strdup(x->str);
+		//printf("OUTPUT:%s:\n", pars[x->s]->cmd[x->p]);
+		x->p++;	
+	}
+}
+
+void	quotes(t_pars **pars, t_x *x)
+{
+	if (check(pars[x->s]->cmd[x->n][x->i], "\'\"") == TRUE
+		&& x->b == FALSE)
+	{
+		if (pars[x->s]->cmd[x->n][x->i] == '\"')
+			qq(pars, x);
+		else
+			q(pars, x);
+	}
+}
+
+void	normalstring(t_pars **pars, t_x *x)
+{
+	while (check(pars[x->s]->cmd[x->n][x->i], "$\\\'\"") == FALSE
+			&& pars[x->s]->cmd[x->n][x->i] != '\0')
+		app(pars, x);
+	if (check(pars[x->s]->cmd[x->n][x->i], "\'\"") == TRUE
+		&& x->b == TRUE)
+	{
+		app(pars, x);
+		x->b = FALSE;
+	}
+	if (pars[x->s]->cmd[x->n][x->i] == '\\' && x->b == TRUE)
+		app(pars, x);
+}
+
+void	expanding(t_pars **pars, t_x *x)
+{
+	if (pars[x->s]->cmd[x->n][x->i] == '$')
+		dollar(pars, x);
+}
+
+void	rmv_rest(t_pars **pars, t_x *x)
+{
+	while(x->p <= x->n && pars[x->s]->cmd[x->p])
+	{
+		//printf("FREEING:%s:\n", pars[x->s]->cmd[x->p]);
+		/* free(pars[x->s]->cmd[x->p]); */
+		ft_bzero(pars[x->s]->cmd[x->p], ft_strlen(pars[x->s]->cmd[x->p]));
+		x->p++;
+	}
+}
+
+void	cmd_expand(t_pars **pars, char **cmds, int s)
+{
+	t_x	x;
+
 	x = (t_x){0, 0, 0, s, 0, (char *) NULL};
 	while (cmds[x.n])
 	{
@@ -163,6 +210,7 @@ void	cmd_expand(t_pars **pars, char **cmds, int set)
 		}
 		x.n++;
 	}
+	rmv_rest(pars, &x);
 }
 
 t_pars	**expander(t_pars **pars)
@@ -170,12 +218,9 @@ t_pars	**expander(t_pars **pars)
 	int	i;
 	int	total;
 
-	i = 0;
+	i = -1;
 	total = pars[0]->total_cmd;
-	while (i < total)
-	{
+	while (++i < total)
 		cmd_expand(pars, pars[i]->cmd, i);
-		i++;
-	}
 	return (pars);
 }
