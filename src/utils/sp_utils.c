@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:28:07 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/25 17:59:02 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/22 11:42:24 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ int	check(char input, char const *it)
 		c++;
 	}
 	return (FALSE);
+}
+
+int	errorput(t_pars **pars, int set, int num, t_ph *ph)
+{
+	char	*c;
+	char	*tmp;
+
+	c = ft_itoa(g_error);
+	free(pars[set]->cmd[num]);
+	tmp = ft_strjoin(ph->pre, c);
+	pars[set]->cmd[num] = ft_strjoin(tmp, ph->post);
+	free(c);
+	free(tmp);
+	free(ph->str);
+	free(ph->pre);
+	free(ph->post);
+	return (1);
 }
