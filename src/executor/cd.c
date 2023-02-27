@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:30:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 14:51:19 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:18:24 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ char	**b_cd(t_pars *pars, char **env)
 			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), env);
 	}
 	else if (pars->cmd[1][0] == '/')
-	{
 		new_dir = ft_strdup(pars->cmd[1]);
-		//ft_putendl_fd(new_dir, 1);
-	}
 	else
 		new_dir = cd_get_realtive_dir(pars->cmd[1]);
 	g_error = chdir(new_dir) * -1;

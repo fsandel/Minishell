@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 17:53:30 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:17:25 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	string_is_digit(char *str)
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
+		{
 			if (str[i] == '+' || str[i] == '-')
 				sign++;
-			else
-				(void)0;
+		}
 		else
 			return (0);
 		i++;
