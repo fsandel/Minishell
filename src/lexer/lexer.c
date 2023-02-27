@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void	assign_checks(t_lx *lex)
 {
 	lex->i = 0;
@@ -53,6 +54,7 @@ t_list	*lexer(char *input)
 {
 	t_lx	*lex;
 	t_list	*tokens;
+
 	lex = ft_calloc(1, sizeof(t_lx));
 	assign_checks(lex);
 	tokens = ft_lstnew(NULL);
