@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 17:33:07 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:13:39 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,41 +46,15 @@ typedef struct lex
 	char	c;
 }			t_lx;
 
-typedef struct t_qu
+typedef struct t_x
 {
-	size_t		i;
-	int			r;
-	int			j;
-	int			last;
-	char		*str;
-}				t_qu;
-
-typedef struct t_bs
-{
-	int		b;
-	int		i;
-	int		j;
-	int		r;
-	char	*str;
-}			t_bs;
-
-typedef struct t_ph
-{
-	int		i;
-	int		j;
-	char	*str;
-	char	*pre;
-	char	*post;
-}			t_ph;
-
-typedef struct t_lt
-{
-	t_list	*new;
-	t_list	*out;
-	t_list	*tail;
-	char	**res;
-	int		i;
-	int		j;
-}			t_lt;
+	int		b;  //backslash
+	int		i; //used for iteration
+	int		p; //used for iteration
+	int		s;
+	int		n;
+	int		qq;
+	char	*str; //is output in the end
+}			t_x;
 
 #endif
