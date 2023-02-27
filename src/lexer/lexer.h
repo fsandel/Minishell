@@ -29,7 +29,7 @@ void	assign_checks(t_lx *lex);
 void	token(t_lx *lex, char *input, t_list *tokens);
 t_list	*lexer(char *input);
 void	check_pird(t_lx *lex, char *input, t_list *tokens);
-void	check_quote(t_lx *lex, char *input);
+void	check_quote(t_lx *lex, char *input, t_list *tokens);
 void	check_space(t_lx *lex, char *input, t_list *tokens);
 void	check_dollar(t_lx *lex, char *input, t_list *tokens);
 void	check_pirdnw(t_lx *lex, char *input, t_list *tokens);
