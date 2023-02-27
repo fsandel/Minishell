@@ -53,7 +53,6 @@ typedef struct t_x
 	int		p; //used for iteration
 	int		s;
 	int		n;
-	int		qq;
 	char	*str; //is output in the end
 }			t_x;
 
