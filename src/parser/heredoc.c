@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 15:13:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:28:12 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ t_list	*here_doc(t_list *list, t_pars *pars, t_pars **pars_full)
 
 	if (!list->next)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (!list->next->content)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				2), ft_putendl_fd(list->next->content, 2), g_error = 258,
