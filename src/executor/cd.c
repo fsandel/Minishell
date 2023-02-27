@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 13:30:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 14:51:19 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:55:13 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	**b_cd(t_pars *pars, char **env)
 	}
 	else
 		new_dir = cd_get_realtive_dir(pars->cmd[1]);
-	env = update_pwd(new_dir, env);
 	g_error = chdir(new_dir) * -1;
+	env = update_pwd(new_dir, env);
 	if (g_error)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);

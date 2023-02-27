@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 19:27:26 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/25 17:15:08 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	assign_checks(t_lx *lex);
 void	token(t_lx *lex, char *input, t_list *tokens);
 t_list	*lexer(char *input);
 void	check_pird(t_lx *lex, char *input, t_list *tokens);
-void	check_quote(t_lx *lex, char *input, t_list *tokens);
+void	check_quote(t_lx *lex, char *input);
 void	check_space(t_lx *lex, char *input, t_list *tokens);
 void	check_dollar(t_lx *lex, char *input, t_list *tokens);
 void	check_pirdnw(t_lx *lex, char *input, t_list *tokens);
