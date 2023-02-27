@@ -40,7 +40,7 @@ int		check_three(t_pars **pars, int set, int num, int i);
 //==============================================================================
 //------------------------------------PATH.c------------------------------------
 //==============================================================================
-int		errorput(t_pars **pars, int set, int num, t_ph *ph);
+int		errorput(t_pars **pars, int set, int num);
 int		path(t_pars **pars, int set, int num);
 
 #endif
