@@ -43,20 +43,3 @@ int	check(char input, char const *it)
 	}
 	return (FALSE);
 }
-
-int	errorput(t_pars **pars, int set, int num, t_ph *ph)
-{
-	char	*c;
-	char	*tmp;
-
-	c = ft_itoa(g_error);
-	free(pars[set]->cmd[num]);
-	tmp = ft_strjoin(ph->pre, c);
-	pars[set]->cmd[num] = ft_strjoin(tmp, ph->post);
-	free(c);
-	free(tmp);
-	free(ph->str);
-	free(ph->pre);
-	free(ph->post);
-	return (1);
-}
