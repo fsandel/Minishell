@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:42:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/20 14:51:15 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:45:50 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	b_pwd(t_pars *pars)
 
 void	b_env(t_pars *pars)
 {
-	int	i;
+	int		i;
+	char	*ptr;
 
 	i = 0;
 	if (pars->amount > 1)
@@ -66,7 +67,8 @@ void	b_env(t_pars *pars)
 	}
 	while (pars->env[i])
 	{
-		if (ft_strchr(pars->env[i], '='))
+		ptr = ft_strchr(pars->env[i], '=');
+		if (ptr && ptr[0] == '=')
 			ft_putendl_fd(pars->env[i], STDOUT);
 		i++;
 	}

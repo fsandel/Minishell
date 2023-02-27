@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:48:13 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 15:19:29 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:30:03 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*check_path(t_pars *pars, char **path)
 		&& (pars->cmd[0][0] == '.' || pars->cmd[0][0] == '/'))
 		return (ft_strdup(pars->cmd[0]));
 	while (path && path[c] && pars && pars->cmd && pars->cmd[0]
-		&& pars->cmd[0][0] != '.')
+		&& pars->cmd[0][0] != '.' && pars->cmd[0][0] != '/')
 	{
 		tmp = check_path_access(pars, path[c++]);
 		if (tmp)
