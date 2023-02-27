@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 14:58:16 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:09:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ char	*get_prompt(void)
 	char	*path;
 	char	*prompt;
 	char	*temp;
+	char	*num;
 
 	path = getcwd(NULL, 0);
+	path = str_append(path, ' ');
+	path = str_append(path, '(');
+	num = ft_itoa(g_error);
+	temp = ft_strjoin(path, num);
+	free(path);
+	path = temp;
+	path = str_append(path, ')');
 	if (g_error)
 	{
 		temp = ft_strjoin(path, RED);
