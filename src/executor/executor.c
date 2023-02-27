@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 15:15:46 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:58:02 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static void	execute(t_pars **pars, int i)
 
 	if (pars && pars[i] && pars[i]->cmd && pars[i]->cmd[0])
 	{
-		builtin(pars, i);
+		if (pars[i]->error == 0)
+			builtin(pars, i);
 		path = get_path(pars[i]->env);
 		command = check_path(pars[i], path);
 		if (path)
