@@ -69,8 +69,8 @@ char	**b_cd(t_pars *pars, char **env)
 	}
 	else
 		new_dir = cd_get_realtive_dir(pars->cmd[1]);
-	env = update_pwd(new_dir, env);
 	g_error = chdir(new_dir) * -1;
+	env = update_pwd(new_dir, env);
 	if (g_error)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
