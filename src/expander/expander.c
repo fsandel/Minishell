@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:53:44 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/25 20:26:24 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/27 13:11:07 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	find_dollar(t_pars **pars, t_x *x)
 	char	*tmpp;
 	int		j;
 	int		i;
-	
+
 	j = 0;
 	i = 0;
 	tmp = ft_calloc(sizeof(char), ft_strlen(pars[x->s]->cmd[x->n]));
@@ -187,10 +187,10 @@ void	cmd_expand(t_pars **pars, char **cmds, int s)
 {
 	t_x	x;
 
-	x = (t_x){0, 0, 0, s, 0, 0, (char *) NULL};
+	x = (t_x){0, 0, 0, s, 0, (char *) NULL};
 	while (cmds[x.n])
 	{
-		x = (t_x){0, 0, x.p, x.s, x.n, 0, (char *) NULL};
+		x = (t_x){0, 0, x.p, x.s, x.n, (char *) NULL};
 		while (TRUE && pars[x.s]->cmd[x.n][x.i] != '\0')
 		{
 			normalstring(pars, &x);

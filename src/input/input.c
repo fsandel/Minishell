@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:03:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 13:03:16 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:24:45 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_input(char *str)
 void	empty_input_handler(char *input)
 {
 	free(input);
-	g_error = 1;
+	g_error = 0;
 }
 
 void	bad_quote_handler(char *input)

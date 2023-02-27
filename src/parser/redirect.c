@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:12:40 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 14:41:38 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:29:36 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ t_list	*append_out(t_list *list, t_pars *pars)
 
 	if (!list->next)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (!list->next->content)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				2), ft_putendl_fd(list->next->content, 2), g_error = 258,
@@ -83,10 +83,10 @@ t_list	*redirect_in(t_list *list, t_pars *pars)
 
 	if (!list->next)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (!list->next->content)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				2), ft_putendl_fd(list->next->content, 2), g_error = 258,
@@ -113,10 +113,10 @@ t_list	*redirect_out(t_list *list, t_pars *pars)
 
 	if (!list->next)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (!list->next->content)
 		return (ft_putendl_fd("minishell: syntax error near unexpected token \
-			'newline'", 2), g_error = 258, pars->error = 1, NULL);
+'newline'", 2), g_error = 258, pars->error = 1, NULL);
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				2), ft_putendl_fd(list->next->content, 2), g_error = 258,
