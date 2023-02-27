@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:12:04 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 15:44:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:52:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	**array_add_line(char **arr, char *nl)
 	if (!nl)
 		return (arr);
 	if (!arr)
-		return (ret = ft_calloc(2, sizeof(char *)), ret[0] = ft_strdup(nl), ret[1] = NULL, ret);
+		return (ret = ft_calloc(2, sizeof(char *)),
+			ret[0] = ft_strdup(nl), ret[1] = NULL, arr = ret ,ret);
 	ret = ft_calloc(array_size(arr) + 2, sizeof(char *));
 	while (arr[line])
 	{
@@ -48,7 +49,7 @@ char	**array_add_line(char **arr, char *nl)
 	ret[line++] = ft_strdup(nl);
 	ret[line] = NULL;
 	free_array(arr);
-	return (ret);
+	return (arr = ret, ret);
 }
 
 char	**arr_del_line(char **arr, char *ln)
