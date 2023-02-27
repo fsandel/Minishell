@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 12:39:22 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:13:39 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct t_x
 	int		p; //used for iteration
 	int		s;
 	int		n;
+	int		qq;
 	char	*str; //is output in the end
 }			t_x;
 
