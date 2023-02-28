@@ -30,7 +30,7 @@ EXECUTOR_FILES	=	executor.c duping.c path.c executor_utils.c
 
 EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
 EXPANDER_DIR	=	src/expander/
-EXPANDER_FILES	=	expander.c
+EXPANDER_FILES	=	expander.c dollar.c
 
 LEXER			=	$(addprefix $(LEXER_DIR), $(LEXER_FILES))
 LEXER_DIR		=	src/lexer/
