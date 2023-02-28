@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:53:44 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 16:44:42 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 17:55:19 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	set_str(t_pars **pars, t_x *x)
 		while (x->out[i])
 			printf("%s\n", x->out[i++]); */
 		//printf("-----------------\n");
+		free(x->str);
 	}
 	x->d = FALSE;
 }
@@ -148,8 +149,9 @@ void	quotes(t_pars **pars, t_x *x)
 	if (check(pars[x->s]->cmd[x->n][x->i], "\'\"") == TRUE
 		&& x->b == FALSE)
 	{
-		if (check(pars[x->s]->cmd[x->n][x->i + 1], "\'\"") == TRUE
-			&& pars[x->s]->cmd[x->n][x->i + 2] == '\0')
+		if (check(pars[x->s]->cmd[x->n][0], "\'\"") == TRUE
+			&& check(pars[x->s]->cmd[x->n][1], "\'\"") == TRUE
+			&& pars[x->s]->cmd[x->n][2] == '\0')
 		{
 			x->str = ft_strdup("");
 			x->i += 2;	
@@ -201,9 +203,11 @@ void	addtocmds(t_pars **pars, t_x *x)
 		while(i < last(x->out) && x->out)
 		{
 			pars[x->s]->cmd = array_add_line(pars[x->s]->cmd, x->out[i]);
+			free(x->out[i]);
 			//printf("%i:%s:%s:\n", i, pars[x->s]->cmd[i], x->out[i]);
 			i++;
 		}	
+		free(x->out);
 	}
 }
 
@@ -267,6 +271,7 @@ t_pars	**expander(t_pars **pars)
 	int	total;
 
 	i = -1;
+	//display_pars(pars);
 	//printf("START\n");
 	total = pars[0]->total_cmd;
 	while (++i < total)

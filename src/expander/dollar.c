@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:06:55 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 16:09:10 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 17:58:46 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ow(char *str)
 	int	i;
 
 	i = 0;
-	if (str == NULL)
+	if (str == NULL || ft_strlen(str) == 0)
 		return(FALSE);
 	while (str[i] == ' ')
 	{
@@ -53,15 +53,18 @@ void	splitappend(t_pars **pars, t_x *x, char **split, char *exp)
 		//printf("xpd true\n");
 		while(split[i][j])
 			x->out[last(x->out) - 1] = str_append(x->out[last(x->out) - 1], split[i][j++]);
+		free(split[i]);
 		i++;
 		x->pd = FALSE;
 	}
 	while (split[i])
 	{
 		x->out = array_add_line(x->out, split[i]);
+		free(split[i]);
 		//printf("split%sxout%s\n", split[i], x->out[last(x->out) - 1]);
 		i++;
 	}
+	free(split);
 	//printf("CHECK:%c\n", pars[x->s]->cmd[x->n][x->i]);
 	if (exp[ft_strlen(exp)] != ' ')
 		x->d = TRUE;
@@ -86,8 +89,8 @@ void	make_dollar(t_pars **pars, t_x *x)
 	{
 			split = ft_split(expanded, ' ');
 			splitappend(pars, x, split, expanded);
-			if (expanded[0] == ' ')
-				x->d = FALSE;
+/* 			if (expanded[0] == ' ')
+				x->d = FALSE; */
 			if (expanded[ft_strlen(expanded) - 1] == ' ')
 				x->d = FALSE;
 	}
@@ -95,7 +98,26 @@ void	make_dollar(t_pars **pars, t_x *x)
 	{
 		x->str = str_append(x->str, ' ');
 	}
+	free(expanded);
 /* 	printf("MAKEDOLLAR________\n"); */
+}
+
+/* int	checkbrk(t_pars **pars, t_x *x)
+{
+	if (check(pars[x->s]->cmd[x->n][x->i], "_")
+		&& ft_isalnum(pars[x->s]->cmd[x->n][x->i]))
+		return(FALSE);
+	else
+		return(TRUE);
+} */
+int	checkbrk(t_pars **pars, t_x *x)
+{
+	if (check(pars[x->s]->cmd[x->n][x->i], "$\n\\\"\'/?") == FALSE
+		&& is_whitespace(pars[x->s]->cmd[x->n][x->i]) == FALSE
+		&& pars[x->s]->cmd[x->n][x->i] != '\0')
+		return(FALSE);
+	else
+		return(TRUE);
 }
 
 char	*find_dollar(t_pars **pars, t_x *x)
@@ -108,13 +130,11 @@ char	*find_dollar(t_pars **pars, t_x *x)
 	j = 0;
 	i = 0;
 	tmp = ft_calloc(sizeof(char), ft_strlen(pars[x->s]->cmd[x->n]));
-	while (check(pars[x->s]->cmd[x->n][x->i], "$\n\\\"\'/") == FALSE
-		&& is_whitespace(pars[x->s]->cmd[x->n][x->i]) == FALSE
-		&& pars[x->s]->cmd[x->n][x->i] != '\0'
-		&& check(pars[x->s]->cmd[x->n][x->i], "\"\'") == FALSE)
+	while (checkbrk(pars, x) == FALSE)
 			tmp[j++] = pars[x->s]->cmd[x->n][x->i++];
 	tmp[j] = '\0';
 	tmpp = array_get_line(pars[x->s]->env, tmp);
+	//printf("tmppp:%s:x.>i%i:%c\n", tmpp, x->i, pars[x->s]->cmd[x->n][x->i]);
 	if (tmpp != NULL && ft_strlen(tmpp) && ow(tmpp) == FALSE)
 	{
 		x->i--;

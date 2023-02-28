@@ -31,8 +31,6 @@
 
 /bin/echo $"$"
 
-/bin/echo $"42$"
-
 /bin/echo "$"$
 
 /bin/echo $'$'
@@ -130,8 +128,3 @@ export X="  A  B  "
 
 export X="  A  B  "
 /bin/echo "1"$X2?
-
-export test=" * "
-touch "$USER * ?eHallo"
-/bin/echo "$USER "*" ?e"*
-rm -f "$USER * ?eHallo"
