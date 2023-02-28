@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:29:21 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 16:16:07 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 19:37:40 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,16 @@ int	str_is_alpha_num(char *str)
 int	string_is_digit(char *str)
 {
 	int		i;
-	size_t	sign;
 
-	sign = 0;
 	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
-		{
-			if (str[i] == '+' || str[i] == '-')
-				sign++;
-		}
+		if (ft_isdigit(str[i]))
+			i++;
 		else
 			return (0);
-		i++;
 	}
-	if (ft_strlen(str) == sign)
-		return (0);
 	return (1);
 }
