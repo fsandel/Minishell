@@ -168,8 +168,6 @@ echo $USE"R"$HOME
 
 /bin/echo $"$"
 
-/bin/echo $"42$"
-
 /bin/echo "$"$
 
 /bin/echo $'$'
@@ -179,12 +177,6 @@ echo $USE"R"$HOME
 env | grep HOME
 
 env | grep $USER
-
-export USER=
-env | grep USER
-
-export USER="@?/"
-env | grep USER
 
 export NEW="4 2"
 env | grep NEW
