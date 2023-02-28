@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:52 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:35:48 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:11:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ void	display_line(char *line)
 	if (!line)
 		return ;
 	i = 0;
-	ft_putstr_fd("declare -x ", 1);
+	ft_putstr_fd("declare -x ", STDOUT);
 	while (line[i] && line[i] != '=')
-		ft_putchar_fd(line[i++], 1);
-	if (line[i])
+		ft_putchar_fd(line[i++], STDOUT);
+	if (line[i] == '=')
+		ft_putchar_fd(line[i++], STDOUT);
+	if (line[i - 1] == '=')
 	{
-		ft_putchar_fd('"', 1);
-		ft_putstr_fd(&line[i++], 1);
-		ft_putchar_fd('"', 1);
+		ft_putchar_fd('"', STDOUT);
+		if (line[i])
+			ft_putstr_fd(&line[i++], STDOUT);
+		ft_putchar_fd('"', STDOUT);
 	}
 	ft_putchar_fd('\n', 1);
 }

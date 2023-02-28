@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:32:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/21 21:10:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:34:37 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ void	signal_handler_interactive(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(STDOUT_FILENO, "\r\x1b[2K", 6);
-		rl_on_new_line();
-		rl_redisplay();
+		// write(STDOUT_FILENO, "\r\x1b[2K", 6);
+		// rl_on_new_line();
+		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_error = 1;
 	}
 }
 
@@ -30,14 +31,15 @@ void	signal_handler_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, ">", 1);
-		write(STDOUT_FILENO, "\r\x1b[2K", 6);
-		rl_on_new_line();
-		rl_redisplay();
+		// write(1, ">", 1);
+		// write(STDOUT_FILENO, "\r\x1b[2K", 6);
+		// rl_on_new_line();
+		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_error = 1;
 	}
 }
 

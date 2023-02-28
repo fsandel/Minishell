@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:26:51 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:12:51 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	b_env(t_pars *pars)
 	i = 0;
 	if (pars->amount > 1)
 	{
-		ft_putendl_fd("minishell: env: no arguments for env", 2);
+		ft_putendl_fd("minishell: env: no arguments for env", STDERR);
 		exit(1);
 	}
 	while (pars->env[i])
