@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:53:44 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/27 13:11:07 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:49:55 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,6 @@
 void	app(t_pars **pars, t_x *x)
 {
 	x->str = str_append(x->str, pars[x->s]->cmd[x->n][x->i++]);
-}
-
-void	find_dollar(t_pars **pars, t_x *x)
-{
-	char	*tmp;
-	char	*tmpp;
-	int		j;
-	int		i;
-
-	j = 0;
-	i = 0;
-	tmp = ft_calloc(sizeof(char), ft_strlen(pars[x->s]->cmd[x->n]));
-	while (check(pars[x->s]->cmd[x->n][x->i], "$\n\\\"\'") == FALSE
-		&& is_whitespace(pars[x->s]->cmd[x->n][x->i]) == FALSE
-		&& pars[x->s]->cmd[x->n][x->i] != '\0'
-		&& check(pars[x->s]->cmd[x->n][x->i], "\"\'") == FALSE)
-			tmp[j++] = pars[x->s]->cmd[x->n][x->i++];
-	tmp[j] = '\0';
-	tmpp = array_get_line(pars[x->s]->env, tmp);
-	free(tmp);
-	if (tmpp != NULL)
-	{
-		while (tmpp[i])
-			x->str = str_append(x->str, tmpp[i++]);
-	}
-	free(tmpp);
 }
 
 void	pute(t_x *x)
@@ -68,7 +42,7 @@ void	dollar(t_pars **pars, t_x *x)
 		||check(pars[x->s]->cmd[x->n][x->i + 1], "_") == TRUE)
 	{
 		x->i++;
-		find_dollar(pars, x);
+		make_dollar(pars, x);
 	}
 	else
 	{
@@ -130,6 +104,36 @@ void	q(t_pars **pars, t_x *x)
 
 void	set_str(t_pars **pars, t_x *x)
 {
+	int i;
+	(void)pars;
+
+	i = 0;
+	if (x->str != NULL)
+	{
+		//printf("ADDING IN SET_STR:%s----d%i---ds%i--\n", x->str, x->d, x->ds);
+		if (x->d == TRUE)
+		{
+			while(x->str[i])
+			{
+
+				x->out[last(x->out) - 1] = str_append(x->out[last(x->out) - 1], x->str[i]);
+				i++;
+			}
+		}
+		else
+		{
+			x->out = array_add_line(x->out, x->str);
+		}
+		//printf("OUTPUT SET_STR:%s:\n", x->out[last(x->out) - 1]);
+/* 		i = 0;
+		while (x->out[i])
+			printf("%s\n", x->out[i++]); */
+		//printf("-----------------\n");
+	}
+	x->d = FALSE;
+}
+/* void	set_str(t_pars **pars, t_x *x)
+{
 	if (x->str != NULL)
 	{
 		free(pars[x->s]->cmd[x->p]);
@@ -137,7 +141,7 @@ void	set_str(t_pars **pars, t_x *x)
 		//printf("OUTPUT:%s:\n", pars[x->s]->cmd[x->p]);
 		x->p++;	
 	}
-}
+} */
 
 void	quotes(t_pars **pars, t_x *x)
 {
@@ -169,48 +173,83 @@ void	normalstring(t_pars **pars, t_x *x)
 void	expanding(t_pars **pars, t_x *x)
 {
 	if (pars[x->s]->cmd[x->n][x->i] == '$')
+	{
+		if (x->i != 0 && x->str != NULL)
+			x->pd = TRUE;
 		dollar(pars, x);
+	}
 }
 
-void	rmv_rest(t_pars **pars, t_x *x)
+void	addtocmds(t_pars **pars, t_x *x)
 {
-	while(x->p <= x->n && pars[x->s]->cmd[x->p])
+	int	i;
+
+	i = 0;
+	if (!x->out)
+		array_add_line(x->out, "");
+	if (x->out)
 	{
-		//printf("FREEING:%s:\n", pars[x->s]->cmd[x->p]);
-		/* free(pars[x->s]->cmd[x->p]); */
-		ft_bzero(pars[x->s]->cmd[x->p], ft_strlen(pars[x->s]->cmd[x->p]));
-		x->p++;
+		while(i < last(x->out) && x->out)
+		{
+			pars[x->s]->cmd = array_add_line(pars[x->s]->cmd, x->out[i]);
+			//printf("%i:%s:%s:\n", i, pars[x->s]->cmd[i], x->out[i]);
+			i++;
+		}	
 	}
 }
 
 void	cmd_expand(t_pars **pars, char **cmds, int s)
 {
 	t_x	x;
+	int	i;
 
-	x = (t_x){0, 0, 0, s, 0, (char *) NULL};
+	x = (t_x){0, 0, 0, s, 0, 0, 0, 0, (char **) NULL, (char *) NULL};
 	while (cmds[x.n])
 	{
-		x = (t_x){0, 0, x.p, x.s, x.n, (char *) NULL};
-		while (TRUE && pars[x.s]->cmd[x.n][x.i] != '\0')
+		i = 0;
+		x = (t_x){0, 0, x.p, x.s, x.n, x.ds, x.pd, x.ds, x.out, (char *) NULL};
+		//printf("NEEEEW STRIJNG-------%s--------\n", cmds[x.n]);
+		while (TRUE && ft_strlen(pars[x.s]->cmd[x.n]))
 		{
+			//printf("-----------------\n");
 			normalstring(pars, &x);
-			//printf("N:%s||at:%c:%i\n", x.str, pars[x.s]->cmd[x.n][x.i], x.i);
+			//printf("ns:%i\n", x.d);
 			backslash(pars, &x);
-			//printf("B:%s||at:%c:%i\n", x.str, pars[x.s]->cmd[x.n][x.i], x.i);
+			//printf("bs:%i\n", x.d);
 			quotes(pars, &x);
-			//printf("Q:%s||at:%c:%i\n", x.str, pars[x.s]->cmd[x.n][x.i], x.i);
+			//printf("qu:%i\n", x.d);
 			expanding(pars, &x);
-			//printf("E:%s||at:%c:%i\n", x.str, pars[x.s]->cmd[x.n][x.i], x.i);
-			if (pars[x.s]->cmd[x.n][x.i] == '\0' || x.i > 20)
+			//printf("expd:%i\n", x.d);
+			if (pars[x.s]->cmd[x.n][x.i] == '\0')
 			{
-				set_str(pars, &x);
-				//printf("BROKEN HERE:------------\n");
+				if (x.str != NULL)
+					set_str(pars, &x);
 				break ;
 			}
 		}
+/* 		printf("ONE STRING DONE: SUMMARY\n");
+		i = 0;
+		while (x.out[i])
+			printf("%s\n", x.out[i++]);
+		printf("---------------\n"); */
 		x.n++;
 	}
-	rmv_rest(pars, &x);
+	if (pars[x.s]->cmd[0] != NULL)
+	{
+		free_array(pars[x.s]->cmd);
+		pars[x.s]->cmd = NULL;
+		addtocmds(pars, &x);	
+	}
+/* 	printf("EXP DONE--------------------------------------------------\n"); 
+	printf("XOUT---------------\n");
+	i = 0;
+	while (x.out[i])
+		printf("%s\n", x.out[i++]);
+	printf("PARS---------------\n");
+	i = 0;
+	while (pars[x.s]->cmd[i])
+		printf("%s\n", pars[x.s]->cmd[i++]);
+	printf("END---\n"); */
 }
 
 t_pars	**expander(t_pars **pars)
@@ -219,8 +258,10 @@ t_pars	**expander(t_pars **pars)
 	int	total;
 
 	i = -1;
+	//printf("START\n");
 	total = pars[0]->total_cmd;
 	while (++i < total)
 		cmd_expand(pars, pars[i]->cmd, i);
+	//display_pars(pars);
 	return (pars);
 }

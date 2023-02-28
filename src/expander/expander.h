@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 10:59:03 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:59:14 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # define EXPANDER_H
 
 # include "minishell.h"
+
+typedef struct t_x
+{
+	int		b;  //backslash
+	int		i; //used for iteration
+	int		p; //used for iteration
+	int		s;
+	int		n;
+	int		d;
+	int		pd;
+	int		ds;
+	char	**out;
+	char	*str; //is output in the end
+}			t_x;
 
 //==============================================================================
 //--------------------------------EXPANDER.c------------------------------------
@@ -42,5 +56,9 @@ int		check_three(t_pars **pars, int set, int num, int i);
 //==============================================================================
 int		errorput(t_pars **pars, int set, int num);
 int		path(t_pars **pars, int set, int num);
-
+void	make_dollar(t_pars **pars, t_x *x);
+char	*find_dollar(t_pars **pars, t_x *x);
+void	splitappend();
+int 	last(char **str);
+void	set_str(t_pars **pars, t_x *x);
 #endif
