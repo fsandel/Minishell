@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:41 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:35:38 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:13:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**b_cd(t_pars *pars, char **env)
 	{
 		new_dir = array_get_line(env, "HOME");
 		if (!new_dir)
-			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), env);
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", STDERR), env);
 	}
 	else if (pars->cmd[1][0] == '/')
 		new_dir = ft_strdup(pars->cmd[1]);
@@ -70,7 +70,7 @@ char	**b_cd(t_pars *pars, char **env)
 	env = update_pwd(new_dir, env);
 	if (g_error)
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", STDERR);
 		perror(pars->cmd[1]);
 	}
 	return (free(new_dir), env);

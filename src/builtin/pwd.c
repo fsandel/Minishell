@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:26:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:14:28 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	b_pwd(t_pars *pars)
 	wd = getcwd(NULL, 0);
 	if (!wd)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("minishell: ", STDERR);
 		perror(pars->cmd[0]);
 		exit(1);
 	}
