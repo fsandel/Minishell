@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:33:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 14:03:09 by fsandel          ###   ########.fr       */
+/*   Created: 2023/02/28 13:23:46 by fsandel           #+#    #+#             */
+/*   Updated: 2023/02/28 13:26:51 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#include "minishell.h"
 
-void	signal_interactive(void);
-void	signal_bash(void);
-void	signal_handler_interactive(int sig);
-void	signal_handler_bash(int sig);
-void	set_g_error(int status);
+void	b_env(t_pars *pars)
+{
+	int		i;
+	char	*ptr;
 
-void	disable_echo(void);
-void	enable_echo(void);
-
-#endif
+	i = 0;
+	if (pars->amount > 1)
+	{
+		ft_putendl_fd("minishell: env: no arguments for env", 2);
+		exit(1);
+	}
+	while (pars->env[i])
+	{
+		ptr = ft_strchr(pars->env[i], '=');
+		if (ptr && ptr[0] == '=')
+			ft_putendl_fd(pars->env[i], STDOUT);
+		i++;
+	}
+	g_error = 0;
+}

@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/27 14:41:48 by fsandel          ###   ########.fr        #
+#    Updated: 2023/02/28 13:59:26 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ REDIRECT		=	2> /dev/null 1> /dev/null
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c minishell.c
+SRC_FILES		=	main.c minishell.c minishell_utils.c
 
 EXECUTOR		=	$(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 EXECUTOR_DIR	=	src/executor/
-EXECUTOR_FILES	=	executor.c duping.c builtin.c builtin_in_exec.c builtin_no_exec.c path.c export.c cd.c
+EXECUTOR_FILES	=	executor.c duping.c path.c executor_utils.c
 
 EXPANDER		=	$(addprefix $(EXPANDER_DIR), $(EXPANDER_FILES))
 EXPANDER_DIR	=	src/expander/
@@ -52,11 +52,15 @@ SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
 SIGNAL_DIR		=	src/signal/
 SIGNAL_FILES	=	signal.c echo.c
 
+BUILTIN			=	$(addprefix $(BUILTIN_DIR), $(BUILTIN_FILES))
+BUILTIN_DIR		=	src/builtin/
+BUILTIN_FILES	=	builtin_utils.c builtin.c cd.c echo.c env.c exit.c export.c pwd.c unset.c
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
 HDR_DIR			=	include/
 HDR_FILES		=	minishell.h
 
-ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL)
+ALL_SRC			=	$(SRC) $(EXECUTOR) $(EXPANDER) $(LEXER) $(PARSER) $(REST) $(UTILS) $(INPUT) $(SIGNAL) $(BUILTIN)
 
 ################################################################################
 ################################################################################

@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:01:38 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 16:58:02 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 13:49:01 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,6 @@ char	**executor(t_pars **pars)
 	return (env);
 }
 
-int	execve_error(char *cmd, char *og_cmd)
-{
-	int			error;
-	struct stat	st;
-	int			status;
-
-	status = stat(og_cmd, &st);
-	error = 0;
-	if (!cmd)
-	{
-		error = 127;
-		ft_err_print("minishell: %s: command not found\n", og_cmd, NULL, NULL);
-	}
-	else if (!status && S_ISDIR(st.st_mode))
-	{
-		error = 127;
-		ft_err_print("minishell: %s: is a directory\n", og_cmd, NULL, NULL);
-	}
-	else
-	{
-		ft_err_print("minishell: %s ", og_cmd, NULL, NULL);
-		perror("");
-		error = 126;
-	}
-	return (error);
-}
-
 static void	execute(t_pars **pars, int i)
 {
 	char	*command;
@@ -85,12 +58,7 @@ static void	execute(t_pars **pars, int i)
 		if (pars[i]->error == 0)
 			execve(command, &pars[i]->cmd[0], pars[i]->env);
 		else
-		{
-			free(command);
-			free_array(pars[0]->env);
-			free_struct(pars);
-			exit(g_error);
-		}
+			executor_exit(command, pars[0]->env, pars);
 		g_error = execve_error(command, pars[i]->cmd[0]);
 		free(command);
 	}

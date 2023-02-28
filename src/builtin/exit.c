@@ -1,73 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_no_exec.c                                  :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 15:44:44 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 15:17:25 by fsandel          ###   ########.fr       */
+/*   Created: 2023/02/28 13:23:49 by fsandel           #+#    #+#             */
+/*   Updated: 2023/02/28 13:27:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	str_is_alpha_num(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i++]))
-			return (1);
-	}
-	return (0);
-}
-
-char	**b_unset(t_pars *pars)
-{
-	int	i;
-
-	g_error = 0;
-	i = 1;
-	while (pars->cmd[i])
-	{
-		if (ft_isalpha(pars->cmd[i][0]) && !str_is_alpha_num(pars->cmd[i]))
-			pars->env = arr_del_line(pars->env, pars->cmd[i]);
-		else
-		{
-			ft_err_print("minishell: unset: '%s': not a valid identifier\n",
-				pars->cmd[i], NULL, NULL);
-			g_error = 1;
-		}
-		i++;
-	}
-	return (pars->env);
-}
-
-int	string_is_digit(char *str)
-{
-	int		i;
-	size_t	sign;
-
-	sign = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
-		{
-			if (str[i] == '+' || str[i] == '-')
-				sign++;
-		}
-		else
-			return (0);
-		i++;
-	}
-	if (ft_strlen(str) == sign)
-		return (0);
-	return (1);
-}
 
 void	exit_message(t_pars **pars)
 {
