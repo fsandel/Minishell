@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 11:53:44 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 16:05:22 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 16:44:42 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,19 @@ void	quotes(t_pars **pars, t_x *x)
 	if (check(pars[x->s]->cmd[x->n][x->i], "\'\"") == TRUE
 		&& x->b == FALSE)
 	{
+		if (check(pars[x->s]->cmd[x->n][x->i + 1], "\'\"") == TRUE
+			&& pars[x->s]->cmd[x->n][x->i + 2] == '\0')
+		{
+			x->str = ft_strdup("");
+			x->i += 2;	
+		}
+		else
+		{
 		if (pars[x->s]->cmd[x->n][x->i] == '\"')
 			qq(pars, x);
 		else
-			q(pars, x);
+			q(pars, x);	
+		}
 	}
 }
 
