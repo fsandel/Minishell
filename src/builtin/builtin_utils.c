@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:29:21 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:34:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 16:16:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	str_is_alpha_num(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i++]))
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (1);
+		i++;
 	}
 	return (0);
 }

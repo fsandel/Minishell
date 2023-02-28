@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:58 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:35:51 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 16:36:20 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	**b_unset(t_pars *pars)
 
 	g_error = 0;
 	i = 1;
+
 	while (pars->cmd[i])
 	{
-		if (ft_isalpha(pars->cmd[i][0]) && !str_is_alpha_num(pars->cmd[i]))
+		if ((ft_isalpha(pars->cmd[i][0]) || pars->cmd[i][0] == '_')
+			&& !str_is_alpha_num(pars->cmd[i]) && pars->cmd[i][0])
 			pars->env = arr_del_line(pars->env, pars->cmd[i]);
 		else
 		{
