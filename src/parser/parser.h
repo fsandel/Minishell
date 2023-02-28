@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 10:51:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:03:02 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 #ifndef PARSER_H
 # define PARSER_H
-
-# include "minishell.h"
 
 typedef struct s_q
 {

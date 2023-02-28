@@ -6,98 +6,15 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 16:14:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:01:00 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt(void)
-{
-	char	*path;
-	char	*prompt;
-	char	*temp;
-	char	*num;
-
-	path = getcwd(NULL, 0);
-	path = str_append(path, ' ');
-	path = str_append(path, '(');
-	num = ft_itoa(g_error);
-	temp = ft_strjoin(path, num);
-	free(path);
-	free(num);
-	path = temp;
-	path = str_append(path, ')');
-	if (g_error)
-	{
-		temp = ft_strjoin(path, RED);
-		prompt = ft_strjoin(temp, " > ");
-		free(temp);
-		temp = ft_strjoin(prompt, DEFAULT);
-		free(prompt);
-		return (free(path), temp);
-		prompt = ft_strjoin(path, ": ");
-	}
-	else
-	{
-		prompt = ft_strjoin(path, " >");
-		return (free(path), prompt);
-	}
-}
-
-void	nice_exit(char **env, char *input)
-{
-	char	*prompt;
-
-	prompt = get_prompt();
-	free(prompt);
-	free_array(env);
-	free(input);
-}
-
-int	check_empty(t_pars **pars)
-{
-	int	i;
-	int	trigger;
-
-	i = pars[0]->total_cmd;
-	trigger = 0;
-	while (i--)
-	{
-		if (pars[i] && pars[i]->cmd && !pars[i]->cmd[0])
-		{
-			if (pars[i]->in == STDIN && pars[i]->out == STDOUT)
-				return (free_struct(pars), g_error = 258,
-					ft_putendl_fd("minishell: syn\
-	tax error near unexpecte token '|'", 2), 1);
-		}
-	}
-	return (0);
-}
-
-char	**command(char *input, char **old_env)
-{
-	t_list	*tokens;
-	t_pars	**pars;
-	char	**env;
-
-	add_history(input);
-	tokens = lexer(input);
-	free(input);
-	if (ft_lstsize(tokens) == 0)
-		return (g_error = 0, free(tokens), old_env);
-	if (!tokens->content)
-		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
-	pars = parser(tokens, old_env);
-	ft_lstclear(&tokens, free);
-	if (!pars || check_empty(pars))
-		return (old_env);
-	env = pars[0]->env;
-	pars = expander(pars);
-	env = executor(pars);
-	free_struct(pars);
-	return (env);
-}
+void	nice_exit(char **env, char *input);
+char	*get_prompt(void);
+char	**command(char *input, char **old_env);
 
 int	minishell(char *old_env[])
 {
@@ -123,4 +40,28 @@ int	minishell(char *old_env[])
 			env = command(input, env);
 	}
 	return (g_error);
+}
+
+char	**command(char *input, char **old_env)
+{
+	t_list	*tokens;
+	t_pars	**pars;
+	char	**env;
+
+	add_history(input);
+	tokens = lexer(input);
+	free(input);
+	if (ft_lstsize(tokens) == 0)
+		return (g_error = 0, free(tokens), old_env);
+	if (!tokens->content)
+		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
+	pars = parser(tokens, old_env);
+	ft_lstclear(&tokens, free);
+	if (!pars || check_empty(pars))
+		return (old_env);
+	env = pars[0]->env;
+	pars = expander(pars);
+	env = executor(pars);
+	free_struct(pars);
+	return (env);
 }
