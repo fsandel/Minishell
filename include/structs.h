@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/25 20:13:39 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:59:38 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,5 @@ typedef struct lex
 	int		q;
 	char	c;
 }			t_lx;
-
-typedef struct t_x
-{
-	int		b;  //backslash
-	int		i; //used for iteration
-	int		p; //used for iteration
-	int		s;
-	int		n;
-	char	*str; //is output in the end
-}			t_x;
 
 #endif
