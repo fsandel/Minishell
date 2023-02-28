@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:12:40 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:22:36 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:42:34 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_list	*append_out(t_list *list, t_pars *pars)
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				STDERR), ft_putendl_fd(list->next->content, 2),
-				g_error = 258, pars->error = 1, NULL);
+			g_error = 258, pars->error = 1, NULL);
 	exp = expand_string(pars->env, list->next->content);
 	if (!ft_strncmp(exp, "", 2))
 		return (ft_err_print("minishell: %s: ambigious redirect",
@@ -90,7 +90,7 @@ t_list	*redirect_in(t_list *list, t_pars *pars)
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				STDERR), ft_putendl_fd(list->next->content, 2),
-				g_error = 258, pars->error = 1, NULL);
+			g_error = 258, pars->error = 1, NULL);
 	exp = expand_string(pars->env, list->next->content);
 	if (!ft_strncmp(exp, "", 2))
 		return (ft_err_print("minishell: %s: ambigious redirect",

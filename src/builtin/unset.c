@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:58 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 16:36:20 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:41:23 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**b_unset(t_pars *pars)
 
 	g_error = 0;
 	i = 1;
-
 	while (pars->cmd[i])
 	{
 		if ((ft_isalpha(pars->cmd[i][0]) || pars->cmd[i][0] == '_')

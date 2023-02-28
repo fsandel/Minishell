@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:02:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/27 13:05:41 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:45:35 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 
 #ifndef LEXER_H
 # define LEXER_H
+
+typedef struct lex
+{
+	t_list	*tokens;
+	size_t	i;
+	size_t	ts;
+	size_t	te;
+	int		q;
+	char	c;
+}			t_lx;
 
 //==============================================================================
 //---------------------------------LEXER.c--------------------------------------
@@ -34,6 +44,7 @@ void	check_space(t_lx *lex, char *input, t_list *tokens);
 void	check_dollar(t_lx *lex, char *input, t_list *tokens);
 void	check_pirdnw(t_lx *lex, char *input, t_list *tokens);
 void	ft_lstprint(t_list *list);
+void	check_left(t_lx *lex, char *input);
 //==============================================================================
 //------------------------------SMALLERTHAN.c-----------------------------------
 //==============================================================================
