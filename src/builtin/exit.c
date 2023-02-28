@@ -6,11 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:49 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:13:44 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 19:44:19 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_numeric_message(char *arg, t_pars **pars, char **env);
 
 void	exit_message(t_pars **pars)
 {
@@ -23,15 +25,10 @@ void	exit_message(t_pars **pars)
 
 char	**b_exit(t_pars **pars, char **env, int i)
 {
+	if (pars[i]->cmd[1] && !pars[i]->cmd[1][0])
+		exit_numeric_message(pars[0]->cmd[1], pars, env);
 	if (pars[i]->cmd[1] && !string_is_digit(pars[i]->cmd[1]))
-	{
-		ft_err_print("minishell: exit: %s: numeric argument required\n",
-			pars[0]->cmd[1], NULL, NULL);
-		exit_message(pars);
-		free_array(env);
-		free_struct(pars);
-		exit(255);
-	}
+		exit_numeric_message(pars[0]->cmd[1], pars, env);
 	if (pars[i]->amount > 2 && pars[i]->total_cmd > 1)
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
@@ -48,4 +45,14 @@ char	**b_exit(t_pars **pars, char **env, int i)
 	free_struct(pars);
 	exit_message(pars);
 	exit(g_error);
+}
+
+void	exit_numeric_message(char *arg, t_pars **pars, char **env)
+{
+	ft_err_print("minishell: exit: %s: numeric argument required\n",
+		arg, NULL, NULL);
+	exit_message(pars);
+	free_array(env);
+	free_struct(pars);
+	exit(255);
 }
