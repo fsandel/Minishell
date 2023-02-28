@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:19:34 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:42:12 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_list	*here_doc(t_list *list, t_pars *pars, t_pars **pars_full)
 	if (unexpected_token(list->next->content))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token ",
 				STDERR), ft_putendl_fd(list->next->content, STDERR),
-				g_error = 258,
+			g_error = 258,
 			pars->error = 1, NULL);
 	pipe(fd);
 	signal(SIGINT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:33:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:59:38 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:45:32 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,5 @@ typedef struct s_pars
 	pid_t	pid;
 	t_list	*list;
 }			t_pars;
-
-typedef struct lex
-{
-	t_list	*tokens;
-	size_t	i;
-	size_t	ts;
-	size_t	te;
-	int		q;
-	char	c;
-}			t_lx;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:32:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:34:37 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:41:15 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ void	signal_handler_interactive(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// write(STDOUT_FILENO, "\r\x1b[2K", 6);
-		// rl_on_new_line();
-		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -31,10 +28,6 @@ void	signal_handler_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// write(1, ">", 1);
-		// write(STDOUT_FILENO, "\r\x1b[2K", 6);
-		// rl_on_new_line();
-		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
