@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:03:15 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:16:45 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:15:59 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,26 @@ void	bad_quote_handler(char *input)
 char	*get_input(char *prompt)
 {
 	char	*input;
+	char	buf;
+	int		bytes;
 
 	if (isatty(STDIN))
 		input = readline(prompt);
 	else
-		input = get_next_line(STDIN);
+	{
+		input = NULL;
+		buf = 0;
+		bytes = read(STDIN, &buf, 1);
+		if (bytes < 1)
+			return (NULL);
+		while (bytes && buf != '\n')
+		{
+			input = str_append(input, buf);
+			bytes = read(STDIN, &buf, 1);
+			if (bytes < 0)
+				return (free(input), NULL);
+		}
+	}
 	return (input);
 }
 

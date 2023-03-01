@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# truncate log files
+echo "" 2>error.log > out.log
+
 # Change if you store the tester in another PATH
 export MINISHELL_PATH=../
 export EXECUTABLE=minishell
@@ -111,8 +114,7 @@ test_from_file() {
 				((line_count++))
 			done
 			# INPUT=${INPUT%?}
-			echo "" > leaks.log
-			echo -n "$INPUT" | $MINISHELL_PATH/$EXECUTABLE 2>>leaks.log >tmp_out_minishell
+			echo -n "$INPUT" | $MINISHELL_PATH/$EXECUTABLE 2>>error.log >>out.log
 			exit_minishell=$?
 			echo -n "enable -n .$NL$INPUT" | bash 2>tmp_err_bash >tmp_out_bash
 			exit_bash=$?

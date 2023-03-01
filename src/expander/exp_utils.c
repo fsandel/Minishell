@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:26:12 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 18:38:39 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/01 13:18:13 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	pute(t_x *x)
 	char	*tmpp;
 
 	x->i += 2;
-	tmp = ft_strdup(ft_itoa(g_error));
+	tmp = ft_itoa(g_error);
 	if (x->str == NULL)
 		x->str = ft_strdup(tmp);
 	else

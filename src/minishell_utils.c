@@ -6,20 +6,17 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:56:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 13:57:46 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:20:44 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt(void)
+char	*append_error_number(char *path)
 {
-	char	*path;
-	char	*prompt;
-	char	*temp;
 	char	*num;
+	char	*temp;
 
-	path = getcwd(NULL, 0);
 	path = str_append(path, ' ');
 	path = str_append(path, '(');
 	num = ft_itoa(g_error);
@@ -28,6 +25,18 @@ char	*get_prompt(void)
 	free(num);
 	path = temp;
 	path = str_append(path, ')');
+	return (path);
+}
+
+char	*get_prompt(void)
+{
+	char	*path;
+	char	*prompt;
+	char	*temp;
+
+	path = getcwd(NULL, 0);
+	if (DEBUG)
+		path = append_error_number(path);
 	if (g_error)
 	{
 		temp = ft_strjoin(path, RED);
