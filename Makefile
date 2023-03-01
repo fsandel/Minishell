@@ -6,7 +6,7 @@
 #    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/02/28 18:44:11 by pgorner          ###   ########.fr        #
+#    Updated: 2023/03/01 19:10:21 by pgorner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ INPUT_FILES		=	input.c
 
 SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
 SIGNAL_DIR		=	src/signal/
-SIGNAL_FILES	=	signal.c echo.c
+SIGNAL_FILES	=	signal.c
 
 BUILTIN			=	$(addprefix $(BUILTIN_DIR), $(BUILTIN_FILES))
 BUILTIN_DIR		=	src/builtin/
@@ -96,27 +96,6 @@ re:	fclean all
 
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
-
-################################################################################
-################################################################################
-
-ffclean: fclean
-	@echo $(RED)
-	@echo "deleted readline"
-	@echo "deleted libft"
-	@rm -rf lib
-	@echo $(DEFAULT)
-
-env:
-	make all && env -i ./minishell
-
-tester:
-	make re
-	cd tests && bash tester.sh m
-
-leaks:
-	make lsan
-	cd tests && bash tester_leaks.sh m
 
 ################################################################################
 ################################################################################

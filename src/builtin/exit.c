@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:49 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 19:44:19 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:08:41 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**b_exit(t_pars **pars, char **env, int i)
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
 		free_array(env);
 		free_struct(pars);
+		rl_clear_history();
 		exit(1);
 	}
 	if (pars[i]->amount > 2)
@@ -44,6 +45,7 @@ char	**b_exit(t_pars **pars, char **env, int i)
 	free_array(env);
 	free_struct(pars);
 	exit_message(pars);
+	rl_clear_history();
 	exit(g_error);
 }
 
@@ -54,5 +56,6 @@ void	exit_numeric_message(char *arg, t_pars **pars, char **env)
 	exit_message(pars);
 	free_array(env);
 	free_struct(pars);
+	rl_clear_history();
 	exit(255);
 }

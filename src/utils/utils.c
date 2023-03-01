@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:03:42 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/22 18:50:56 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:26:27 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	token(t_lx *lex, char *input, t_list *tokens)
 
 	i = 0;
 	lex->te = lex->i;
-	token = ft_calloc(sizeof(char), lex->te - lex->ts + 2);
+	token = ft_calloc(sizeof(char), lex->te - lex->ts + 3);
 	if (lex->ts == lex->i)
 		token[i] = input[lex->i];
 	else

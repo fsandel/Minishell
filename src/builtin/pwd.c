@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:55 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:14:28 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:08:33 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	b_pwd(t_pars *pars)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
 		perror(pars->cmd[0]);
+		rl_clear_history();
 		exit(1);
 	}
 	else

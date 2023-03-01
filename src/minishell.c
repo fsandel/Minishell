@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:05:26 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 20:04:39 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:57:41 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	minishell(char *old_env[])
 	env = copy_arr(old_env);
 	while (1)
 	{
-		disable_echo();
 		signal(SIGINT, signal_handler_interactive);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt();
@@ -58,6 +57,7 @@ char	**command(char *input, char **old_env)
 		return (g_error = 0, ft_lstclear(&tokens, free), old_env);
 	pars = parser(tokens, old_env);
 	ft_lstclear(&tokens, free);
+	free(tokens);
 	if (!pars || check_empty(pars))
 		return (old_env);
 	env = pars[0]->env;
