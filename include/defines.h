@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:32:37 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/24 17:49:29 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:16:57 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define STDOUT 1
 # define STDIN 0
 # define STDERR 2
+
+# define DEBUG 1
 
 # define RED "\033[0;31m"
 # define DEFAULT "\033[0m"
