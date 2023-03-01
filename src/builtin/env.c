@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:46 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 15:12:51 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:08:47 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	b_env(t_pars *pars)
 	if (pars->amount > 1)
 	{
 		ft_putendl_fd("minishell: env: no arguments for env", STDERR);
+		rl_clear_history();
 		exit(1);
 	}
 	while (pars->env[i])

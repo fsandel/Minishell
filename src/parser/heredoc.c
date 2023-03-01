@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 18:42:12 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:08:02 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	here_doc_child(char *limiter_uncut, int fd[2],
 	}
 	free(temp);
 	finish_heredoc_child(env, pars_full, fd, limiter);
+	rl_clear_history();
 	exit(0);
 }
 

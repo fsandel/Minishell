@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:46:35 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 19:55:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:08:25 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	executor_exit(char *str, char **arr, t_pars **pars)
 	free(str);
 	free_array(arr);
 	free_struct(pars);
+	rl_clear_history();
 	exit(g_error);
 }

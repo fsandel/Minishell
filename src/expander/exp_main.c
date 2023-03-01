@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:27:36 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 18:38:09 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/01 18:07:31 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	addtocmds(t_pars **pars, t_x *x)
 		x->o = array_add_line(x->o, "");
 	if (x->o)
 	{
-		while (i < last(x->o) && x->o)
+		while (x->o[i])
 		{
 			pars[x->s]->cmd = array_add_line(pars[x->s]->cmd, x->o[i]);
 			free(x->o[i]);
