@@ -6,7 +6,7 @@
 /*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:06:55 by pgorner           #+#    #+#             */
-/*   Updated: 2023/02/28 18:39:12 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/01 20:19:25 by pgorner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ void	make_dollar(t_pars **pars, t_x *x)
 	expanded = find_dollar(pars, x);
 	if (expanded != NULL && ft_strlen(expanded) && ow(expanded) == FALSE)
 	{
+		if (x && x->o && last(x->o) - 1 >= 0)
+			if (x->o[last(x->o) - 1][0] == '\''
+				&& ft_strlen(x->o[last(x->o) - 1]) == 1)
+				x->pd = TRUE;
 		split = ft_split(expanded, ' ');
 		splitappend(pars, x, split, expanded);
 		if (expanded[ft_strlen(expanded) - 1] == ' ')
