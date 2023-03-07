@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:10:06 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/18 17:10:12 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:42:07 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # include "includes.h"
 
 extern int	g_error;
+
+void	ft_exit(int ec);
 
 #endif

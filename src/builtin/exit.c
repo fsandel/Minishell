@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:23:49 by fsandel           #+#    #+#             */
-/*   Updated: 2023/03/01 19:08:41 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:46:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ char	**b_exit(t_pars **pars, char **env, int i)
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
 		free_array(env);
 		free_struct(pars);
-		rl_clear_history();
-		exit(1);
+		ft_exit(1);
 	}
 	if (pars[i]->amount > 2)
 		return (ft_putendl_fd("minishell: exit: too many arguments", STDERR),
@@ -45,8 +44,8 @@ char	**b_exit(t_pars **pars, char **env, int i)
 	free_array(env);
 	free_struct(pars);
 	exit_message(pars);
-	rl_clear_history();
-	exit(g_error);
+	ft_exit(g_error);
+	return (NULL);
 }
 
 void	exit_numeric_message(char *arg, t_pars **pars, char **env)
@@ -56,6 +55,5 @@ void	exit_numeric_message(char *arg, t_pars **pars, char **env)
 	exit_message(pars);
 	free_array(env);
 	free_struct(pars);
-	rl_clear_history();
-	exit(255);
+	ft_exit(255);
 }

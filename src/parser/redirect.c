@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:12:40 by fsandel           #+#    #+#             */
-/*   Updated: 2023/02/28 18:42:34 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:33:51 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*expand_string(char **env, char *str)
 	expand[0]->index = 0;
 	expand[0]->total_cmd = 1;
 	expand = expander(expand);
+	if (array_size(expand[0]->cmd) > 1)
+		return (free_struct(expand), ft_strdup(""));
 	exp = ft_strdup(expand[0]->cmd[0]);
 	free_struct(expand);
 	return (exp);
@@ -63,7 +65,7 @@ t_list	*append_out(t_list *list, t_pars *pars)
 			g_error = 258, pars->error = 1, NULL);
 	exp = expand_string(pars->env, list->next->content);
 	if (!ft_strncmp(exp, "", 2))
-		return (ft_err_print("minishell: %s: ambigious redirect",
+		return (ft_err_print("minishell: %s: ambigious redirect\n",
 				list->next->content, NULL, NULL), g_error = 1, pars->error = 1,
 			free(exp), list->next);
 	fd = open(exp, O_WRONLY | O_APPEND, 0644);
@@ -93,7 +95,7 @@ t_list	*redirect_in(t_list *list, t_pars *pars)
 			g_error = 258, pars->error = 1, NULL);
 	exp = expand_string(pars->env, list->next->content);
 	if (!ft_strncmp(exp, "", 2))
-		return (ft_err_print("minishell: %s: ambigious redirect",
+		return (ft_err_print("minishell: %s: ambigious redirect\n",
 				list->next->content, NULL, NULL), g_error = 1, pars->error = 1,
 			free(exp), list->next);
 	fd = open(exp, O_RDONLY, 0644);
@@ -123,7 +125,7 @@ t_list	*redirect_out(t_list *list, t_pars *pars)
 			pars->error = 1, NULL);
 	exp = expand_string(pars->env, list->next->content);
 	if (!ft_strncmp(exp, "", 2))
-		return (ft_err_print("minishell: %s: ambigious redirect",
+		return (ft_err_print("minishell: %s: ambigious redirect\n",
 				list->next->content, NULL, NULL), g_error = 1, pars->error = 1,
 			free(exp), list->next);
 	fd = open(exp, O_WRONLY | O_CREAT | O_TRUNC, 0644);

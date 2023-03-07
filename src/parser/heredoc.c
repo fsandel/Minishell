@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:42:28 by fsandel           #+#    #+#             */
-/*   Updated: 2023/03/01 19:08:02 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:46:48 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	here_doc_child(char *limiter_uncut, int fd[2],
 	}
 	free(temp);
 	finish_heredoc_child(env, pars_full, fd, limiter);
-	rl_clear_history();
-	exit(0);
+	ft_exit(0);
 }
 
 t_list	*here_doc(t_list *list, t_pars *pars, t_pars **pars_full)
