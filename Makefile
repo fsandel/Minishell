@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/03/01 19:10:21 by pgorner          ###   ########.fr        #
+#    Updated: 2023/03/07 10:42:10 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			=	minishell
 
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
-LINKFLAGS		=
+LINKFLAGS		=	
 REDIRECT		=	2> /dev/null 1> /dev/null
 
 ################################################################################
@@ -50,7 +50,7 @@ INPUT_FILES		=	input.c
 
 SIGNAL			=	$(addprefix $(SIGNAL_DIR), $(SIGNAL_FILES))
 SIGNAL_DIR		=	src/signal/
-SIGNAL_FILES	=	signal.c
+SIGNAL_FILES	=	signal.c echo.c
 
 BUILTIN			=	$(addprefix $(BUILTIN_DIR), $(BUILTIN_FILES))
 BUILTIN_DIR		=	src/builtin/
@@ -75,11 +75,11 @@ ALL_OBJ_DIR		=	$(sort $(dir $(ALL_OBJ)))
 all: libft readline $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) $(READLINE_INCLUDE) $(LIBFT_INCLUDE)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR_DIR) $(READLINE_INCLUDE) $(LIBFT_INCLUDE) $(CFLAGS)
 	@echo $(LGREEN)"compiled "$^$(DEFAULT)
 
 $(NAME): $(ALL_OBJ_DIR) $(ALL_OBJ)
-	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) $(READLINE_FLAG)
+	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) $(READLINE_FLAG) $(CFLAGS)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 clean:
@@ -163,6 +163,11 @@ $(LSANLIB): $(LSAN)
 ################################################################################
 ################################################################################
 
+tester:
+	cd tests && bash tester.sh m
+	
+################################################################################
+################################################################################
 GREEN			= "\033[32m"
 LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"

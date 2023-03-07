@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:56:08 by fsandel           #+#    #+#             */
-/*   Updated: 2023/03/01 16:20:44 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:51:39 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ void	nice_exit(char **env, char *input)
 	free(prompt);
 	free_array(env);
 	free(input);
+}
+
+void	ft_exit(int ec)
+{
+	rl_clear_history();
+	exit(ec);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgorner <pgorner@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 13:46:36 by fsandel           #+#    #+#             */
-/*   Updated: 2023/03/01 19:09:02 by pgorner          ###   ########.fr       */
+/*   Updated: 2023/03/07 09:46:13 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	free_exit(t_pars **pars, char **env)
 {
 	free_array(env);
 	free_struct(pars);
-	rl_clear_history();
-	exit(g_error);
+	ft_exit(g_error);
 }
 
 void	builtin(t_pars **pars, int i)
